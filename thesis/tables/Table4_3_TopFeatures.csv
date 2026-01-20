@@ -1,0 +1,11 @@
+feature,importance
+acc_chest_std,0.1497
+resp_std,0.1181
+eda_std,0.1071
+eda_range,0.1023
+ecg_std,0.0800
+resp_max,0.0525
+acc_chest_mean,0.0319
+resp_median,0.0318
+resp_range,0.0265
+ecg_min,0.0260

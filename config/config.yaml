@@ -1,0 +1,19 @@
+pipeline:
+  data_path: data/wesad
+  output_path: data/processed
+  features_file: data/processed/wesad_features.json
+  results_path: results
+  window_size_sec: 180
+  overlap_sec: 90
+
+logging:
+  level: INFO
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  console:
+    enabled: true
+    level: INFO
+  file:
+    enabled: true
+    path: logs/pipeline.log
+    max_bytes: 1048576
+    backup_count: 5
