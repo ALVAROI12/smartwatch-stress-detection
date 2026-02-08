@@ -1,0 +1,13 @@
+Metric,Value
+Total Subjects,96
+Total Windows,10511
+Features,39
+Classes,6
+Best Model,XGBoost
+CV Accuracy,95.00%
+LOSO Accuracy,72.00%
+Holdout Accuracy,93.79%
+Cross-Dataset Accuracy,17.94%
+Model Size,1.48 MB
+Inference Time,0.34 ms
+Smartwatch Deployable,YES

@@ -1,0 +1,6 @@
+metric,value
+MAE,13.737753980579996
+RMSE,54.27948930281423
+k_neighbors,5.0
+total_missing_before,10512.0
+total_missing_after,0.0

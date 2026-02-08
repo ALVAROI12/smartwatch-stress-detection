@@ -1,0 +1,17 @@
+Missing Value Imputation Report
+================================
+
+Total windows: 10511
+Total features: 39
+
+Before Imputation:
+  Total missing values: 10512
+  Features with missing: 2
+
+After Imputation (KNN, k=5):
+  Total missing values: 0
+
+Imputation Validation:
+  Method: Synthetic missing (10%) on complete data
+  MAE: 13.7378
+  RMSE: 54.2795

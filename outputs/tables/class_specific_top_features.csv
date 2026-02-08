@@ -1,0 +1,6 @@
+,Aerobic,Amusement,Anaerobic,Baseline,Emotion,Stress
+Rank_1,acc_mag_std,eda_std,acc_y_mean,acc_z_mean,acc_x_mean,acc_y_mean
+Rank_2,acc_y_mean,eda_range,acc_sma,acc_x_mean,acc_mag_mean,acc_sma
+Rank_3,acc_sma,eda_min,acc_y_std,acc_y_std,acc_y_mean,acc_mag_std
+Rank_4,acc_y_std,acc_energy,acc_mag_std,eda_min,acc_z_mean,acc_x_mean
+Rank_5,acc_entropy,acc_z_mean,acc_x_mean,acc_mag_mean,temp_min,acc_mag_mean

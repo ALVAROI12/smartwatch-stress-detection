@@ -1,0 +1,11 @@
+dataset,subject_id,issue
+PhysioNet,S02,Duplicated signals
+PhysioNet,f07,PPG/TEMP sensors covered - only EDA/ACC valid
+PhysioNet,f14,"Connection loss - split files (f14_a, f14_b)"
+PhysioNet,S03,Protocol ended early (90 rpm)
+PhysioNet,S07,Protocol ended early (95 rpm)
+PhysioNet,S11,"Connection loss - split files (S11_a, S11_b)"
+PhysioNet,S12,No data - protocol not performed
+PhysioNet,S01,Empty IBI file
+PhysioNet,S06,Protocol ended early (missing last sprint)
+PhysioNet,S16,"Connection loss - split files (S16_a, S16_b)"

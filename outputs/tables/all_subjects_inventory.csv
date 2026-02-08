@@ -1,0 +1,163 @@
+subject_id,dataset,protocol,classes,e4_data,data_path
+S2,WESAD,TSST,"Baseline, Stress, Amusement",True,/home/alvaro-ibarra/smartwatch-stress-detection/WESAD/S2/S2_E4_Data
+S3,WESAD,TSST,"Baseline, Stress, Amusement",True,/home/alvaro-ibarra/smartwatch-stress-detection/WESAD/S3/S3_E4_Data
+S4,WESAD,TSST,"Baseline, Stress, Amusement",True,/home/alvaro-ibarra/smartwatch-stress-detection/WESAD/S4/S4_E4_Data
+S5,WESAD,TSST,"Baseline, Stress, Amusement",True,/home/alvaro-ibarra/smartwatch-stress-detection/WESAD/S5/S5_E4_Data
+S6,WESAD,TSST,"Baseline, Stress, Amusement",True,/home/alvaro-ibarra/smartwatch-stress-detection/WESAD/S6/S6_E4_Data
+S7,WESAD,TSST,"Baseline, Stress, Amusement",True,/home/alvaro-ibarra/smartwatch-stress-detection/WESAD/S7/S7_E4_Data
+S8,WESAD,TSST,"Baseline, Stress, Amusement",True,/home/alvaro-ibarra/smartwatch-stress-detection/WESAD/S8/S8_E4_Data
+S9,WESAD,TSST,"Baseline, Stress, Amusement",True,/home/alvaro-ibarra/smartwatch-stress-detection/WESAD/S9/S9_E4_Data
+S10,WESAD,TSST,"Baseline, Stress, Amusement",True,/home/alvaro-ibarra/smartwatch-stress-detection/WESAD/S10/S10_E4_Data
+S11,WESAD,TSST,"Baseline, Stress, Amusement",True,/home/alvaro-ibarra/smartwatch-stress-detection/WESAD/S11/S11_E4_Data
+S13,WESAD,TSST,"Baseline, Stress, Amusement",True,/home/alvaro-ibarra/smartwatch-stress-detection/WESAD/S13/S13_E4_Data
+S14,WESAD,TSST,"Baseline, Stress, Amusement",True,/home/alvaro-ibarra/smartwatch-stress-detection/WESAD/S14/S14_E4_Data
+S15,WESAD,TSST,"Baseline, Stress, Amusement",True,/home/alvaro-ibarra/smartwatch-stress-detection/WESAD/S15/S15_E4_Data
+S16,WESAD,TSST,"Baseline, Stress, Amusement",True,/home/alvaro-ibarra/smartwatch-stress-detection/WESAD/S16/S16_E4_Data
+S17,WESAD,TSST,"Baseline, Stress, Amusement",True,/home/alvaro-ibarra/smartwatch-stress-detection/WESAD/S17/S17_E4_Data
+1,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/1/empatica
+2,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/2/empatica
+4,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/4/empatica
+12,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/12/empatica
+14,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/14/empatica
+15,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/15/empatica
+16,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/16/empatica
+24,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/24/empatica
+25,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/25/empatica
+34,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/34/empatica
+35,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/35/empatica
+36,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/36/empatica
+39,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/39/empatica
+40,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/40/empatica
+45,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/45/empatica
+47,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/47/empatica
+49,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/49/empatica
+55,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/55/empatica
+56,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/56/empatica
+61,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/61/empatica
+66,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/66/empatica
+68,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/68/empatica
+72,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/72/empatica
+76,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/76/empatica
+77,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/77/empatica
+78,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/78/empatica
+79,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/79/empatica
+81,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/81/empatica
+86,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/86/empatica
+91,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/91/empatica
+92,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/92/empatica
+103,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/103/empatica
+106,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/106/empatica
+107,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/107/empatica
+117,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/117/empatica
+121,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/121/empatica
+122,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/122/empatica
+124,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/124/empatica
+126,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/126/empatica
+128,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/128/empatica
+129,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/129/empatica
+131,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/131/empatica
+137,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/137/empatica
+138,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/138/empatica
+141,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/141/empatica
+159,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/159/empatica
+160,EPM-E4,Film_Elicitation,"Baseline, Anger, Sadness, Happiness, Fear",True,/home/alvaro-ibarra/smartwatch-stress-detection/EPM-E4/empatica_wearable_data/raw/160/empatica
+S01,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/S01
+S02,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/S02
+S03,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/S03
+S04,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/S04
+S05,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/S05
+S06,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/S06
+S07,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/S07
+S08,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/S08
+S09,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/S09
+S10,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/S10
+S11,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/S11
+S12,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/S12
+S13,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/S13
+S14,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/S14
+S15,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/S15
+S16,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/S16
+S17,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/S17
+S18,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/S18
+f01,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/f01
+f02,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/f02
+f03,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/f03
+f04,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/f04
+f05,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/f05
+f06,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/f06
+f07,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/f07
+f08,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/f08
+f09,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/f09
+f10,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/f10
+f11,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/f11
+f12,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/f12
+f13,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/f13
+f14_a,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/f14_a
+f14_b,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/f14_b
+f15,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/f15
+f16,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/f16
+f17,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/f17
+f18,PhysioNet,STRESS,STRESS,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/STRESS/f18
+S01,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/S01
+S02,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/S02
+S03,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/S03
+S04,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/S04
+S05,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/S05
+S06,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/S06
+S07,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/S07
+S08,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/S08
+S09,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/S09
+S10,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/S10
+S11_a,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/S11_a
+S11_b,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/S11_b
+S13,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/S13
+S14,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/S14
+S15,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/S15
+S16,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/S16
+S17,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/S17
+S18,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/S18
+f01,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/f01
+f02,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/f02
+f03,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/f03
+f04,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/f04
+f05,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/f05
+f06,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/f06
+f07,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/f07
+f08,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/f08
+f09,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/f09
+f10,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/f10
+f11,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/f11
+f12,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/f12
+f13,PhysioNet,AEROBIC,AEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/AEROBIC/f13
+S01,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/S01
+S02,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/S02
+S03,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/S03
+S04,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/S04
+S05,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/S05
+S06,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/S06
+S07,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/S07
+S08,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/S08
+S09,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/S09
+S10,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/S10
+S11,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/S11
+S12,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/S12
+S13,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/S13
+S14,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/S14
+S15,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/S15
+S16_a,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/S16_a
+S16_b,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/S16_b
+S17,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/S17
+S18,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/S18
+f01,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/f01
+f02,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/f02
+f03,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/f03
+f04,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/f04
+f05,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/f05
+f06,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/f06
+f07,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/f07
+f08,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/f08
+f09,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/f09
+f10,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/f10
+f11,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/f11
+f12,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/f12
+f13,PhysioNet,ANAEROBIC,ANAEROBIC,True,/home/alvaro-ibarra/smartwatch-stress-detection/wearable-device-dataset/wearable-device-dataset-from-induced-stress-and-structured-exercise-sessions-1.0.1/Wearable_Dataset/ANAEROBIC/f13

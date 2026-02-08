@@ -1,0 +1,22 @@
+
+INCLUSION CRITERIA FOR SUBJECTS:
+================================
+1. Must have complete E4 data (BVP, EDA, TEMP, ACC)
+2. No flat signals (std > 1e-6)
+3. Less than 5% missing values per signal
+4. Sampling rates match expected values:
+   - BVP: 64 Hz
+   - EDA: 4 Hz
+   - TEMP: 4 Hz
+   - ACC: 32 Hz
+
+EXCLUSION CRITERIA:
+==================
+1. PhysioNet S12 (AEROBIC): No data collected
+2. PhysioNet f07 (STRESS): PPG/TEMP sensors covered
+3. Subjects with >50% corrupted/missing data
+
+SPECIAL HANDLING:
+================
+1. Split files (f14, S11, S16): Concatenate parts
+2. Duplicated signals (S02): Truncate at duplication point

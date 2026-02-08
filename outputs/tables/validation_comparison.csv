@@ -1,0 +1,5 @@
+Validation Method,Accuracy,Description
+5-Fold CV,0.95,"Random splits, same subjects in train/test"
+LOSO,0.72,"Leave-one-subject-out, new user simulation"
+Holdout (15%),0.937856689917565,Stratified random 15% test set
+Cross-Dataset (avg),0.1794083868492885,"Train on 2 datasets, test on 3rd"

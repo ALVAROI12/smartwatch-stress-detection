@@ -1,0 +1,24 @@
+Selected features (>= 50th percentile)
+Total: 21
+
+acc_y_mean
+acc_sma
+acc_z_mean
+acc_mag_std
+acc_y_std
+acc_x_mean
+temp_min
+acc_mag_mean
+temp_mean
+acc_energy
+temp_max
+acc_z_std
+eda_phasic_mean
+acc_entropy
+temp_std
+eda_max
+acc_x_std
+eda_mean
+eda_range
+temp_range
+bvp_std

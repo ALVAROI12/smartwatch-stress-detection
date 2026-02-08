@@ -1,0 +1,4 @@
+Dataset,Subjects,File_Format,E4_Signals,Classes,Label_Source
+WESAD,15,pkl + CSV,"BVP, EDA, TEMP, ACC, HR, IBI","Baseline, Stress, Amusement",pkl file (label array)
+EPM-E4,47,CSV,"BVP, EDA, TEMP, ACC, HR, IBI","Baseline, Anger, Sadness, Happiness, Fear",key_moments CSV + tags
+PhysioNet,41,CSV,"BVP, EDA, TEMP, ACC, HR, IBI","Stress, Aerobic, Anaerobic",Protocol folder + tags

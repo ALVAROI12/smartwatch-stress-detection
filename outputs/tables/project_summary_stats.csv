@@ -1,0 +1,11 @@
+Metric,Value
+Total Windows,10511
+Total Subjects,96
+Total Features,39
+Total Classes,6
+Best CV Accuracy,0.9513
+Best CV Model,XGBoost
+Best LOSO Accuracy,0.7242
+Best LOSO Model,XGBoost
+Consensus Outliers,1436
+Level 3-4 Anomalies,618

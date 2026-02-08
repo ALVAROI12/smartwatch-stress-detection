@@ -1,0 +1,3 @@
+Model,Size (KB),Size OK,Inference (ms),Latency OK,Deployable
+XGBoost,1516.4951171875,True,0.3426749200298218,True,True
+Random Forest,25873.2353515625,False,13.898799390008207,True,False

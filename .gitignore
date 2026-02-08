@@ -1,100 +1,40 @@
+# Data directories (too large for GitHub)
+EPM-E4/
+WESAD/
+wearable-device-dataset/
+data/raw/
+data/processed/
+
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# Virtual environments
-venv/
 env/
-ENV/
-stress_detection_env/
-.venv
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
-.DS_Store
-
-# Testing
-.pytest_cache/
-.coverage
-htmlcov/
-
-# Temporary files and cache
-*.tmp
-*.cache
-*.log
-temp/
-archive/
-*copia*
-*copy*
-*backup*
-
-# Data (keep structure, ignore large data files)
-data/raw_datasets/datasets/**/raw/*.csv
-data/raw_datasets/datasets/**/raw/*.pkl
-data/processed_datasets/**/*.csv
-data/final_datasets/**/*.csv
-results/**/*.csv
-models/trained_models/**/*.pkl
-models/trained_models/**/*.h5
-models/trained_models/**/*.joblib
-
-# But keep important final datasets
-!data/final_datasets/unified/final_unified_dataset.csv
-!results/anomaly_detection/final_anomaly_detection_results.csv
-
-# Models (keep structure, ignore large model files)
-models/*
-!models/.gitkeep
-
-# Results
-results/*
-!results/.gitkeep
-figures/*
-!figures/.gitkeep
-figures_complete/*
-!figures_complete/.gitkeep
-
-# Android build artifacts
-android/.gradle/
-android/build/
-android/.idea/
-android/*.iml
-android/local.properties
-
-# Notebooks
-notebooks/.ipynb_checkpoints/
-*.ipynb_checkpoints
-
-# Logs and temporary files
-*.log
-*.tmp
-*.bak
-.env
-.env.local
 
 # OS
 .DS_Store
 Thumbs.db
+
+# Model outputs (optional - uncomment if too large)
+# outputs/models/*.pkl
+# outputs/models/*.keras
+
+# Logs
+*.log

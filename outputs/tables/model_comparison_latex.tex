@@ -1,0 +1,18 @@
+\begin{table}
+\caption{Model Comparison Results}
+\label{tab:model_comparison}
+\begin{tabular}{lllll}
+\toprule
+Model & CV Acc & Std & F1 & Time (s) \\
+\midrule
+XGBoost & 0.9513 & 0.0040 & 1.0000 & 4.03 \\
+Random Forest & 0.9313 & 0.0070 & 1.0000 & 2.30 \\
+MLP & 0.8902 & 0.0133 & 1.0000 & 30.35 \\
+Gradient Boosting & 0.8593 & 0.0081 & 0.9213 & 255.72 \\
+KNN & 0.8360 & 0.0037 & 0.9144 & 0.07 \\
+Decision Tree & 0.8066 & 0.0062 & 1.0000 & 1.90 \\
+SVM & 0.7801 & 0.0142 & 0.8127 & 38.59 \\
+Logistic Regression & 0.6318 & 0.0074 & 0.6294 & 1.05 \\
+\bottomrule
+\end{tabular}
+\end{table}

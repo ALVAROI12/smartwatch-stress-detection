@@ -1,0 +1,7 @@
+Signal,WESAD (Hz),EPM-E4 (Hz),PhysioNet (Hz)
+BVP,64.0,64.0,64.0
+EDA,4.0,4.0,4.0
+TEMP,4.0,4.0,4.0
+ACC,32.0,32.0,32.0
+HR,1.0,1.0,1.0
+IBI,Variable,Variable,Variable

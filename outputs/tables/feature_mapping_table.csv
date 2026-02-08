@@ -1,0 +1,39 @@
+feature,description,signal_type
+bvp_mean,BVP mean amplitude,BVP
+bvp_std,BVP standard deviation,BVP
+bvp_min,BVP minimum,BVP
+bvp_max,BVP maximum,BVP
+bvp_range,BVP range (max-min),BVP
+hr_mean,Heart rate mean,HR
+hr_std,Heart rate std,HR
+hr_min,Heart rate minimum,HR
+hr_max,Heart rate maximum,HR
+hr_range,Heart rate range,HR
+hrv_rmssd,HRV RMSSD from IBI,HRV
+eda_mean,EDA mean,EDA
+eda_std,EDA standard deviation,EDA
+eda_min,EDA minimum,EDA
+eda_max,EDA maximum,EDA
+eda_range,EDA range,EDA
+eda_slope,EDA linear slope,EDA
+eda_scr_peaks,Number of SCR peaks,EDA
+eda_scr_amp_mean,Mean SCR amplitude,EDA
+eda_phasic_mean,Phasic component mean,EDA
+eda_tonic_mean,Tonic component mean,EDA
+temp_mean,Skin temperature mean,TEMP
+temp_std,Skin temperature std,TEMP
+temp_min,Skin temperature minimum,TEMP
+temp_max,Skin temperature maximum,TEMP
+temp_range,Skin temperature range,TEMP
+temp_slope,Temperature slope,TEMP
+acc_x_mean,ACC X-axis mean,ACC
+acc_y_mean,ACC Y-axis mean,ACC
+acc_z_mean,ACC Z-axis mean,ACC
+acc_x_std,ACC X-axis std,ACC
+acc_y_std,ACC Y-axis std,ACC
+acc_z_std,ACC Z-axis std,ACC
+acc_mag_mean,ACC magnitude mean,ACC
+acc_mag_std,ACC magnitude std,ACC
+acc_sma,Signal Magnitude Area,ACC
+acc_energy,ACC energy,ACC
+acc_entropy,ACC entropy,ACC

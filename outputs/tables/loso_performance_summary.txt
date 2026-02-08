@@ -1,0 +1,22 @@
+LOSO Performance Summary
+========================
+
+Total subjects: 96
+Models evaluated: XGBoost, Random Forest, MLP
+
+Results:
+
+XGBoost:
+  Mean Accuracy: 0.7242 (+/- 0.2385)
+  Min: 0.0000, Max: 1.0000
+  Mean F1: 0.7595
+
+Random Forest:
+  Mean Accuracy: 0.6890 (+/- 0.2367)
+  Min: 0.0000, Max: 1.0000
+  Mean F1: 0.7333
+
+MLP:
+  Mean Accuracy: 0.6615 (+/- 0.2366)
+  Min: 0.0000, Max: 1.0000
+  Mean F1: 0.7172

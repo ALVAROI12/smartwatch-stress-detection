@@ -1,0 +1,16 @@
+subject_id,dataset,pkl_exists,e4_folder_exists,ACC,BVP,EDA,HR,IBI,TEMP
+S2,WESAD,True,True,True,True,True,True,True,True
+S3,WESAD,True,True,True,True,True,True,True,True
+S4,WESAD,True,True,True,True,True,True,True,True
+S5,WESAD,True,True,True,True,True,True,True,True
+S6,WESAD,True,True,True,True,True,True,True,True
+S7,WESAD,True,True,True,True,True,True,True,True
+S8,WESAD,True,True,True,True,True,True,True,True
+S9,WESAD,True,True,True,True,True,True,True,True
+S10,WESAD,True,True,True,True,True,True,True,True
+S11,WESAD,True,True,True,True,True,True,True,True
+S13,WESAD,True,True,True,True,True,True,True,True
+S14,WESAD,True,True,True,True,True,True,True,True
+S15,WESAD,True,True,True,True,True,True,True,True
+S16,WESAD,True,True,True,True,True,True,True,True
+S17,WESAD,True,True,True,True,True,True,True,True

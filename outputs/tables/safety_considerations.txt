@@ -1,0 +1,14 @@
+1. False Negatives: Missing critical stress events could delay intervention
+   - Mitigation: Conservative thresholds, alert on uncertainty
+
+2. False Positives: Unnecessary alerts may cause anxiety or alert fatigue
+   - Mitigation: Confirmation window, trend analysis, user feedback
+
+3. Privacy: Continuous physiological monitoring raises data concerns
+   - Mitigation: On-device processing, no raw data transmission
+
+4. Over-reliance: Users may depend solely on device for health decisions
+   - Mitigation: Clear disclaimers, encourage professional consultation
+
+5. Battery Drain: Continuous monitoring affects device usability
+   - Mitigation: Efficient model, configurable monitoring frequency

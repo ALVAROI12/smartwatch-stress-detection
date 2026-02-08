@@ -1,0 +1,11 @@
+subject_id,protocol,issue
+S02,STRESS,Duplicated signals
+f07,STRESS,PPG/TEMP sensors covered - only EDA/ACC valid
+f14,STRESS,"Connection loss - split files (f14_a, f14_b)"
+S03,AEROBIC,Protocol ended early (90 rpm)
+S07,AEROBIC,Protocol ended early (95 rpm)
+S11,AEROBIC,"Connection loss - split files (S11_a, S11_b)"
+S12,AEROBIC,No data - protocol not performed
+S01,ANAEROBIC,Empty IBI file
+S06,ANAEROBIC,Protocol ended early (missing last sprint)
+S16,ANAEROBIC,"Connection loss - split files (S16_a, S16_b)"

@@ -1,0 +1,5 @@
+method,n_outliers,percentage
+Isolation Forest,1051,9.999048615735896
+LOF,1051,9.999048615735896
+One-Class SVM,1058,10.065645514223196
+Consensus (>=2),913,8.686138331272

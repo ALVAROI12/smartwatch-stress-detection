@@ -1,0 +1,4 @@
+Phase,Participants,Duration,Protocol,Metrics,Success Criteria
+Pilot Study,10-20,2 weeks,Lab-based stress induction with ground truth,"Accuracy vs gold standard, usability",>80% accuracy on stress detection
+Controlled Trial,50-100,4-8 weeks,Daily wear with ecological momentary assessment (EMA),"Correlation with self-report, user adherence",>0.7 correlation with EMA stress scores
+Field Deployment,500+,6+ months,Real-world deployment with periodic surveys,"Long-term reliability, battery impact, user satisfaction",">70% user retention, <5% battery drain"

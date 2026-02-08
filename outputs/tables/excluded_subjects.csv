@@ -1,0 +1,11 @@
+subject_id,dataset,protocol,reason,action
+S02,PhysioNet,STRESS,Duplicated signals,HANDLE_SPECIAL
+f07,PhysioNet,STRESS,PPG/TEMP sensors covered - only EDA/ACC valid,EXCLUDE
+f14,PhysioNet,STRESS,"Connection loss - split files (f14_a, f14_b)",HANDLE_SPECIAL
+S03,PhysioNet,AEROBIC,Protocol ended early (90 rpm),INCLUDE_WITH_NOTE
+S07,PhysioNet,AEROBIC,Protocol ended early (95 rpm),INCLUDE_WITH_NOTE
+S11,PhysioNet,AEROBIC,"Connection loss - split files (S11_a, S11_b)",HANDLE_SPECIAL
+S12,PhysioNet,AEROBIC,No data - protocol not performed,EXCLUDE
+S01,PhysioNet,ANAEROBIC,Empty IBI file,INCLUDE_WITH_NOTE
+S06,PhysioNet,ANAEROBIC,Protocol ended early (missing last sprint),INCLUDE_WITH_NOTE
+S16,PhysioNet,ANAEROBIC,"Connection loss - split files (S16_a, S16_b)",HANDLE_SPECIAL
