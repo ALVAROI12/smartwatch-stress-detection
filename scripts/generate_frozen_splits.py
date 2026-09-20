@@ -252,6 +252,7 @@ def write_outputs(
     output_dir.mkdir(parents=True, exist_ok=True)
     repeated_assignments.to_csv(output_dir / "repeated_subject_group_assignments.csv", index=False)
     repeated_summary.to_csv(output_dir / "repeated_subject_group_summary.csv", index=False)
+    loso_summary.to_csv(output_dir / "loso_subject_group_summary.csv", index=False)
 
     with (output_dir / "split_manifest.json").open("w", encoding="utf-8") as handle:
         json.dump(manifest, handle, indent=2)

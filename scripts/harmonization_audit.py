@@ -110,7 +110,20 @@ def sorted_join(values: Iterable[str]) -> str:
     return " | ".join(unique_values)
 
 
+def normalize_original_labels(df: pd.DataFrame) -> pd.DataFrame:
+    normalized = df.copy()
+    normalized["original_label"] = (
+        normalized["original_label"]
+        .astype("string")
+        .fillna("UNRESOLVED_SOURCE_LABEL")
+        .replace("", "UNRESOLVED_SOURCE_LABEL")
+        .astype(str)
+    )
+    return normalized
+
+
 def build_harmonization_table(df: pd.DataFrame) -> pd.DataFrame:
+    df = normalize_original_labels(df)
     table = (
         df.groupby(["dataset", "original_label", "label"], dropna=False)
         .agg(
@@ -179,6 +192,7 @@ def build_shared_labels_table(matrix: pd.DataFrame) -> pd.DataFrame:
 
 
 def build_subject_label_table(df: pd.DataFrame) -> pd.DataFrame:
+    df = normalize_original_labels(df)
     subject_table = (
         df.groupby(["dataset", "subject_id"], dropna=False)
         .agg(
@@ -292,12 +306,7 @@ def main() -> None:
     args = parse_args()
     df = load_dataset(args.input)
     df["original_label"], df["mapping_source"] = infer_original_labels(df)
-    df["original_label"] = (
-        df["original_label"]
-        .fillna("UNRESOLVED_SOURCE_LABEL")
-        .replace("", "UNRESOLVED_SOURCE_LABEL")
-        .astype(str)
-    )
+    df = normalize_original_labels(df)
 
     harmonization = build_harmonization_table(df)
     coverage = build_label_coverage_table(df)
