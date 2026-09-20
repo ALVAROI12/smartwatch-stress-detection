@@ -87,6 +87,24 @@ Outputs:
 - `outputs/splits/repeated_subject_group_assignments.csv`
 - `outputs/splits/loso_subject_group_summary.csv`
 
+End-to-end protocol workflow:
+```bash
+python scripts/run_protocol_foundation.py \
+  --input /absolute/path/to/combined_dataset_filled.csv
+
+python scripts/export_harmonization_latex.py \
+  --input outputs/tables/harmonization_audit/harmonization_table.csv
+
+python scripts/evaluate_frozen_splits.py \
+  --input /absolute/path/to/combined_dataset_filled.csv \
+  --splits-dir outputs/splits
+```
+
+Notes:
+- The sandbox clone does not include `data/processed/`, so these commands require a local combined dataset CSV.
+- `evaluate_frozen_splits.py` runs the four Phase 2 modality baselines on the frozen repeated subject-grouped splits and LOSO folds.
+- `run_protocol_foundation.py` writes `outputs/tables/protocol_foundation_summary.md` with explicit answers to the dataset-confounding, overlap, and shared-label questions.
+
 ## 📈 Key Findings
 
 | Metric | Value |
