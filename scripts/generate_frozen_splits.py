@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import hashlib
 import json
 import math
@@ -74,6 +75,17 @@ def build_group_table(df: pd.DataFrame) -> pd.DataFrame:
     return groups
 
 
+def validate_group_counts(groups: pd.DataFrame) -> None:
+    too_small = groups.groupby("dataset").size()
+    invalid = too_small[too_small < 2]
+    if not invalid.empty:
+        dataset_list = ", ".join(f"{dataset} ({count})" for dataset, count in invalid.items())
+        raise ValueError(
+            "Each dataset needs at least 2 subject groups for grouped train/test splits. "
+            f"Invalid datasets: {dataset_list}."
+        )
+
+
 def max_unique_test_signatures(groups: pd.DataFrame, test_size: float) -> int:
     total = 1
     for _, dataset_groups in groups.groupby("dataset", sort=True):
@@ -91,11 +103,6 @@ def per_dataset_split(
     seed: int,
     attempt: int = 0,
 ) -> tuple[list[str], list[str]]:
-    if len(dataset_groups) < 2:
-        raise ValueError(
-            f"Dataset {dataset_groups['dataset'].iat[0]} has fewer than 2 subject groups; cannot create train/test splits."
-        )
-
     n_test = int(np.ceil(len(dataset_groups) * test_size))
     n_test = min(max(1, n_test), len(dataset_groups) - 1)
     rng = np.random.default_rng(
@@ -170,54 +177,81 @@ def generate_repeated_splits(
     return pd.concat(assignments, ignore_index=True), pd.concat(summaries, ignore_index=True), len(seen_signatures)
 
 
-def generate_loso_folds(groups: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
-    base = groups.reset_index(drop=True)
-    n_groups = len(base)
+def write_loso_outputs(output_dir: Path, groups: pd.DataFrame) -> pd.DataFrame:
+    output_dir.mkdir(parents=True, exist_ok=True)
 
-    fold_ids = np.repeat(np.arange(n_groups), n_groups)
-    dataset = np.tile(base["dataset"].to_numpy(), n_groups)
-    subject_id = np.tile(base["subject_id"].to_numpy(), n_groups)
-    group_id = np.tile(base["group_id"].to_numpy(), n_groups)
-    n_windows = np.tile(base["n_windows"].to_numpy(), n_groups)
-    labels = np.tile(base["labels"].to_numpy(), n_groups)
-    test_group_ids = np.repeat(base["group_id"].to_numpy(), n_groups)
-    partition = np.where(group_id == test_group_ids, "test", "train")
-
-    assignments = pd.DataFrame(
-        {
-            "dataset": dataset,
-            "subject_id": subject_id,
-            "group_id": group_id,
-            "n_windows": n_windows,
-            "labels": labels,
-            "fold_id": fold_ids,
-            "partition": partition,
-        }
-    )
-    summaries = (
-        assignments.groupby(["fold_id", "partition", "dataset"], dropna=False)
+    assignments_path = output_dir / "loso_subject_group_assignments.csv"
+    fieldnames = ["dataset", "subject_id", "group_id", "n_windows", "labels", "fold_id", "partition"]
+    base_records = groups.reset_index(drop=True).to_dict("records")
+    dataset_totals = (
+        groups.groupby("dataset", dropna=False)
         .agg(
             n_subject_groups=("group_id", "nunique"),
             n_windows=("n_windows", "sum"),
         )
-        .reset_index()
+        .to_dict("index")
     )
-    return assignments, summaries
+
+    summary_rows = []
+    with assignments_path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer.writeheader()
+
+        for fold_id, test_record in enumerate(base_records):
+            for record in base_records:
+                partition = "test" if record["group_id"] == test_record["group_id"] else "train"
+                writer.writerow(
+                    {
+                        "dataset": record["dataset"],
+                        "subject_id": record["subject_id"],
+                        "group_id": record["group_id"],
+                        "n_windows": record["n_windows"],
+                        "labels": record["labels"],
+                        "fold_id": fold_id,
+                        "partition": partition,
+                    }
+                )
+
+            for dataset, totals in dataset_totals.items():
+                test_subject_groups = 1 if dataset == test_record["dataset"] else 0
+                test_windows = test_record["n_windows"] if dataset == test_record["dataset"] else 0
+
+                if test_subject_groups:
+                    summary_rows.append(
+                        {
+                            "fold_id": fold_id,
+                            "partition": "test",
+                            "dataset": dataset,
+                            "n_subject_groups": test_subject_groups,
+                            "n_windows": test_windows,
+                        }
+                    )
+
+                summary_rows.append(
+                    {
+                        "fold_id": fold_id,
+                        "partition": "train",
+                        "dataset": dataset,
+                        "n_subject_groups": totals["n_subject_groups"] - test_subject_groups,
+                        "n_windows": totals["n_windows"] - test_windows,
+                    }
+                )
+
+    summary = pd.DataFrame(summary_rows)
+    summary.to_csv(output_dir / "loso_subject_group_summary.csv", index=False)
+    return summary
 
 
 def write_outputs(
     output_dir: Path,
     repeated_assignments: pd.DataFrame,
     repeated_summary: pd.DataFrame,
-    loso_assignments: pd.DataFrame,
     loso_summary: pd.DataFrame,
     manifest: dict,
 ) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
     repeated_assignments.to_csv(output_dir / "repeated_subject_group_assignments.csv", index=False)
     repeated_summary.to_csv(output_dir / "repeated_subject_group_summary.csv", index=False)
-    loso_assignments.to_csv(output_dir / "loso_subject_group_assignments.csv", index=False)
-    loso_summary.to_csv(output_dir / "loso_subject_group_summary.csv", index=False)
 
     with (output_dir / "split_manifest.json").open("w", encoding="utf-8") as handle:
         json.dump(manifest, handle, indent=2)
@@ -232,6 +266,7 @@ def main() -> None:
 
     df = load_dataset(args.input)
     groups = build_group_table(df)
+    validate_group_counts(groups)
     unique_signature_limit = max_unique_test_signatures(groups, args.test_size)
     if args.n_splits > unique_signature_limit:
         raise ValueError(
@@ -244,7 +279,7 @@ def main() -> None:
         test_size=args.test_size,
         seed=args.seed,
     )
-    loso_assignments, loso_summary = generate_loso_folds(groups)
+    loso_summary = write_loso_outputs(args.output_dir, groups)
 
     manifest = {
         "input_file": str(args.input.resolve()),
@@ -257,21 +292,20 @@ def main() -> None:
         "max_unique_repeated_test_signatures": int(unique_signature_limit),
         "test_size": float(args.test_size),
         "seed": int(args.seed),
-        "n_loso_folds": int(loso_assignments["fold_id"].nunique()),
+        "n_loso_folds": int(loso_summary["fold_id"].nunique()),
     }
 
     write_outputs(
         output_dir=args.output_dir,
         repeated_assignments=repeated_assignments,
         repeated_summary=repeated_summary,
-        loso_assignments=loso_assignments,
         loso_summary=loso_summary,
         manifest=manifest,
     )
 
     print(f"Wrote split outputs to {args.output_dir}")
     print(f"Repeated splits: {args.n_splits}")
-    print(f"LOSO folds: {loso_assignments['fold_id'].nunique()}")
+    print(f"LOSO folds: {loso_summary['fold_id'].nunique()}")
 
 
 if __name__ == "__main__":

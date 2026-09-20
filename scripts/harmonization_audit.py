@@ -292,6 +292,12 @@ def main() -> None:
     args = parse_args()
     df = load_dataset(args.input)
     df["original_label"], df["mapping_source"] = infer_original_labels(df)
+    df["original_label"] = (
+        df["original_label"]
+        .fillna("UNRESOLVED_SOURCE_LABEL")
+        .replace("", "UNRESOLVED_SOURCE_LABEL")
+        .astype(str)
+    )
 
     harmonization = build_harmonization_table(df)
     coverage = build_label_coverage_table(df)
