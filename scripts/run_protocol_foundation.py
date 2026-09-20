@@ -86,7 +86,10 @@ def main() -> None:
     harmonization = pd.read_csv(args.audit_dir / "harmonization_table.csv")
     coverage = pd.read_csv(args.audit_dir / "label_dataset_coverage.csv")
     shared_labels = pd.read_csv(args.audit_dir / "pairwise_shared_labels.csv")
-    overlap = pd.read_csv(args.audit_dir / "window_overlap_summary.csv").iloc[0]
+    overlap_df = pd.read_csv(args.audit_dir / "window_overlap_summary.csv")
+    if overlap_df.empty:
+        raise ValueError("window_overlap_summary.csv is empty; audit outputs are incomplete.")
+    overlap = overlap_df.iloc[0]
     split_manifest = json.loads((args.splits_dir / "split_manifest.json").read_text(encoding="utf-8"))
 
     dataset_specific = coverage.loc[coverage["confounded_with_dataset"], "label"].tolist()

@@ -214,12 +214,13 @@ def evaluate_assignments(
         train_ids = split_df.loc[split_df["partition"] == "train", "group_id"].drop_duplicates().tolist()
         test_ids = split_df.loc[split_df["partition"] == "test", "group_id"].drop_duplicates().tolist()
         for modality_name, feature_cols in feature_sets.items():
+            modality_seed = seed + int(split_id) * 1_000 + sum(ord(char) for char in modality_name)
             result = evaluate_single_split(
                 df=df,
                 feature_cols=feature_cols,
                 train_group_ids=train_ids,
                 test_group_ids=test_ids,
-                model=load_xgb_classifier(xgb_config, seed + int(split_id)),
+                model=load_xgb_classifier(xgb_config, modality_seed),
             )
             result.update(
                 {

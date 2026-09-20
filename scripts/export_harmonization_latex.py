@@ -18,6 +18,16 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path, default=DEFAULT_INPUT, help="harmonization_table.csv path.")
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT, help="Destination .tex file.")
+    parser.add_argument(
+        "--caption",
+        default="Dataset-to-label harmonization used for the combined stress-detection analysis.",
+        help="LaTeX table caption.",
+    )
+    parser.add_argument(
+        "--label",
+        default="tab:harmonization-table",
+        help="LaTeX table label.",
+    )
     return parser.parse_args()
 
 
@@ -54,6 +64,10 @@ def main() -> None:
         raise ValueError(f"Missing required columns: {missing}")
 
     lines = [
+        r"\begin{table}[t]",
+        r"\centering",
+        rf"\caption{{{latex_escape(args.caption)}}}",
+        rf"\label{{{latex_escape(args.label)}}}",
         r"\begin{tabular}{lllrrp{7cm}}",
         r"\hline",
         r"Dataset & Original Label & Harmonized Label & \#Subjects & \#Windows & Justification \\",
@@ -75,7 +89,7 @@ def main() -> None:
             + r" \\"
         )
 
-    lines.extend([r"\hline", r"\end{tabular}"])
+    lines.extend([r"\hline", r"\end{tabular}", r"\end{table}"])
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"Wrote LaTeX table to {args.output}")
