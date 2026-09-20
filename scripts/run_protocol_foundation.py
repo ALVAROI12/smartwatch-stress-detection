@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -86,6 +87,7 @@ def main() -> None:
     coverage = pd.read_csv(args.audit_dir / "label_dataset_coverage.csv")
     shared_labels = pd.read_csv(args.audit_dir / "pairwise_shared_labels.csv")
     overlap = pd.read_csv(args.audit_dir / "window_overlap_summary.csv").iloc[0]
+    split_manifest = json.loads((args.splits_dir / "split_manifest.json").read_text(encoding="utf-8"))
 
     dataset_specific = coverage.loc[coverage["confounded_with_dataset"], "label"].tolist()
     shared_pairs = shared_labels.to_dict("records")
@@ -103,7 +105,7 @@ def main() -> None:
         f"- Input CSV: `{args.input}`",
         f"- Harmonization rows: {len(harmonization)}",
         f"- Frozen repeated splits: {args.n_splits}",
-        f"- LOSO folds: {pd.read_json(args.splits_dir / 'split_manifest.json', typ='series')['n_loso_folds']}",
+        f"- LOSO folds: {split_manifest['n_loso_folds']}",
         "",
         "## Key paper-risk answers",
         "",

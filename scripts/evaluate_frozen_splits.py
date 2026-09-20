@@ -73,7 +73,8 @@ def confidence_interval(values: pd.Series) -> tuple[float, float, float]:
 
 
 def get_feature_sets(df: pd.DataFrame) -> dict[str, list[str]]:
-    feature_cols = [column for column in df.columns if column not in METADATA_COLUMNS]
+    candidate_cols = [column for column in df.columns if column not in METADATA_COLUMNS | {"group_id"}]
+    feature_cols = [column for column in candidate_cols if pd.api.types.is_numeric_dtype(df[column])]
     acc_cols = [column for column in feature_cols if column.startswith("acc_")]
     non_acc_cols = [column for column in feature_cols if not column.startswith("acc_")]
     physiology_cols = [
