@@ -68,6 +68,25 @@ pip install fastapi uvicorn
 uvicorn api:app --reload --port 8000
 ```
 
+## 🧪 Harmonization Audit & Frozen Splits
+
+The raw and processed datasets are gitignored, so pass your local combined feature table when running the new audit utilities.
+
+```bash
+python /home/runner/work/smartwatch-stress-detection/smartwatch-stress-detection/scripts/harmonization_audit.py \
+  --input /absolute/path/to/combined_dataset_filled.csv
+
+python /home/runner/work/smartwatch-stress-detection/smartwatch-stress-detection/scripts/generate_frozen_splits.py \
+  --input /absolute/path/to/combined_dataset_filled.csv
+```
+
+Outputs:
+- `outputs/tables/harmonization_audit/harmonization_table.csv`
+- `outputs/tables/harmonization_audit/label_dataset_coverage.csv`
+- `outputs/tables/harmonization_audit/window_overlap_summary.csv`
+- `outputs/splits/repeated_subject_group_assignments.csv`
+- `outputs/splits/loso_subject_group_summary.csv`
+
 ## 📈 Key Findings
 
 | Metric | Value |
