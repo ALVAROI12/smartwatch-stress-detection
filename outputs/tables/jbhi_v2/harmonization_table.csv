@@ -1,0 +1,17 @@
+Dataset,Original Label,Harmonized Label,Number of Subjects,Number of Windows,n_windows_purity_ge_0_8
+EPM-E4,ANGER,Anger,33,33,33
+EPM-E4,FEAR,Fear,33,394,394
+EPM-E4,HAPPINESS,Happiness,33,297,297
+EPM-E4,SADNESS,Sadness,33,131,131
+PhysioNet,AEROBIC session (whole recording),Aerobic,30,2143,2143
+PhysioNet,ANAEROBIC session (whole recording),Anaerobic,31,1620,1620
+PhysioNet,Baseline,Baseline,36,179,179
+PhysioNet,First Rest,Rest,36,654,654
+PhysioNet,Second Rest,Rest,36,599,599
+PhysioNet,Stroop,Stress,18,39,39
+PhysioNet,Subtract,Stress,1,1,1
+PhysioNet,TMCT,Stress,36,198,198
+WESAD,amusement,Amusement,15,165,165
+WESAD,baseline,Baseline,15,566,566
+WESAD,meditation,Meditation,15,356,356
+WESAD,stress,Stress,15,311,311
