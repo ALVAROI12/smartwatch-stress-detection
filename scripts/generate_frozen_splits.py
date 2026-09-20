@@ -35,6 +35,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--n-splits", type=int, default=20, help="Number of repeated train/test splits.")
     parser.add_argument("--test-size", type=float, default=0.2, help="Fraction of subject groups per dataset for testing.")
     parser.add_argument("--seed", type=int, default=42, help="Base random seed.")
+    parser.add_argument(
+        "--allow-duplicate-test-signatures",
+        action="store_true",
+        help="Allow repeated splits to reuse the same held-out subject-group signature after unique combinations are exhausted.",
+    )
     return parser.parse_args()
 
 
@@ -125,6 +130,7 @@ def generate_repeated_splits(
     n_splits: int,
     test_size: float,
     seed: int,
+    require_unique_signatures: bool,
 ) -> tuple[pd.DataFrame, pd.DataFrame, int]:
     assignments = []
     summaries = []
@@ -154,7 +160,7 @@ def generate_repeated_splits(
                     split_assignments.append(subset)
 
             signature = tuple(signature_parts)
-            if signature not in seen_signatures:
+            if not require_unique_signatures or signature not in seen_signatures:
                 seen_signatures.add(signature)
                 break
         else:
@@ -289,16 +295,18 @@ def main() -> None:
     groups = build_group_table(df)
     validate_group_counts(groups)
     unique_signature_limit = max_unique_test_signatures(groups, args.test_size)
-    if args.n_splits > unique_signature_limit:
+    if not args.allow_duplicate_test_signatures and args.n_splits > unique_signature_limit:
         raise ValueError(
             f"Requested {args.n_splits} repeated splits but only {unique_signature_limit} unique test signatures "
-            "are possible with the current dataset group counts and --test-size."
+            "are possible with the current dataset group counts and --test-size. "
+            "Re-run with --allow-duplicate-test-signatures to permit reuse."
         )
     repeated_assignments, repeated_summary, n_unique_signatures = generate_repeated_splits(
         groups=groups,
         n_splits=args.n_splits,
         test_size=args.test_size,
         seed=args.seed,
+        require_unique_signatures=not args.allow_duplicate_test_signatures,
     )
     manifest = {
         "input_file": str(args.input.resolve()),
@@ -309,6 +317,7 @@ def main() -> None:
         "n_repeated_splits": int(args.n_splits),
         "n_unique_repeated_test_signatures": int(n_unique_signatures),
         "max_unique_repeated_test_signatures": int(unique_signature_limit),
+        "allow_duplicate_test_signatures": bool(args.allow_duplicate_test_signatures),
         "test_size": float(args.test_size),
         "seed": int(args.seed),
         "n_loso_folds": int(len(groups)),

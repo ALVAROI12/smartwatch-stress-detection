@@ -164,22 +164,26 @@ def evaluate_single_split(
 
     train_labels = train_df["label"].astype(str)
     test_labels = test_df["label"].astype(str)
-    unseen_labels = sorted(set(test_labels.unique()) - set(train_labels.unique()))
-    if unseen_labels:
+    known_label_set = set(train_labels.unique())
+    known_mask = test_labels.isin(known_label_set)
+    unseen_labels = sorted(set(test_labels.unique()) - known_label_set)
+    if not known_mask.any():
         return {
-            "status": "unseen_test_labels",
+            "status": "no_evaluable_test_rows",
             "unseen_test_labels": " | ".join(unseen_labels),
             "n_train_rows": len(train_df),
             "n_test_rows": len(test_df),
+            "n_excluded_test_rows": len(test_df),
         }
 
     scaler = StandardScaler()
     X_train = scaler.fit_transform(train_df[feature_cols].to_numpy())
-    X_test = scaler.transform(test_df[feature_cols].to_numpy())
+    test_eval_df = test_df.loc[known_mask].copy()
+    X_test = scaler.transform(test_eval_df[feature_cols].to_numpy())
 
     encoder = LabelEncoder()
     y_train = encoder.fit_transform(train_labels)
-    y_test = encoder.transform(test_labels)
+    y_test = encoder.transform(test_eval_df["label"].astype(str))
 
     if len(np.unique(y_train)) < 2:
         return {"status": "single_train_class", "n_train_rows": len(train_df), "n_test_rows": len(test_df)}
@@ -190,10 +194,13 @@ def evaluate_single_split(
         "status": "ok",
         "n_train_rows": len(train_df),
         "n_test_rows": len(test_df),
+        "n_evaluated_test_rows": len(test_eval_df),
+        "n_excluded_test_rows": int((~known_mask).sum()),
+        "unseen_test_labels": " | ".join(unseen_labels),
         "n_train_groups": train_df["group_id"].nunique(),
         "n_test_groups": test_df["group_id"].nunique(),
         "n_train_labels": train_labels.nunique(),
-        "n_test_labels": test_labels.nunique(),
+        "n_test_labels": test_eval_df["label"].nunique(),
         "macro_f1": f1_score(y_test, y_pred, average="macro", zero_division=0),
         "balanced_accuracy": balanced_accuracy_score(y_test, y_pred),
         "accuracy": accuracy_score(y_test, y_pred),
@@ -239,6 +246,7 @@ def summarize_results(results: pd.DataFrame) -> pd.DataFrame:
     for (protocol, modality), group in results.groupby(["protocol", "modality"], sort=True):
         ok = group[group["status"] == "ok"].copy()
         skipped = group[group["status"] != "ok"].copy()
+        excluded_rows = ok["n_excluded_test_rows"].fillna(0) if "n_excluded_test_rows" in ok.columns else pd.Series(dtype=float)
         skip_reasons = (
             " | ".join(
                 f"{status}:{count}"
@@ -258,6 +266,8 @@ def summarize_results(results: pd.DataFrame) -> pd.DataFrame:
                 "n_evaluable_splits": int(len(ok)),
                 "n_skipped_splits": int((group["status"] != "ok").sum()),
                 "skip_reasons": skip_reasons,
+                "n_partial_splits": int((excluded_rows > 0).sum()) if not ok.empty else 0,
+                "excluded_test_rows_total": int(excluded_rows.sum()) if not ok.empty else 0,
                 "macro_f1_mean": macro_mean,
                 "macro_f1_std": macro_std,
                 "macro_f1_ci95": macro_ci,
