@@ -238,6 +238,15 @@ def summarize_results(results: pd.DataFrame) -> pd.DataFrame:
     summaries = []
     for (protocol, modality), group in results.groupby(["protocol", "modality"], sort=True):
         ok = group[group["status"] == "ok"].copy()
+        skipped = group[group["status"] != "ok"].copy()
+        skip_reasons = (
+            " | ".join(
+                f"{status}:{count}"
+                for status, count in skipped["status"].value_counts().sort_index().items()
+            )
+            if not skipped.empty
+            else ""
+        )
         macro_mean, macro_std, macro_ci = confidence_interval(ok["macro_f1"])
         bal_mean, bal_std, bal_ci = confidence_interval(ok["balanced_accuracy"])
         acc_mean, acc_std, acc_ci = confidence_interval(ok["accuracy"])
@@ -248,6 +257,7 @@ def summarize_results(results: pd.DataFrame) -> pd.DataFrame:
                 "n_total_splits": int(len(group)),
                 "n_evaluable_splits": int(len(ok)),
                 "n_skipped_splits": int((group["status"] != "ok").sum()),
+                "skip_reasons": skip_reasons,
                 "macro_f1_mean": macro_mean,
                 "macro_f1_std": macro_std,
                 "macro_f1_ci95": macro_ci,
@@ -260,6 +270,18 @@ def summarize_results(results: pd.DataFrame) -> pd.DataFrame:
             }
         )
     return pd.DataFrame(summaries).sort_values(["protocol", "modality"])
+
+
+def build_skipped_summary(results: pd.DataFrame) -> pd.DataFrame:
+    skipped = results[results["status"] != "ok"].copy()
+    if skipped.empty:
+        return pd.DataFrame(columns=["protocol", "modality", "status", "n_splits"])
+    return (
+        skipped.groupby(["protocol", "modality", "status"], sort=True)
+        .size()
+        .reset_index(name="n_splits")
+        .sort_values(["protocol", "modality", "status"])
+    )
 
 
 def main() -> None:
@@ -291,13 +313,16 @@ def main() -> None:
 
     repeated_summary = summarize_results(repeated_results)
     loso_summary = summarize_results(loso_results)
-    headline = pd.concat([repeated_summary, loso_summary], ignore_index=True)
+    full_summary = pd.concat([repeated_summary, loso_summary], ignore_index=True)
+    headline = full_summary[full_summary["n_skipped_splits"] == 0].copy()
+    skipped_summary = build_skipped_summary(pd.concat([repeated_results, loso_results], ignore_index=True))
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
     repeated_results.to_csv(args.output_dir / "repeated_split_results.csv", index=False)
     repeated_summary.to_csv(args.output_dir / "repeated_split_summary.csv", index=False)
     loso_results.to_csv(args.output_dir / "loso_results.csv", index=False)
     loso_summary.to_csv(args.output_dir / "loso_summary.csv", index=False)
+    skipped_summary.to_csv(args.output_dir / "skipped_split_summary.csv", index=False)
     headline.to_csv(args.output_dir / "headline_subject_grouped_results.csv", index=False)
     (args.output_dir / "modality_feature_sets.json").write_text(
         json.dumps(feature_sets, indent=2),
