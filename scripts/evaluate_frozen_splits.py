@@ -176,7 +176,7 @@ def evaluate_assignments(
                 feature_cols=feature_cols,
                 train_group_ids=train_ids,
                 test_group_ids=test_ids,
-                model=load_xgb_classifier(xgb_config, seed),
+                model=load_xgb_classifier(xgb_config, seed + int(split_id)),
             )
             result.update(
                 {

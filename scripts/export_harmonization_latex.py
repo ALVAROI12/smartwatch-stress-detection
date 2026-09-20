@@ -22,7 +22,6 @@ def parse_args() -> argparse.Namespace:
 
 
 def latex_escape(value: object) -> str:
-    text = str(value)
     replacements = {
         "\\": r"\textbackslash{}",
         "&": r"\&",
@@ -35,9 +34,7 @@ def latex_escape(value: object) -> str:
         "~": r"\textasciitilde{}",
         "^": r"\textasciicircum{}",
     }
-    for source, target in replacements.items():
-        text = text.replace(source, target)
-    return text
+    return "".join(replacements.get(char, char) for char in str(value))
 
 
 def main() -> None:
