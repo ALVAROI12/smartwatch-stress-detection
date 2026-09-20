@@ -207,6 +207,20 @@ def build_subject_label_table(df: pd.DataFrame) -> pd.DataFrame:
     return subject_table
 
 
+def coerce_timestamp_series(series: pd.Series) -> pd.Series:
+    numeric = pd.to_numeric(series, errors="coerce")
+    if numeric.notna().all():
+        return numeric
+
+    datetimes = pd.to_datetime(series, errors="coerce")
+    if datetimes.notna().all():
+        return datetimes
+
+    raise ValueError(
+        f"Could not parse timestamp column '{series.name}' as numeric or datetime values."
+    )
+
+
 def build_overlap_tables(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     if not {"timestamp_start", "timestamp_end"}.issubset(df.columns):
         summary = pd.DataFrame(
@@ -222,6 +236,10 @@ def build_overlap_tables(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
             ]
         )
         return pd.DataFrame(), summary
+
+    df = df.copy()
+    df["timestamp_start"] = coerce_timestamp_series(df["timestamp_start"])
+    df["timestamp_end"] = coerce_timestamp_series(df["timestamp_end"])
 
     overlap_rows = []
     windows_checked = 0
