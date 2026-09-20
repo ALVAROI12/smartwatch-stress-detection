@@ -1,0 +1,6 @@
+label,n_windows,pct_with_valid_ppg,hr_mean_mae,hr_mean_bias,hr_mean_r,hrv_rmssd_mae,hrv_rmssd_bias,hrv_rmssd_r,hrv_sdnn_mae,hrv_sdnn_bias,hrv_sdnn_r
+all,1398,73.1,2.38,-0.98,0.94,37.67,33.87,0.53,27.88,22.54,0.54
+Amusement,165,73.94,1.79,-0.63,0.97,36.48,35.82,0.66,23.31,18.75,0.7
+Baseline,566,89.75,1.88,-0.17,0.97,39.51,38.38,0.62,29.75,28.07,0.62
+Meditation,356,78.09,1.39,-0.07,0.96,27.46,17.45,0.53,16.18,2.35,0.81
+Stress,311,36.66,7.69,-7.19,0.78,55.65,51.74,0.38,52.97,51.16,0.12

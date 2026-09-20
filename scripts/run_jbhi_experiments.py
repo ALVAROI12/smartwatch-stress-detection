@@ -25,7 +25,7 @@ from xgboost import XGBClassifier
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 META = {"window_id", "subject_id", "dataset", "label", "timestamp_start", "timestamp_end",
-        "subject_uid", "original_label", "harmonized_label", "purity",
+        "subject_uid", "original_label", "harmonized_label", "purity", "cardiac_coverage",
         "self_report_stress", "self_report_stress_delta", "self_report_validated", "sam_valence", "sam_arousal"}
 EXERCISE = {"Aerobic", "Anaerobic"}
 MIN_PURITY = 0.8
@@ -200,7 +200,7 @@ def cross_dataset_arousal(df: pd.DataFrame, features: list[str]) -> pd.DataFrame
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path,
-                        default=REPO_ROOT / "data" / "processed" / "combined" / "harmonized_windows.csv")
+                        default=REPO_ROOT / "data" / "processed" / "combined" / "harmonized_windows_v2.csv")
     parser.add_argument("--output-dir", type=Path, default=REPO_ROOT / "outputs" / "tables" / "jbhi")
     parser.add_argument("--n-splits", type=int, default=20)
     parser.add_argument("--validated-only", action="store_true",

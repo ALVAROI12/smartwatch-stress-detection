@@ -67,6 +67,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data-root", type=Path, default=REPO_ROOT)
     parser.add_argument("--output-dir", type=Path, default=REPO_ROOT / "outputs" / "tables" / "jbhi")
+    parser.add_argument("--windows", default="harmonized_windows_v2.csv", help="Window table inside data/processed/combined.")
     parser.add_argument("--min-delta", type=float, default=1.0, help="Minimum rise over own baseline for a valid Stress window.")
     args = parser.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
@@ -84,7 +85,7 @@ def main() -> None:
     check.to_csv(args.output_dir / "manipulation_check.csv", index=False)
     print(check.to_string(index=False))
 
-    path = args.data_root / "data" / "processed" / "combined" / "harmonized_windows.csv"
+    path = args.data_root / "data" / "processed" / "combined" / args.windows
     windows = pd.read_csv(path).drop(columns=["self_report_stress", "self_report_stress_delta", "self_report_validated",
                                               "sam_valence", "sam_arousal"], errors="ignore")
     # WESAD and PhysioNet-Baseline windows match on harmonized label; PhysioNet stages and EPM clips on original label.

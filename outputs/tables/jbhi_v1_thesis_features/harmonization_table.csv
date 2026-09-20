@@ -1,0 +1,26 @@
+Dataset,Original Label,Harmonized Label,Number of Subjects,Number of Windows,n_windows_purity_ge_0_8
+EPM-E4,ANGER,Anger,33,121,44
+EPM-E4,FEAR,Fear,33,440,390
+EPM-E4,HAPPINESS,Happiness,33,349,297
+EPM-E4,NEUTRAL_ANGER,Neutral,33,79,0
+EPM-E4,NEUTRAL_FEAR,Neutral,31,76,0
+EPM-E4,NEUTRAL_HAPPINESS,Neutral,33,80,0
+EPM-E4,NEUTRAL_SADNESS,Neutral,33,88,2
+EPM-E4,SADNESS,Sadness,33,210,148
+EPM-E4,Transition/unlabelled,Excluded,47,1067,0
+PhysioNet,AEROBIC session (whole recording),Aerobic,30,2143,2143
+PhysioNet,ANAEROBIC session (whole recording),Anaerobic,31,1620,1620
+PhysioNet,Baseline,Baseline,35,281,171
+PhysioNet,First Rest,Rest,35,676,636
+PhysioNet,First Rest,Stress,2,2,0
+PhysioNet,Opposite Opinion,Stress,35,74,2
+PhysioNet,Real Opinion,Stress,35,54,0
+PhysioNet,Second Rest,Rest,35,622,577
+PhysioNet,Second Rest,Stress,2,2,0
+PhysioNet,Stroop,Stress,18,85,45
+PhysioNet,Subtract,Stress,35,84,2
+PhysioNet,TMCT,Stress,35,257,199
+PhysioNet,Transition/unlabelled,Excluded,35,796,0
+WESAD,Amusement,Amusement,15,209,209
+WESAD,Baseline,Baseline,15,707,707
+WESAD,Stress,Stress,15,389,389

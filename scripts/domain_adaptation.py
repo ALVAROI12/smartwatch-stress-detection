@@ -31,7 +31,8 @@ from torch import nn
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 META = {"window_id", "subject_id", "dataset", "label", "timestamp_start", "timestamp_end",
-        "subject_uid", "original_label", "harmonized_label", "purity"}
+        "subject_uid", "original_label", "harmonized_label", "purity", "cardiac_coverage",
+        "self_report_stress", "self_report_stress_delta", "self_report_validated", "sam_valence", "sam_arousal"}
 EPOCHS, BATCH, LR, ADAPT_WEIGHT = 60, 128, 1e-3, 1.0
 
 
@@ -135,7 +136,7 @@ def finetune_k(net: Net, xt, yt, subj_t, k: int, seed: int) -> dict[str, float]:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path,
-                        default=REPO_ROOT / "data" / "processed" / "combined" / "harmonized_windows.csv")
+                        default=REPO_ROOT / "data" / "processed" / "combined" / "harmonized_windows_v2.csv")
     parser.add_argument("--output-dir", type=Path, default=REPO_ROOT / "outputs" / "tables" / "jbhi")
     parser.add_argument("--seeds", type=int, default=10)
     parser.add_argument("--features", choices=["all", "physiology"], default="all")
@@ -159,6 +160,7 @@ def main() -> None:
         x = (zscored if normalisation == "subject_zscore" else df)[features]
         for source, target in (("WESAD", "PhysioNet"), ("PhysioNet", "WESAD")):
             s, t = (df["dataset"] == source).to_numpy(), (df["dataset"] == target).to_numpy()
+            x = x.fillna(x[s].median())  # motion-corrupted cardiac windows: impute with the source median
             mean, std = x[s].mean(), x[s].std().replace(0, 1)  # scaler fitted on the source only
             xs = torch.tensor(((x[s] - mean) / std).to_numpy(), dtype=torch.float32)
             xt = torch.tensor(((x[t] - mean) / std).to_numpy(), dtype=torch.float32).clamp(-10, 10)
