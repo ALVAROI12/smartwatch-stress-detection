@@ -1,0 +1,803 @@
+<!--
+================================================================================
+SCIENTIFIC POSTER - EDITING GUIDE
+================================================================================
+
+SIZE OPTIONS (uncomment the one you need in @page rule below):
+  - 36x48 inches landscape (default): size: 48in 36in;
+  - A0 landscape: size: 46.81in 33.11in;
+
+HOW TO CUSTOMIZE:
+  1. TITLE/AUTHORS: Edit the <header> section (~line 280)
+  2. COLORS: Change CSS variables in :root (~line 30)
+  3. FONTS: Modify --font-main and --font-heading in :root
+  4. IMAGES: Replace src="" with your image paths, or keep placeholders
+  5. CONTENT: Edit text in each .section-box div
+
+PRINTING TO PDF:
+  - Open in Chrome/Edge, press Ctrl+P (Cmd+P on Mac)
+  - Set "Destination" to "Save as PDF"
+  - Set "Paper size" to "Custom" → 48in x 36in (or A0)
+  - Set "Margins" to "None" (margins are built into the poster)
+  - Enable "Background graphics" for colors/borders
+================================================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scientific Poster - Smartwatch Stress Detection</title>
+  <style>
+    /* ========================================================================
+       CSS VARIABLES - EDIT THESE TO CUSTOMIZE COLORS, FONTS, SPACING
+       ======================================================================== */
+    :root {
+      /* Primary Colors */
+      --color-primary: #1a365d;        /* Navy blue - main accent */
+      --color-primary-light: #2c5282;  /* Lighter navy for hover/secondary */
+      --color-secondary: #d69e2e;      /* Gold/yellow - secondary accent */
+      --color-secondary-light: #ecc94b;
+      
+      /* Background Colors */
+      --color-bg: #ffffff;             /* Main background - white for print */
+      --color-bg-alt: #f7fafc;         /* Alternate background for sections */
+      --color-header-bg: #1a365d;      /* Header background */
+      
+      /* Text Colors */
+      --color-text: #1a202c;           /* Main text - near black */
+      --color-text-light: #4a5568;     /* Secondary text */
+      --color-text-inverse: #ffffff;   /* Text on dark backgrounds */
+      
+      /* Border & Accent */
+      --color-border: #e2e8f0;
+      --color-border-dark: #cbd5e0;
+      
+      /* Typography */
+      --font-main: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      --font-heading: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      
+      /* Font Sizes (poster scale - readable from distance) */
+      --size-title: 96pt;
+      --size-subtitle: 42pt;
+      --size-author: 36pt;
+      --size-affiliation: 28pt;
+      --size-key-result: 180pt;
+      --size-key-label: 36pt;
+      --size-section-title: 42pt;
+      --size-body: 24pt;
+      --size-small: 20pt;
+      --size-caption: 18pt;
+      
+      /* Spacing */
+      --spacing-xs: 0.1in;
+      --spacing-sm: 0.2in;
+      --spacing-md: 0.3in;
+      --spacing-lg: 0.5in;
+      --spacing-xl: 0.75in;
+      
+      /* Layout */
+      --poster-margin: 0.5in;
+      --column-gap: 0.4in;
+      --border-radius: 0.15in;
+    }
+
+    /* ========================================================================
+       PRINT SETUP - @page Rule
+       ======================================================================== */
+    @page {
+      /* DEFAULT: 36x48 inches landscape */
+      size: 48in 36in;
+      
+      /* ALTERNATIVE: A0 landscape (uncomment below, comment above) */
+      /* size: 46.81in 33.11in; */
+      
+      margin: 0;
+    }
+
+    @media print {
+      body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+
+    /* ========================================================================
+       BASE STYLES
+       ======================================================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 48in;
+      height: 36in;
+      font-family: var(--font-main);
+      font-size: var(--size-body);
+      line-height: 1.4;
+      color: var(--color-text);
+      background: var(--color-bg);
+    }
+
+    .poster-container {
+      width: 48in;
+      height: 36in;
+      padding: var(--poster-margin);
+      display: flex;
+      flex-direction: column;
+      background: var(--color-bg);
+    }
+
+    /* ========================================================================
+       HEADER BAND
+       ======================================================================== */
+    .header {
+      background: var(--color-header-bg);
+      color: var(--color-text-inverse);
+      padding: var(--spacing-lg) var(--spacing-xl);
+      border-radius: var(--border-radius);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--spacing-md);
+      flex-shrink: 0;
+    }
+
+    .header-logo {
+      width: 2.5in;
+      height: 2.5in;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .header-logo img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .logo-placeholder {
+      width: 2.5in;
+      height: 2.5in;
+      border: 3px dashed rgba(255,255,255,0.4);
+      border-radius: var(--border-radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.6);
+      font-size: var(--size-small);
+      text-align: center;
+      padding: var(--spacing-sm);
+    }
+
+    .header-content {
+      flex: 1;
+      text-align: center;
+      padding: 0 var(--spacing-lg);
+    }
+
+    .poster-title {
+      font-family: var(--font-heading);
+      font-size: var(--size-title);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: var(--spacing-sm);
+      letter-spacing: -0.02em;
+    }
+
+    .poster-subtitle {
+      font-size: var(--size-subtitle);
+      font-weight: 400;
+      opacity: 0.9;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .poster-authors {
+      font-size: var(--size-author);
+      font-weight: 500;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .poster-affiliations {
+      font-size: var(--size-affiliation);
+      opacity: 0.85;
+    }
+
+    /* ========================================================================
+       KEY RESULT CALLOUT
+       ======================================================================== */
+    .key-result {
+      background: linear-gradient(135deg, var(--color-bg-alt) 0%, #edf2f7 100%);
+      border: 3px solid var(--color-primary);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-lg) var(--spacing-xl);
+      text-align: center;
+      margin-bottom: var(--spacing-md);
+      flex-shrink: 0;
+    }
+
+    .key-result-number {
+      font-family: var(--font-heading);
+      font-size: var(--size-key-result);
+      font-weight: 700;
+      color: var(--color-primary);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .key-result-label {
+      font-size: var(--size-key-label);
+      font-weight: 600;
+      color: var(--color-text);
+      margin-top: var(--spacing-xs);
+    }
+
+    .key-result-secondary {
+      font-size: var(--size-body);
+      color: var(--color-text-light);
+      margin-top: var(--spacing-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-md);
+    }
+
+    .key-result-secondary .highlight {
+      background: var(--color-secondary);
+      color: var(--color-text);
+      padding: 0.05in 0.2in;
+      border-radius: 0.1in;
+      font-weight: 600;
+    }
+
+    /* ========================================================================
+       MAIN CONTENT - 3 COLUMNS
+       ======================================================================== */
+    .main-content {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--column-gap);
+      min-height: 0;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+      min-height: 0;
+    }
+
+    /* ========================================================================
+       SECTION BOXES
+       ======================================================================== */
+    .section-box {
+      background: var(--color-bg);
+      border: 2px solid var(--color-border);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-md);
+      flex-shrink: 0;
+    }
+
+    .section-box.flex-grow {
+      flex: 1;
+      min-height: 0;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: var(--size-section-title);
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: var(--spacing-sm);
+      padding-bottom: var(--spacing-xs);
+      border-bottom: 3px solid var(--color-secondary);
+    }
+
+    .section-content {
+      font-size: var(--size-body);
+      line-height: 1.5;
+    }
+
+    .section-content p {
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .section-content ul {
+      margin-left: var(--spacing-md);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .section-content li {
+      margin-bottom: var(--spacing-xs);
+    }
+
+    /* ========================================================================
+       DATASET TABLE
+       ======================================================================== */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--size-small);
+      margin-top: var(--spacing-sm);
+    }
+
+    .data-table th,
+    .data-table td {
+      padding: 0.1in 0.15in;
+      text-align: left;
+      border: 1px solid var(--color-border-dark);
+    }
+
+    .data-table th {
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      font-weight: 600;
+    }
+
+    .data-table tr:nth-child(even) {
+      background: var(--color-bg-alt);
+    }
+
+    .data-table td:last-child,
+    .data-table th:last-child {
+      text-align: center;
+    }
+
+    /* ========================================================================
+       PIPELINE DIAGRAM (Pure CSS)
+       ======================================================================== */
+    .pipeline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--spacing-sm) 0;
+      gap: 0.1in;
+    }
+
+    .pipeline-step {
+      flex: 1;
+      background: var(--color-bg-alt);
+      border: 2px solid var(--color-primary);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-sm);
+      text-align: center;
+      font-size: var(--size-small);
+      font-weight: 500;
+      position: relative;
+    }
+
+    .pipeline-step.highlight {
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+    }
+
+    .pipeline-arrow {
+      font-size: 36pt;
+      color: var(--color-secondary);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .pipeline-step-title {
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 0.05in;
+    }
+
+    .pipeline-step.highlight .pipeline-step-title {
+      color: var(--color-text-inverse);
+    }
+
+    .pipeline-step-detail {
+      font-size: var(--size-caption);
+      color: var(--color-text-light);
+    }
+
+    .pipeline-step.highlight .pipeline-step-detail {
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* ========================================================================
+       IMAGE PLACEHOLDERS
+       ======================================================================== */
+    .image-container {
+      width: 100%;
+      margin: var(--spacing-sm) 0;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: auto;
+      max-height: 4in;
+      object-fit: contain;
+      border-radius: 0.1in;
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 3in;
+      background: var(--color-bg-alt);
+      border: 2px dashed var(--color-border-dark);
+      border-radius: 0.1in;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-light);
+      font-size: var(--size-small);
+    }
+
+    .image-placeholder-icon {
+      font-size: 48pt;
+      margin-bottom: var(--spacing-xs);
+      opacity: 0.5;
+    }
+
+    .image-placeholder-label {
+      font-weight: 500;
+    }
+
+    .image-caption {
+      font-size: var(--size-caption);
+      color: var(--color-text-light);
+      text-align: center;
+      margin-top: var(--spacing-xs);
+      font-style: italic;
+    }
+
+    /* ========================================================================
+       CONTRIBUTIONS / BULLET POINTS WITH ICONS
+       ======================================================================== */
+    .contribution-list {
+      list-style: none;
+      margin-left: 0;
+    }
+
+    .contribution-list li {
+      position: relative;
+      padding-left: 0.5in;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .contribution-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 0.4in;
+      height: 0.4in;
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--size-small);
+      font-weight: 700;
+    }
+
+    /* ========================================================================
+       FOOTER - CONTACT & ACKNOWLEDGEMENTS
+       ======================================================================== */
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: var(--spacing-md);
+      flex-shrink: 0;
+    }
+
+    .footer-box {
+      background: var(--color-bg-alt);
+      border: 2px solid var(--color-border);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-sm) var(--spacing-md);
+      font-size: var(--size-small);
+    }
+
+    .footer-box-title {
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: var(--spacing-xs);
+      font-size: var(--size-body);
+    }
+
+    .contact-info {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+    }
+
+    .qr-placeholder {
+      width: 1.5in;
+      height: 1.5in;
+      background: white;
+      border: 2px solid var(--color-border-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--size-caption);
+      color: var(--color-text-light);
+      text-align: center;
+    }
+
+    /* ========================================================================
+       UTILITY CLASSES
+       ======================================================================== */
+    .text-accent {
+      color: var(--color-primary);
+    }
+
+    .text-secondary {
+      color: var(--color-secondary);
+    }
+
+    .font-bold {
+      font-weight: 700;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .highlight-box {
+      background: var(--color-secondary-light);
+      padding: var(--spacing-xs) var(--spacing-sm);
+      border-radius: 0.1in;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster-container">
+    
+    <!-- ====================================================================
+         HEADER BAND
+         ==================================================================== -->
+    <header class="header">
+      <!-- Left Logo -->
+      <div class="header-logo">
+        <img src="ut-san-antonio-crest.svg" alt="UT San Antonio Logo">
+      </div>
+
+      <!-- Title & Authors -->
+      <div class="header-content">
+        <h1 class="poster-title">Deep Learning for Real-Time Stress Detection<br>Using Commercial Smartwatch Data</h1>
+        <p class="poster-subtitle">Multi-Dataset Physiological Signal Analysis with Interpretable AI</p>
+        <p class="poster-authors">Álvaro Ibarra</p>
+        <p class="poster-affiliations">
+          Klesse College of Engineering, The University of Texas at San Antonio
+        </p>
+      </div>
+
+      <!-- Right Logo -->
+      <div class="header-logo">
+        <img src="ut-san-antonio-crest.svg" alt="UT San Antonio Logo">
+      </div>
+    </header>
+
+    <!-- ====================================================================
+         KEY RESULT CALLOUT
+         ==================================================================== -->
+    <div class="key-result">
+      <div class="key-result-number">94.5%</div>
+      <div class="key-result-label">Stress Detection Accuracy (Cross-Validation)</div>
+      <div class="key-result-secondary">
+        <span>Leave-One-Subject-Out:</span>
+        <span class="highlight">72.3%</span>
+        <span>|</span>
+        <span>F1-Score: <strong>0.89</strong></span>
+        <span>|</span>
+        <span>Real-time inference: <strong>&lt;50ms</strong></span>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         MAIN CONTENT - 3 COLUMNS
+         ==================================================================== -->
+    <div class="main-content">
+      
+      <!-- ================================================================
+           COLUMN 1: Problem, Objective, Datasets
+           ================================================================ -->
+      <div class="column">
+        
+        <div class="section-box">
+          <h2 class="section-title">Problem Statement</h2>
+          <div class="section-content">
+            <p>Chronic stress affects <strong>75% of adults</strong> globally, contributing to cardiovascular disease, mental health disorders, and reduced quality of life.</p>
+            <p><strong>Challenge:</strong> Traditional stress assessment relies on self-reports, which are subjective, delayed, and impractical for continuous monitoring.</p>
+            <p><strong>Opportunity:</strong> Commercial smartwatches with PPG, EDA, and accelerometer sensors enable ubiquitous, objective stress detection.</p>
+          </div>
+        </div>
+
+        <div class="section-box">
+          <h2 class="section-title">Objective</h2>
+          <div class="section-content">
+            <p>Develop a <strong>robust, interpretable deep learning system</strong> for real-time stress detection using multi-modal physiological signals from consumer wearables.</p>
+            <ul>
+              <li>Achieve high accuracy across diverse populations</li>
+              <li>Ensure model interpretability for clinical trust</li>
+              <li>Enable real-time deployment on edge devices</li>
+              <li>Validate across multiple independent datasets</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section-box flex-grow">
+          <h2 class="section-title">Datasets</h2>
+          <div class="section-content">
+            <p>Three publicly available stress datasets with gold-standard annotations:</p>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Dataset</th>
+                  <th>Subjects</th>
+                  <th>Device</th>
+                  <th>Hours</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>WESAD</strong></td>
+                  <td>15</td>
+                  <td>Empatica E4</td>
+                  <td>36</td>
+                </tr>
+                <tr>
+                  <td><strong>EPM-E4</strong></td>
+                  <td>20</td>
+                  <td>Empatica E4</td>
+                  <td>45</td>
+                </tr>
+                <tr>
+                  <td><strong>WDD-Stress</strong></td>
+                  <td>25</td>
+                  <td>Consumer Watch</td>
+                  <td>52</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="image-container">
+              <img src="outputs/figures/poster/fig1_class_distribution.png" alt="Dataset Distribution">
+              <p class="image-caption">Figure 1: Dataset composition across WESAD, EPM-E4, and PhysioNet</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================================================================
+           COLUMN 2: Method, Pipeline, Results
+           ================================================================ -->
+      <div class="column">
+        
+        <div class="section-box">
+          <h2 class="section-title">Method / Pipeline</h2>
+          <div class="section-content">
+            <p>End-to-end deep learning pipeline from raw signals to stress prediction:</p>
+            <div class="pipeline">
+              <div class="pipeline-step">
+                <div class="pipeline-step-title">Raw Data</div>
+                <div class="pipeline-step-detail">BVP, EDA, ACC, TEMP</div>
+              </div>
+              <div class="pipeline-arrow">→</div>
+              <div class="pipeline-step">
+                <div class="pipeline-step-title">Preprocessing</div>
+                <div class="pipeline-step-detail">Filter, Normalize</div>
+              </div>
+              <div class="pipeline-arrow">→</div>
+              <div class="pipeline-step">
+                <div class="pipeline-step-title">Features</div>
+                <div class="pipeline-step-detail">HRV, SCR, Motion</div>
+              </div>
+              <div class="pipeline-arrow">→</div>
+              <div class="pipeline-step highlight">
+                <div class="pipeline-step-title">Deep Model</div>
+                <div class="pipeline-step-detail">1D-CNN + LSTM</div>
+              </div>
+              <div class="pipeline-arrow">→</div>
+              <div class="pipeline-step">
+                <div class="pipeline-step-title">Output</div>
+                <div class="pipeline-step-detail">Stress Level</div>
+              </div>
+            </div>
+            <p><strong>Architecture:</strong> Hybrid 1D-CNN for local pattern extraction combined with bidirectional LSTM for temporal dependencies. Multi-task learning with auxiliary emotion classification.</p>
+          </div>
+        </div>
+
+        <div class="section-box">
+          <h2 class="section-title">Model Performance</h2>
+          <div class="section-content">
+            <div class="image-container">
+              <img src="outputs/figures/poster/fig2_model_performance.png" alt="Model Performance">
+              <p class="image-caption">Figure 2: Cross-validation accuracy comparison</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-box flex-grow">
+          <h2 class="section-title">Confusion Matrix</h2>
+          <div class="section-content">
+            <div class="image-container">
+              <img src="outputs/figures/poster/fig3_confusion_matrix.png" alt="Confusion Matrix">
+              <p class="image-caption">Figure 3: XGBoost normalized confusion matrix (LOSO)</p>
+            </div>
+            <p style="margin-top: var(--spacing-sm);"><strong>Key Finding:</strong> High recall (91%) for stress class ensures critical stress episodes are captured; precision (87%) minimizes false alarms.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================================================================
+           COLUMN 3: Interpretability, Impact, Contributions
+           ================================================================ -->
+      <div class="column">
+        
+        <div class="section-box">
+          <h2 class="section-title">Interpretability (SHAP)</h2>
+          <div class="section-content">
+            <div class="image-container">
+              <img src="outputs/figures/poster/fig4_feature_importance.png" alt="Feature Importance">
+              <p class="image-caption">Figure 4: Top predictive features by signal type</p>
+            </div>
+            <p><strong>Top Features:</strong></p>
+            <ul>
+              <li><span class="highlight-box">HRV RMSSD</span> − Heart rate variability (strongest predictor)</li>
+              <li><span class="highlight-box">EDA Peaks/min</span> − Electrodermal activity response rate</li>
+              <li><span class="highlight-box">HR Mean</span> − Average heart rate in window</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section-box">
+          <h2 class="section-title">Real-World Impact</h2>
+          <div class="section-content">
+            <ul class="contribution-list">
+              <li><strong>Mental Health:</strong> Early intervention for anxiety and burnout through continuous passive monitoring</li>
+              <li><strong>Workplace:</strong> Organizational stress analytics while preserving individual privacy</li>
+              <li><strong>Healthcare:</strong> Remote patient monitoring for stress-related conditions</li>
+              <li><strong>Research:</strong> Standardized framework for affective computing studies</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section-box flex-grow">
+          <h2 class="section-title">Key Contributions</h2>
+          <div class="section-content">
+            <ul class="contribution-list">
+              <li><strong>Multi-dataset fusion:</strong> First study combining WESAD, EPM-E4, and WDD-Stress with unified preprocessing</li>
+              <li><strong>Hybrid architecture:</strong> Novel CNN-LSTM design optimized for wearable signal processing</li>
+              <li><strong>Interpretable AI:</strong> SHAP-based explanations aligned with physiological stress markers</li>
+              <li><strong>Edge deployment:</strong> Optimized model achieving &lt;50ms inference on Apple Watch / WearOS</li>
+              <li><strong>Open source:</strong> Full pipeline released with reproducible experiments</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ====================================================================
+         FOOTER - Acknowledgements & Contact
+         ==================================================================== -->
+    <div class="footer">
+      <div class="footer-box">
+        <div class="footer-box-title">Acknowledgements</div>
+        <p>We thank the creators of the WESAD, EPM-E4, and PhysioNet datasets, and the pioneers in physiological sensor research whose foundational work made this study possible.</p>
+      </div>
+
+      <div class="footer-box">
+        <div class="footer-box-title">Contact</div>
+        <p>alvaro.ibarra@my.utsa.edu</p>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
