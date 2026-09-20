@@ -83,7 +83,16 @@ def pick_source_label_column(df: pd.DataFrame) -> str | None:
 def infer_original_labels(df: pd.DataFrame) -> tuple[pd.Series, str]:
     source_column = pick_source_label_column(df)
     if source_column is not None:
-        return df[source_column].astype(str), source_column
+        source_values = df[source_column].astype("string")
+        missing_mask = source_values.isna() | (source_values.str.strip() == "")
+        if missing_mask.any():
+            fallback_values = [
+                INFERRED_ORIGINAL_LABELS.get((dataset, label), label)
+                for dataset, label in zip(df.loc[missing_mask, "dataset"], df.loc[missing_mask, "label"])
+            ]
+            source_values.loc[missing_mask] = fallback_values
+            return source_values.astype(str), f"{source_column}+inferred_builtin_mapping"
+        return source_values.astype(str), source_column
 
     inferred = [
         INFERRED_ORIGINAL_LABELS.get((dataset, label), label)
@@ -228,10 +237,12 @@ def build_overlap_tables(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
             }
         )
 
-    details = pd.DataFrame(overlap_rows).sort_values(
-        ["overlap_ratio", "dataset", "subject_id", "harmonized_label"],
-        ascending=[False, True, True, True],
-    )
+    details = pd.DataFrame(overlap_rows)
+    if not details.empty:
+        details = details.sort_values(
+            ["overlap_ratio", "dataset", "subject_id", "harmonized_label"],
+            ascending=[False, True, True, True],
+        )
     summary = pd.DataFrame(
         [
             {

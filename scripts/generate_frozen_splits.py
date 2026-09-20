@@ -78,6 +78,7 @@ def per_dataset_split(
     split_id: int,
     test_size: float,
     seed: int,
+    attempt: int = 0,
 ) -> tuple[list[str], list[str]]:
     if len(dataset_groups) < 2:
         raise ValueError(
@@ -86,7 +87,12 @@ def per_dataset_split(
 
     n_test = int(np.ceil(len(dataset_groups) * test_size))
     n_test = min(max(1, n_test), len(dataset_groups) - 1)
-    rng = np.random.default_rng(seed + split_id * 100_003 + stable_dataset_offset(dataset_groups["dataset"].iat[0]))
+    rng = np.random.default_rng(
+        seed
+        + split_id * 100_003
+        + stable_dataset_offset(dataset_groups["dataset"].iat[0])
+        + attempt * 10_007
+    )
     shuffled = rng.permutation(dataset_groups["group_id"].tolist())
     test_groups = sorted(shuffled[:n_test].tolist())
     train_groups = sorted(shuffled[n_test:].tolist())
@@ -98,7 +104,7 @@ def generate_repeated_splits(
     n_splits: int,
     test_size: float,
     seed: int,
-) -> tuple[pd.DataFrame, pd.DataFrame]:
+) -> tuple[pd.DataFrame, pd.DataFrame, int]:
     assignments = []
     summaries = []
     seen_signatures: set[tuple[tuple[str, ...], ...]] = set()
@@ -106,26 +112,36 @@ def generate_repeated_splits(
     for split_id in range(n_splits):
         split_assignments = []
         signature_parts = []
+        duplicate_signature = True
 
-        for dataset, dataset_groups in groups.groupby("dataset", sort=True):
-            train_groups, test_groups = per_dataset_split(dataset_groups, split_id, test_size, seed)
-            signature_parts.append(tuple(test_groups))
+        for attempt in range(max(100, n_splits * 5)):
+            split_assignments = []
+            signature_parts = []
 
-            for partition, partition_groups in (("train", train_groups), ("test", test_groups)):
-                subset = dataset_groups[dataset_groups["group_id"].isin(partition_groups)].copy()
-                subset["split_id"] = split_id
-                subset["partition"] = partition
-                split_assignments.append(subset)
+            for dataset, dataset_groups in groups.groupby("dataset", sort=True):
+                train_groups, test_groups = per_dataset_split(
+                    dataset_groups,
+                    split_id,
+                    test_size,
+                    seed,
+                    attempt=attempt,
+                )
+                signature_parts.append(tuple(test_groups))
 
-        signature = tuple(signature_parts)
-        if signature in seen_signatures:
-            raise RuntimeError(
-                "Repeated split generation produced duplicate test group selections. "
-                "Change the seed or test size."
-            )
-        seen_signatures.add(signature)
+                for partition, partition_groups in (("train", train_groups), ("test", test_groups)):
+                    subset = dataset_groups[dataset_groups["group_id"].isin(partition_groups)].copy()
+                    subset["split_id"] = split_id
+                    subset["partition"] = partition
+                    split_assignments.append(subset)
+
+            signature = tuple(signature_parts)
+            duplicate_signature = signature in seen_signatures
+            if not duplicate_signature:
+                seen_signatures.add(signature)
+                break
 
         split_df = pd.concat(split_assignments, ignore_index=True)
+        split_df["duplicate_test_signature"] = duplicate_signature
         assignments.append(split_df)
 
         summary = (
@@ -133,12 +149,13 @@ def generate_repeated_splits(
             .agg(
                 n_subject_groups=("group_id", "nunique"),
                 n_windows=("n_windows", "sum"),
+                duplicate_test_signature=("duplicate_test_signature", "max"),
             )
             .reset_index()
         )
         summaries.append(summary)
 
-    return pd.concat(assignments, ignore_index=True), pd.concat(summaries, ignore_index=True)
+    return pd.concat(assignments, ignore_index=True), pd.concat(summaries, ignore_index=True), len(seen_signatures)
 
 
 def generate_loso_folds(groups: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -178,7 +195,7 @@ def main() -> None:
 
     df = load_dataset(args.input)
     groups = build_group_table(df)
-    repeated_assignments, repeated_summary = generate_repeated_splits(
+    repeated_assignments, repeated_summary, n_unique_signatures = generate_repeated_splits(
         groups=groups,
         n_splits=args.n_splits,
         test_size=args.test_size,
@@ -193,6 +210,7 @@ def main() -> None:
         "n_subject_groups": int(len(groups)),
         "datasets": sorted(groups["dataset"].unique().tolist()),
         "n_repeated_splits": int(args.n_splits),
+        "n_unique_repeated_test_signatures": int(n_unique_signatures),
         "test_size": float(args.test_size),
         "seed": int(args.seed),
         "n_loso_folds": int(len(loso_summary)),
