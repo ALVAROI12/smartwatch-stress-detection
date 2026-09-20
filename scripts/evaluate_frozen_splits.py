@@ -187,6 +187,15 @@ def evaluate_single_split(
 
     if len(np.unique(y_train)) < 2:
         return {"status": "single_train_class", "n_train_rows": len(train_df), "n_test_rows": len(test_df)}
+    if test_eval_df["label"].nunique() < 2:
+        return {
+            "status": "single_evaluable_test_class",
+            "n_train_rows": len(train_df),
+            "n_test_rows": len(test_df),
+            "n_evaluated_test_rows": len(test_eval_df),
+            "n_excluded_test_rows": int((~known_mask).sum()),
+            "unseen_test_labels": " | ".join(unseen_labels),
+        }
 
     model.fit(X_train, y_train)
     y_pred = model.predict(X_test)

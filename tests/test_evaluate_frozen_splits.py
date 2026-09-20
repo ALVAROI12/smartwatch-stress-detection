@@ -46,6 +46,35 @@ class SummarizeResultsTests(unittest.TestCase):
         self.assertAlmostEqual(summary["balanced_accuracy_mean"], 0.6)
         self.assertAlmostEqual(summary["accuracy_mean"], 0.65)
 
+    def test_partial_splits_are_counted_separately(self):
+        results = pd.DataFrame(
+            [
+                {
+                    "protocol": "loso",
+                    "modality": "physiology_only",
+                    "status": "ok",
+                    "n_excluded_test_rows": 3,
+                    "macro_f1": 0.9,
+                    "balanced_accuracy": 0.8,
+                    "accuracy": 0.85,
+                },
+                {
+                    "protocol": "loso",
+                    "modality": "physiology_only",
+                    "status": "ok",
+                    "n_excluded_test_rows": 0,
+                    "macro_f1": 0.7,
+                    "balanced_accuracy": 0.6,
+                    "accuracy": 0.65,
+                },
+            ]
+        )
+
+        summary = summarize_results(results).iloc[0]
+
+        self.assertEqual(summary["n_partial_splits"], 1)
+        self.assertEqual(summary["excluded_test_rows_total"], 3)
+
 
 if __name__ == "__main__":
     unittest.main()

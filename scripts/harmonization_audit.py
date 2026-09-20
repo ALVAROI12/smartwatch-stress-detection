@@ -311,6 +311,7 @@ def write_outputs(
     manifest: dict,
 ) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
+    overlap_details_path = output_dir / "window_overlap_details.csv"
 
     harmonization.to_csv(output_dir / "harmonization_table.csv", index=False)
     coverage.to_csv(output_dir / "label_dataset_coverage.csv", index=False)
@@ -319,7 +320,9 @@ def write_outputs(
     subjects.to_csv(output_dir / "subject_label_summary.csv", index=False)
     overlap_summary.to_csv(output_dir / "window_overlap_summary.csv", index=False)
     if not overlap_details.empty:
-        overlap_details.to_csv(output_dir / "window_overlap_details.csv", index=False)
+        overlap_details.to_csv(overlap_details_path, index=False)
+    elif overlap_details_path.exists():
+        overlap_details_path.unlink()
 
     with (output_dir / "audit_manifest.json").open("w", encoding="utf-8") as handle:
         json.dump(manifest, handle, indent=2)
