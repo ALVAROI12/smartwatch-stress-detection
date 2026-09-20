@@ -314,7 +314,7 @@ def main() -> None:
     repeated_summary = summarize_results(repeated_results)
     loso_summary = summarize_results(loso_results)
     full_summary = pd.concat([repeated_summary, loso_summary], ignore_index=True)
-    headline = full_summary[full_summary["n_skipped_splits"] == 0].copy()
+    headline = full_summary.copy()
     skipped_summary = build_skipped_summary(pd.concat([repeated_results, loso_results], ignore_index=True))
 
     args.output_dir.mkdir(parents=True, exist_ok=True)

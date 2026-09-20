@@ -260,7 +260,7 @@ def build_overlap_tables(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
             continue
 
         prior_max_end = ordered["timestamp_end"].cummax().shift(1)
-        overlap_mask = ordered["timestamp_start"] < prior_max_end
+        overlap_mask = ordered["timestamp_start"] <= prior_max_end
         n_overlap = int(overlap_mask.fillna(False).sum())
         windows_checked += max(len(ordered) - 1, 0)
         overlapping_windows += n_overlap

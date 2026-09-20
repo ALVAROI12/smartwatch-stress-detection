@@ -67,7 +67,7 @@ def main() -> None:
         r"\begin{table}[t]",
         r"\centering",
         rf"\caption{{{latex_escape(args.caption)}}}",
-        rf"\label{{{args.label}}}",
+        rf"\label{{{latex_escape(args.label)}}}",
         r"\begin{tabular}{lllrrp{7cm}}",
         r"\hline",
         r"Dataset & Original Label & Harmonized Label & \#Subjects & \#Windows & Justification \\",
