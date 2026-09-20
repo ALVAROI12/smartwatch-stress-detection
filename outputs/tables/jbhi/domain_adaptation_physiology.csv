@@ -1,0 +1,25 @@
+train,test,normalisation,method,balanced_accuracy_mean,balanced_accuracy_std,macro_f1_mean,macro_f1_std,auroc_mean,auroc_std
+WESAD,PhysioNet,none,source_only,0.5332,0.0059,0.492,0.0081,0.5184,0.0045
+WESAD,PhysioNet,none,finetune_k5 (uses target labels),0.8316,0.0981,0.6412,0.058,0.9019,0.085
+WESAD,PhysioNet,none,coral,0.5325,0.009,0.4933,0.0088,0.527,0.0058
+WESAD,PhysioNet,none,mmd,0.5536,0.0156,0.5275,0.0144,0.5588,0.0075
+WESAD,PhysioNet,none,dann,0.5579,0.0132,0.5307,0.014,0.5689,0.0096
+WESAD,PhysioNet,none,subject_dann,0.5126,0.0273,0.467,0.038,0.5291,0.031
+PhysioNet,WESAD,none,source_only,0.5107,0.0117,0.51,0.0118,0.5191,0.0264
+PhysioNet,WESAD,none,finetune_k5 (uses target labels),0.8371,0.0191,0.8166,0.0199,0.9121,0.0161
+PhysioNet,WESAD,none,coral,0.5101,0.0109,0.5093,0.0109,0.5183,0.0261
+PhysioNet,WESAD,none,mmd,0.5271,0.0331,0.508,0.0347,0.5377,0.0478
+PhysioNet,WESAD,none,dann,0.4977,0.0269,0.4949,0.0252,0.5064,0.0323
+PhysioNet,WESAD,none,subject_dann,0.5734,0.0338,0.5424,0.0321,0.6204,0.0637
+WESAD,PhysioNet,subject_zscore,source_only,0.4928,0.0068,0.4346,0.0153,0.5193,0.0141
+WESAD,PhysioNet,subject_zscore,finetune_k5 (uses target labels),0.8482,0.085,0.6405,0.0405,0.9271,0.0524
+WESAD,PhysioNet,subject_zscore,coral,0.4945,0.0066,0.4359,0.0143,0.5204,0.014
+WESAD,PhysioNet,subject_zscore,mmd,0.5176,0.0113,0.4889,0.0123,0.5402,0.015
+WESAD,PhysioNet,subject_zscore,dann,0.5082,0.0102,0.4674,0.0168,0.5495,0.0155
+WESAD,PhysioNet,subject_zscore,subject_dann,0.5076,0.0202,0.4478,0.0367,0.5499,0.056
+PhysioNet,WESAD,subject_zscore,source_only,0.4468,0.0162,0.4071,0.0167,0.4649,0.0206
+PhysioNet,WESAD,subject_zscore,finetune_k5 (uses target labels),0.8684,0.0154,0.8516,0.0169,0.9292,0.0121
+PhysioNet,WESAD,subject_zscore,coral,0.4501,0.0187,0.4113,0.0204,0.4676,0.0207
+PhysioNet,WESAD,subject_zscore,mmd,0.5117,0.0152,0.4894,0.0202,0.5323,0.0128
+PhysioNet,WESAD,subject_zscore,dann,0.4925,0.0276,0.4625,0.0317,0.5192,0.0309
+PhysioNet,WESAD,subject_zscore,subject_dann,0.5372,0.0284,0.5011,0.0323,0.5724,0.0352
