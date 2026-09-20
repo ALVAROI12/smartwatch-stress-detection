@@ -8,6 +8,7 @@ import csv
 import hashlib
 import json
 import math
+import os
 import shutil
 import tempfile
 from pathlib import Path
@@ -259,9 +260,22 @@ def write_outputs(
 
 
 def publish_output_dir(staging_dir: Path, final_dir: Path) -> None:
+    backup_dir = final_dir.with_name(f"{final_dir.name}.bak")
+    if backup_dir.exists():
+        shutil.rmtree(backup_dir)
+
     if final_dir.exists():
-        shutil.rmtree(final_dir)
-    shutil.move(str(staging_dir), str(final_dir))
+        os.replace(final_dir, backup_dir)
+
+    try:
+        os.replace(staging_dir, final_dir)
+    except Exception:
+        if backup_dir.exists() and not final_dir.exists():
+            os.replace(backup_dir, final_dir)
+        raise
+    else:
+        if backup_dir.exists():
+            shutil.rmtree(backup_dir)
 
 
 def main() -> None:

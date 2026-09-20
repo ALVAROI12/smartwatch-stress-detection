@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Audit dataset/label harmonization and confounding from the combined feature table."""
+"""Audit dataset/label harmonization and confounding from the combined feature table.
+
+If timestamp columns are unavailable, overlap outputs are still emitted but explicitly report
+that overlap could not be audited from the input file.
+"""
 
 from __future__ import annotations
 
@@ -46,7 +50,7 @@ def parse_args() -> argparse.Namespace:
         "--output-dir",
         type=Path,
         default=DEFAULT_OUTPUT_DIR,
-        help="Directory where audit tables will be written.",
+        help="Directory where audit tables will be written. If timestamp columns are missing, overlap outputs note that the audit was skipped.",
     )
     return parser.parse_args()
 
