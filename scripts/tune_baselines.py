@@ -96,7 +96,7 @@ def configurations(df: pd.DataFrame, features: list[str], task_names: list[str],
                 yield f"cross_dataset_{source}_to_{target}", normalisation, modality, (shared, column)
 
 
-def run_configuration(task, data, column, cols, model, n_trials, n_splits) -> list[dict]:
+def run_configuration(task, data, column, cols, model, n_trials, n_splits, n_jobs) -> list[dict]:
     y = pd.factorize(data[column], sort=True)[0]
     x, groups = data[cols].to_numpy(float), data["subject_uid"].to_numpy()
     jobs = []
@@ -108,7 +108,7 @@ def run_configuration(task, data, column, cols, model, n_trials, n_splits) -> li
         splits = [(seed, *grouped_split(data, seed)) for seed in range(n_splits)]
     for seed, train, test in splits:
         jobs.append(delayed(tune_and_test)(model, x[train], y[train], groups[train], x[test], y[test], n_trials, seed))
-    results = Parallel(n_jobs=8)(jobs)
+    results = Parallel(n_jobs=n_jobs)(jobs)
     return [{"split": seed, **res} for (seed, _, _), res in zip(splits, results)]
 
 
@@ -119,6 +119,7 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path, default=REPO_ROOT / "outputs" / "tables" / "jbhi_v2")
     parser.add_argument("--n-trials", type=int, default=50)
     parser.add_argument("--n-splits", type=int, default=20)
+    parser.add_argument("--n-jobs", type=int, default=8, help="Outer splits tuned in parallel (one core each).")
     parser.add_argument("--tasks", nargs="+", default=["shared_Baseline_vs_Stress_pooled", "within_WESAD",
                                                        "within_PhysioNet_stress_session", "affective_only_no_exercise"])
     parser.add_argument("--modalities", nargs="+", default=["all_modalities", "physiology_only", "acc_only"])
@@ -137,7 +138,7 @@ def main() -> None:
         for model in args.models:
             if (task, normalisation, modality, model) in done:
                 continue
-            rows = run_configuration(task, data, column, modality_sets(features)[modality], model, args.n_trials, args.n_splits)
+            rows = run_configuration(task, data, column, modality_sets(features)[modality], model, args.n_trials, args.n_splits, args.n_jobs)
             out = pd.DataFrame(rows).assign(task=task, normalisation=normalisation, modality=modality, model=model)
             out.to_csv(per_split_path, mode="a", header=not per_split_path.exists(), index=False)
             print(f"{task:42s} {normalisation:15s} {modality:16s} {model:14s} "
