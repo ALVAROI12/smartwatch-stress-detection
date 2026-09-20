@@ -8,6 +8,8 @@ import csv
 import hashlib
 import json
 import math
+import shutil
+import tempfile
 from pathlib import Path
 
 import numpy as np
@@ -256,6 +258,12 @@ def write_outputs(
         json.dump(manifest, handle, indent=2)
 
 
+def publish_output_dir(staging_dir: Path, final_dir: Path) -> None:
+    if final_dir.exists():
+        shutil.rmtree(final_dir)
+    shutil.move(str(staging_dir), str(final_dir))
+
+
 def main() -> None:
     args = parse_args()
     if not 0 < args.test_size < 1:
@@ -278,8 +286,6 @@ def main() -> None:
         test_size=args.test_size,
         seed=args.seed,
     )
-    loso_summary = write_loso_outputs(args.output_dir, groups)
-
     manifest = {
         "input_file": str(args.input.resolve()),
         "input_sha256": file_sha256(args.input),
@@ -291,19 +297,27 @@ def main() -> None:
         "max_unique_repeated_test_signatures": int(unique_signature_limit),
         "test_size": float(args.test_size),
         "seed": int(args.seed),
-        "n_loso_folds": int(loso_summary["fold_id"].nunique()),
+        "n_loso_folds": int(len(groups)),
     }
 
-    write_outputs(
-        output_dir=args.output_dir,
-        repeated_assignments=repeated_assignments,
-        repeated_summary=repeated_summary,
-        manifest=manifest,
-    )
+    staging_parent = args.output_dir.parent
+    staging_parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(dir=staging_parent, prefix=f"{args.output_dir.name}.tmp.") as tmp_dir:
+        staging_dir = Path(tmp_dir) / args.output_dir.name
+        staging_dir.mkdir(parents=True, exist_ok=True)
+        loso_summary = write_loso_outputs(staging_dir, groups)
+        manifest["n_loso_folds"] = int(loso_summary["fold_id"].nunique())
+        write_outputs(
+            output_dir=staging_dir,
+            repeated_assignments=repeated_assignments,
+            repeated_summary=repeated_summary,
+            manifest=manifest,
+        )
+        publish_output_dir(staging_dir, args.output_dir)
 
     print(f"Wrote split outputs to {args.output_dir}")
     print(f"Repeated splits: {args.n_splits}")
-    print(f"LOSO folds: {loso_summary['fold_id'].nunique()}")
+    print(f"LOSO folds: {manifest['n_loso_folds']}")
 
 
 if __name__ == "__main__":

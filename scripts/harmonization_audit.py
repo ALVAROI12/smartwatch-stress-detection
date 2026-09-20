@@ -208,12 +208,13 @@ def build_subject_label_table(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def coerce_timestamp_series(series: pd.Series) -> pd.Series:
+    valid_mask = series.notna()
     numeric = pd.to_numeric(series, errors="coerce")
-    if numeric.notna().all():
+    if numeric[valid_mask].notna().all():
         return numeric
 
     datetimes = pd.to_datetime(series, errors="coerce")
-    if datetimes.notna().all():
+    if datetimes[valid_mask].notna().all():
         return datetimes
 
     raise ValueError(
