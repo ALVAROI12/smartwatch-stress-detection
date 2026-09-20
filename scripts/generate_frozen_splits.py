@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 from pathlib import Path
 
 import numpy as np
@@ -73,6 +74,16 @@ def build_group_table(df: pd.DataFrame) -> pd.DataFrame:
     return groups
 
 
+def max_unique_test_signatures(groups: pd.DataFrame, test_size: float) -> int:
+    total = 1
+    for _, dataset_groups in groups.groupby("dataset", sort=True):
+        n_groups = len(dataset_groups)
+        n_test = int(np.ceil(n_groups * test_size))
+        n_test = min(max(1, n_test), n_groups - 1)
+        total *= math.comb(n_groups, n_test)
+    return total
+
+
 def per_dataset_split(
     dataset_groups: pd.DataFrame,
     split_id: int,
@@ -112,8 +123,6 @@ def generate_repeated_splits(
     for split_id in range(n_splits):
         split_assignments = []
         signature_parts = []
-        duplicate_signature = True
-
         for attempt in range(max(100, n_splits * 5)):
             split_assignments = []
             signature_parts = []
@@ -135,13 +144,16 @@ def generate_repeated_splits(
                     split_assignments.append(subset)
 
             signature = tuple(signature_parts)
-            duplicate_signature = signature in seen_signatures
-            if not duplicate_signature:
+            if signature not in seen_signatures:
                 seen_signatures.add(signature)
                 break
+        else:
+            raise RuntimeError(
+                "Unable to find a new unique repeated split with the current seed and test size."
+            )
 
         split_df = pd.concat(split_assignments, ignore_index=True)
-        split_df["duplicate_test_signature"] = duplicate_signature
+        split_df["duplicate_test_signature"] = False
         assignments.append(split_df)
 
         summary = (
@@ -159,26 +171,38 @@ def generate_repeated_splits(
 
 
 def generate_loso_folds(groups: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
-    assignments = []
-    summaries = []
+    base = groups.reset_index(drop=True)
+    n_groups = len(base)
 
-    for fold_id, test_group in enumerate(groups.itertuples(index=False)):
-        split_df = groups.copy()
-        split_df["fold_id"] = fold_id
-        split_df["partition"] = np.where(split_df["group_id"] == test_group.group_id, "test", "train")
-        assignments.append(split_df)
+    fold_ids = np.repeat(np.arange(n_groups), n_groups)
+    dataset = np.tile(base["dataset"].to_numpy(), n_groups)
+    subject_id = np.tile(base["subject_id"].to_numpy(), n_groups)
+    group_id = np.tile(base["group_id"].to_numpy(), n_groups)
+    n_windows = np.tile(base["n_windows"].to_numpy(), n_groups)
+    labels = np.tile(base["labels"].to_numpy(), n_groups)
+    test_group_ids = np.repeat(base["group_id"].to_numpy(), n_groups)
+    partition = np.where(group_id == test_group_ids, "test", "train")
 
-        summary = (
-            split_df.groupby(["fold_id", "partition", "dataset"], dropna=False)
-            .agg(
-                n_subject_groups=("group_id", "nunique"),
-                n_windows=("n_windows", "sum"),
-            )
-            .reset_index()
+    assignments = pd.DataFrame(
+        {
+            "dataset": dataset,
+            "subject_id": subject_id,
+            "group_id": group_id,
+            "n_windows": n_windows,
+            "labels": labels,
+            "fold_id": fold_ids,
+            "partition": partition,
+        }
+    )
+    summaries = (
+        assignments.groupby(["fold_id", "partition", "dataset"], dropna=False)
+        .agg(
+            n_subject_groups=("group_id", "nunique"),
+            n_windows=("n_windows", "sum"),
         )
-        summaries.append(summary)
-
-    return pd.concat(assignments, ignore_index=True), pd.concat(summaries, ignore_index=True)
+        .reset_index()
+    )
+    return assignments, summaries
 
 
 def write_outputs(
@@ -208,6 +232,12 @@ def main() -> None:
 
     df = load_dataset(args.input)
     groups = build_group_table(df)
+    unique_signature_limit = max_unique_test_signatures(groups, args.test_size)
+    if args.n_splits > unique_signature_limit:
+        raise ValueError(
+            f"Requested {args.n_splits} repeated splits but only {unique_signature_limit} unique test signatures "
+            "are possible with the current dataset group counts and --test-size."
+        )
     repeated_assignments, repeated_summary, n_unique_signatures = generate_repeated_splits(
         groups=groups,
         n_splits=args.n_splits,
@@ -224,6 +254,7 @@ def main() -> None:
         "datasets": sorted(groups["dataset"].unique().tolist()),
         "n_repeated_splits": int(args.n_splits),
         "n_unique_repeated_test_signatures": int(n_unique_signatures),
+        "max_unique_repeated_test_signatures": int(unique_signature_limit),
         "test_size": float(args.test_size),
         "seed": int(args.seed),
         "n_loso_folds": int(loso_assignments["fold_id"].nunique()),

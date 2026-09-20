@@ -80,10 +80,11 @@ def pick_source_label_column(df: pd.DataFrame) -> str | None:
     return None
 
 
-def infer_original_labels(df: pd.DataFrame) -> tuple[pd.Series, str]:
+def infer_original_labels(df: pd.DataFrame) -> tuple[pd.Series, pd.Series]:
     source_column = pick_source_label_column(df)
     if source_column is not None:
         source_values = df[source_column].astype("string")
+        mapping_sources = pd.Series(source_column, index=df.index, dtype="object")
         missing_mask = source_values.isna() | (source_values.str.strip() == "")
         if missing_mask.any():
             fallback_values = [
@@ -91,14 +92,17 @@ def infer_original_labels(df: pd.DataFrame) -> tuple[pd.Series, str]:
                 for dataset, label in zip(df.loc[missing_mask, "dataset"], df.loc[missing_mask, "label"])
             ]
             source_values.loc[missing_mask] = fallback_values
-            return source_values.astype(str), f"{source_column}+inferred_builtin_mapping"
-        return source_values.astype(str), source_column
+            mapping_sources.loc[missing_mask] = "inferred_builtin_mapping"
+        return source_values.astype(str), mapping_sources
 
     inferred = [
         INFERRED_ORIGINAL_LABELS.get((dataset, label), label)
         for dataset, label in zip(df["dataset"], df["label"])
     ]
-    return pd.Series(inferred, index=df.index, dtype="object"), "inferred_builtin_mapping"
+    return (
+        pd.Series(inferred, index=df.index, dtype="object"),
+        pd.Series("inferred_builtin_mapping", index=df.index, dtype="object"),
+    )
 
 
 def sorted_join(values: Iterable[str]) -> str:
@@ -106,18 +110,18 @@ def sorted_join(values: Iterable[str]) -> str:
     return " | ".join(unique_values)
 
 
-def build_harmonization_table(df: pd.DataFrame, mapping_source: str) -> pd.DataFrame:
+def build_harmonization_table(df: pd.DataFrame) -> pd.DataFrame:
     table = (
         df.groupby(["dataset", "original_label", "label"], dropna=False)
         .agg(
             n_subjects=("subject_id", "nunique"),
             n_windows=("subject_id", "size"),
+            mapping_source=("mapping_source", sorted_join),
         )
         .reset_index()
         .rename(columns={"label": "harmonized_label"})
         .sort_values(["dataset", "original_label", "harmonized_label"])
     )
-    table["mapping_source"] = mapping_source
     table["justification"] = table.apply(
         lambda row: JUSTIFICATIONS.get(
             (row["dataset"], row["original_label"], row["harmonized_label"]),
@@ -213,11 +217,11 @@ def build_overlap_tables(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
 
     grouped = df.groupby(["dataset", "subject_id", "label"], dropna=False)
     for (dataset, subject_id, label), group in grouped:
+        groups_checked += 1
         ordered = group.sort_values(["timestamp_start", "timestamp_end"]).reset_index(drop=True)
         if len(ordered) <= 1:
             continue
 
-        groups_checked += 1
         previous_end = ordered["timestamp_end"].shift(1)
         overlap_mask = ordered["timestamp_start"] < previous_end
         n_overlap = int(overlap_mask.fillna(False).sum())
@@ -287,9 +291,9 @@ def write_outputs(
 def main() -> None:
     args = parse_args()
     df = load_dataset(args.input)
-    df["original_label"], mapping_source = infer_original_labels(df)
+    df["original_label"], df["mapping_source"] = infer_original_labels(df)
 
-    harmonization = build_harmonization_table(df, mapping_source)
+    harmonization = build_harmonization_table(df)
     coverage = build_label_coverage_table(df)
     matrix = build_dataset_label_matrix(df)
     shared_labels = build_shared_labels_table(matrix)
@@ -303,7 +307,7 @@ def main() -> None:
         "n_subjects": int(df[["dataset", "subject_id"]].drop_duplicates().shape[0]),
         "n_datasets": int(df["dataset"].nunique()),
         "n_labels": int(df["label"].nunique()),
-        "mapping_source": mapping_source,
+        "mapping_sources": sorted(df["mapping_source"].unique().tolist()),
         "labels_confounded_with_dataset": coverage.loc[
             coverage["confounded_with_dataset"], "label"
         ].tolist(),
