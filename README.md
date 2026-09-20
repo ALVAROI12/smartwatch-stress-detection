@@ -73,10 +73,10 @@ uvicorn api:app --reload --port 8000
 The raw and processed datasets are gitignored, so pass your local combined feature table when running the new audit utilities.
 
 ```bash
-python /home/runner/work/smartwatch-stress-detection/smartwatch-stress-detection/scripts/harmonization_audit.py \
+python scripts/harmonization_audit.py \
   --input /absolute/path/to/combined_dataset_filled.csv
 
-python /home/runner/work/smartwatch-stress-detection/smartwatch-stress-detection/scripts/generate_frozen_splits.py \
+python scripts/generate_frozen_splits.py \
   --input /absolute/path/to/combined_dataset_filled.csv
 ```
 

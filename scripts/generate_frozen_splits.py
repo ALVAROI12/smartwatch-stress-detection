@@ -159,13 +159,26 @@ def generate_repeated_splits(
 
 
 def generate_loso_folds(groups: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
-    folds = groups.copy().reset_index(drop=True)
-    folds["fold_id"] = np.arange(len(folds))
-    folds["partition"] = "test"
+    assignments = []
+    summaries = []
 
-    summaries = folds[["fold_id", "dataset", "subject_id", "group_id", "n_windows", "labels"]].copy()
-    summaries = summaries.rename(columns={"n_windows": "test_windows", "labels": "test_labels"})
-    return folds, summaries
+    for fold_id, test_group in enumerate(groups.itertuples(index=False)):
+        split_df = groups.copy()
+        split_df["fold_id"] = fold_id
+        split_df["partition"] = np.where(split_df["group_id"] == test_group.group_id, "test", "train")
+        assignments.append(split_df)
+
+        summary = (
+            split_df.groupby(["fold_id", "partition", "dataset"], dropna=False)
+            .agg(
+                n_subject_groups=("group_id", "nunique"),
+                n_windows=("n_windows", "sum"),
+            )
+            .reset_index()
+        )
+        summaries.append(summary)
+
+    return pd.concat(assignments, ignore_index=True), pd.concat(summaries, ignore_index=True)
 
 
 def write_outputs(
@@ -213,7 +226,7 @@ def main() -> None:
         "n_unique_repeated_test_signatures": int(n_unique_signatures),
         "test_size": float(args.test_size),
         "seed": int(args.seed),
-        "n_loso_folds": int(len(loso_summary)),
+        "n_loso_folds": int(loso_assignments["fold_id"].nunique()),
     }
 
     write_outputs(
@@ -227,7 +240,7 @@ def main() -> None:
 
     print(f"Wrote split outputs to {args.output_dir}")
     print(f"Repeated splits: {args.n_splits}")
-    print(f"LOSO folds: {len(loso_summary)}")
+    print(f"LOSO folds: {loso_assignments['fold_id'].nunique()}")
 
 
 if __name__ == "__main__":
