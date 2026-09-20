@@ -25,7 +25,8 @@ from xgboost import XGBClassifier
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 META = {"window_id", "subject_id", "dataset", "label", "timestamp_start", "timestamp_end",
-        "subject_uid", "original_label", "harmonized_label", "purity"}
+        "subject_uid", "original_label", "harmonized_label", "purity",
+        "self_report_stress", "self_report_stress_delta", "self_report_validated", "sam_valence", "sam_arousal"}
 EXERCISE = {"Aerobic", "Anaerobic"}
 MIN_PURITY = 0.8
 
@@ -177,16 +178,40 @@ def cross_dataset(df: pd.DataFrame, features: list[str]) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def cross_dataset_arousal(df: pd.DataFrame, features: list[str]) -> pd.DataFrame:
+    """WESAD <-> EPM-E4 on the one label both collected: the participant's own SAM arousal (high = above midpoint 5)."""
+    rows = []
+    for normalisation in ("none", "subject_zscore"):
+        frame = subject_zscore(df, features) if normalisation == "subject_zscore" else df
+        data = frame[(frame["purity"] >= MIN_PURITY) & frame["sam_arousal"].notna() & (frame["harmonized_label"] != "Excluded")]
+        y = (data["sam_arousal"] > 5).to_numpy(int)
+        for source, target in (("WESAD", "EPM-E4"), ("EPM-E4", "WESAD")):
+            train, test = (data["dataset"] == source).to_numpy(), (data["dataset"] == target).to_numpy()
+            for modality, cols in modality_sets(features).items():
+                x = data[cols].to_numpy()
+                pred, proba = fit_predict(x[train], y[train], x[test], 0)
+                rows.append({"labels": "SAM_arousal_high_vs_low", "normalisation": normalisation, "train": source,
+                             "test": target, "modality": modality, "n_train": int(train.sum()), "n_test": int(test.sum()),
+                             "test_pct_high": round(100 * y[test].mean(), 1), **score(y[test], pred),
+                             "auroc": roc_auc_score(y[test], proba[:, 1])})
+    return pd.DataFrame(rows)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path,
                         default=REPO_ROOT / "data" / "processed" / "combined" / "harmonized_windows.csv")
     parser.add_argument("--output-dir", type=Path, default=REPO_ROOT / "outputs" / "tables" / "jbhi")
     parser.add_argument("--n-splits", type=int, default=20)
+    parser.add_argument("--validated-only", action="store_true",
+                        help="Keep Stress windows only where the participant's own rating rose over baseline.")
     args = parser.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
     df = pd.read_csv(args.input)
+    if args.validated_only:
+        # z-scoring still sees every window; only the evaluated label set shrinks
+        df.loc[~df["self_report_validated"].astype(bool), ["harmonized_label", "purity"]] = "Excluded", 0.0
     features = [c for c in df.columns if c not in META]
     train, test = grouped_split(df, 0)
     assert not set(df.loc[train, "subject_uid"]) & set(df.loc[test, "subject_uid"]), "subject leaked across split"
@@ -194,6 +219,7 @@ def main() -> None:
     harmonization_table(df).to_csv(args.output_dir / "harmonization_table.csv", index=False)
     leakage_check(df, features).to_csv(args.output_dir / "leakage_check.csv", index=False)
     cross_dataset(df, features).to_csv(args.output_dir / "cross_dataset_shared_labels.csv", index=False)
+    cross_dataset_arousal(df, features).to_csv(args.output_dir / "cross_dataset_sam_arousal.csv", index=False)
     repeated, loso, loso_summary = repeated_and_loso(df, features, args.n_splits)
     repeated.to_csv(args.output_dir / "repeated_subject_splits.csv", index=False)
     loso.to_csv(args.output_dir / "loso_per_subject.csv", index=False)
