@@ -20,6 +20,43 @@ DEFAULT_OUTPUT_DIR = REPO_ROOT / "outputs" / "tables" / "frozen_split_evaluation
 DEFAULT_XGB_CONFIG = REPO_ROOT / "outputs" / "models" / "best_hyperparameters.json"
 METADATA_COLUMNS = {"subject_id", "dataset", "window_id", "timestamp_start", "timestamp_end", "label"}
 PHYSIOLOGY_PREFIXES = ("hr_", "hrv_", "eda_", "temp_")
+SUPPORTED_XGB_PARAMS = {
+    "objective",
+    "base_score",
+    "booster",
+    "colsample_bylevel",
+    "colsample_bynode",
+    "colsample_bytree",
+    "device",
+    "eval_metric",
+    "gamma",
+    "grow_policy",
+    "importance_type",
+    "interaction_constraints",
+    "learning_rate",
+    "max_bin",
+    "max_cat_threshold",
+    "max_cat_to_onehot",
+    "max_delta_step",
+    "max_depth",
+    "max_leaves",
+    "min_child_weight",
+    "missing",
+    "monotone_constraints",
+    "multi_strategy",
+    "n_estimators",
+    "n_jobs",
+    "num_parallel_tree",
+    "random_state",
+    "reg_alpha",
+    "reg_lambda",
+    "sampling_method",
+    "scale_pos_weight",
+    "subsample",
+    "tree_method",
+    "validate_parameters",
+    "verbosity",
+}
 
 
 def parse_args() -> argparse.Namespace:
@@ -54,7 +91,13 @@ def load_xgb_classifier(config_path: Path, seed: int):
     }
     if config_path.exists():
         config = json.loads(config_path.read_text(encoding="utf-8"))
-        params.update({k: v for k, v in config.get("XGBoost", {}).items() if v is not None})
+        params.update(
+            {
+                key: value
+                for key, value in config.get("XGBoost", {}).items()
+                if value is not None and key in SUPPORTED_XGB_PARAMS
+            }
+        )
         params["device"] = "cpu"
         params["random_state"] = seed
     return XGBClassifier(**params)
@@ -191,17 +234,19 @@ def evaluate_assignments(
 
 
 def summarize_results(results: pd.DataFrame) -> pd.DataFrame:
-    ok = results[results["status"] == "ok"].copy()
     summaries = []
-    for (protocol, modality), group in ok.groupby(["protocol", "modality"], sort=True):
-        macro_mean, macro_std, macro_ci = confidence_interval(group["macro_f1"])
-        bal_mean, bal_std, bal_ci = confidence_interval(group["balanced_accuracy"])
-        acc_mean, acc_std, acc_ci = confidence_interval(group["accuracy"])
+    for (protocol, modality), group in results.groupby(["protocol", "modality"], sort=True):
+        ok = group[group["status"] == "ok"].copy()
+        macro_mean, macro_std, macro_ci = confidence_interval(ok["macro_f1"])
+        bal_mean, bal_std, bal_ci = confidence_interval(ok["balanced_accuracy"])
+        acc_mean, acc_std, acc_ci = confidence_interval(ok["accuracy"])
         summaries.append(
             {
                 "protocol": protocol,
                 "modality": modality,
-                "n_evaluable_splits": int(len(group)),
+                "n_total_splits": int(len(group)),
+                "n_evaluable_splits": int(len(ok)),
+                "n_skipped_splits": int((group["status"] != "ok").sum()),
                 "macro_f1_mean": macro_mean,
                 "macro_f1_std": macro_std,
                 "macro_f1_ci95": macro_ci,
