@@ -30,6 +30,7 @@ from sklearn.metrics import balanced_accuracy_score, f1_score, roc_auc_score
 from torch import nn
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+WINDOW_SEC = 60.0  # feature window length, as extract_features.WINDOW
 META = {"window_id", "subject_id", "dataset", "label", "timestamp_start", "timestamp_end",
         "subject_uid", "original_label", "harmonized_label", "purity", "cardiac_coverage",
         "self_report_stress", "self_report_stress_delta", "self_report_validated", "sam_valence", "sam_arousal"}
@@ -112,14 +113,36 @@ def predict(net: Net, x: torch.Tensor) -> np.ndarray:
         return torch.softmax(net.classifier(net.encoder(x)), dim=1)[:, 1].numpy()
 
 
-def finetune_k(net: Net, xt, yt, subj_t, k: int, seed: int) -> dict[str, float]:
-    """Per target subject: adapt on k labelled windows per class, test on the rest of that subject."""
+def split_support_query(idx: np.ndarray, y: np.ndarray, k: int, rng: np.random.Generator, files: np.ndarray | None,
+                        starts: np.ndarray | None, mode: str = "random", gap: float | None = None):
+    """Pick k support windows per class from one subject's windows idx; the rest (minus a gap) are the query.
+
+    mode "random" draws the k windows anywhere in the recording; with 60 s windows on a 30 s step their neighbours
+    share half their signal with the query. "chronological" takes each class's first k windows in time, as a deployed
+    calibration would. gap (s) drops query windows starting within WINDOW_SEC + gap of a support window in the same
+    recording file, so no query window overlaps or directly follows calibration data.
+    """
+    by_class = [idx[y[idx] == c] for c in (0, 1)]
+    if mode == "chronological":  # file name first: split recordings (f14_a, f14_b) each restart at 0 s
+        by_class = [c_idx[np.lexsort((starts[c_idx], files[c_idx]))] for c_idx in by_class]
+    else:
+        by_class = [rng.permutation(c_idx) for c_idx in by_class]
+    support = np.concatenate([c_idx[:k] for c_idx in by_class])
+    query = np.setdiff1d(idx, support)
+    if gap is not None:
+        near = [(files[query] == files[s]) & (np.abs(starts[query] - starts[s]) < WINDOW_SEC + gap) for s in support]
+        query = query[~np.any(near, axis=0)]
+    return support, query
+
+
+def finetune_k(net: Net, xt, yt, subj_t, k: int, seed: int, files: np.ndarray | None = None,
+               starts: np.ndarray | None = None, support_mode: str = "random", gap: float | None = None) -> dict[str, float]:
+    """Per target subject: adapt on k labelled windows per class (see split_support_query), test on the query."""
     rng = np.random.default_rng(seed)
     truth, proba = [], []
     for subject in subj_t.unique():
         idx = torch.where(subj_t == subject)[0].numpy()
-        support = np.concatenate([rng.permutation(idx[yt[idx].numpy() == c])[:k] for c in (0, 1)])
-        query = np.setdiff1d(idx, support)
+        support, query = split_support_query(idx, yt.numpy(), k, rng, files, starts, support_mode, gap)
         if len(set(yt[support].tolist())) < 2 or len(query) == 0:
             continue
         personal = copy.deepcopy(net).train()
@@ -130,6 +153,9 @@ def finetune_k(net: Net, xt, yt, subj_t, k: int, seed: int) -> dict[str, float]:
             opt.step()
         truth.append(yt[query].numpy())
         proba.append(predict(personal.eval(), xt[query]))
+    # PhysioNet has a median of 5 Baseline windows per subject, so k = 5 leaves no Baseline in its query: not evaluable.
+    if not truth or len(set(np.concatenate(truth))) < 2:
+        return {"balanced_accuracy": np.nan, "macro_f1": np.nan, "auroc": np.nan}
     return evaluate(np.concatenate(truth), np.concatenate(proba))
 
 
@@ -140,7 +166,13 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path, default=REPO_ROOT / "outputs" / "tables" / "jbhi")
     parser.add_argument("--seeds", type=int, default=10)
     parser.add_argument("--features", choices=["all", "physiology"], default="all")
+    parser.add_argument("--support", choices=["random", "chronological"], default="random",
+                        help="How finetune_k5 picks each target subject's 5 labelled windows per class.")
+    parser.add_argument("--gap", type=float, default=None,
+                        help="Seconds of separation between support and query windows (beyond the window length).")
     args = parser.parse_args()
+    suffix = "" if (args.support, args.gap) == ("random", None) else f"_{args.support}" + (
+        f"_gap{args.gap:g}" if args.gap is not None else "")
 
     full = pd.read_csv(args.input)
     features = [c for c in full.columns if c not in META]
@@ -172,7 +204,9 @@ def main() -> None:
                     if method == "source_only":
                         rows.append({"train": source, "test": target, "normalisation": normalisation,
                                      "method": "finetune_k5 (uses target labels)", "seed": seed,
-                                     **finetune_k(net, xt, y_all[t], subject_codes[t], 5, seed)})
+                                     **finetune_k(net, xt, y_all[t], subject_codes[t], 5, seed,
+                                                  df["subject_id"].to_numpy()[t], df["timestamp_start"].to_numpy()[t],
+                                                  args.support, args.gap)})
             print(f"done {source}->{target} [{normalisation}]", flush=True)
 
     raw = pd.DataFrame(rows)
@@ -180,8 +214,8 @@ def main() -> None:
         ["balanced_accuracy", "macro_f1", "auroc"]].agg(["mean", "std"]).round(4)
     summary.columns = [f"{metric}_{stat}" for metric, stat in summary.columns]
     args.output_dir.mkdir(parents=True, exist_ok=True)
-    raw.to_csv(args.output_dir / f"domain_adaptation_{args.features}_raw.csv", index=False)
-    summary.reset_index().to_csv(args.output_dir / f"domain_adaptation_{args.features}.csv", index=False)
+    raw.to_csv(args.output_dir / f"domain_adaptation_{args.features}{suffix}_raw.csv", index=False)
+    summary.reset_index().to_csv(args.output_dir / f"domain_adaptation_{args.features}{suffix}.csv", index=False)
     print(summary.to_string())
 
 

@@ -1,0 +1,25 @@
+train,test,normalisation,method,balanced_accuracy_mean,balanced_accuracy_std,macro_f1_mean,macro_f1_std,auroc_mean,auroc_std
+WESAD,PhysioNet,none,source_only,0.6338,0.0058,0.6317,0.0057,0.6468,0.0025
+WESAD,PhysioNet,none,finetune_k5 (uses target labels),,,,,,
+WESAD,PhysioNet,none,coral,0.6334,0.0085,0.6297,0.0082,0.658,0.0043
+WESAD,PhysioNet,none,mmd,0.6073,0.0068,0.5887,0.0067,0.633,0.0038
+WESAD,PhysioNet,none,dann,0.619,0.01,0.609,0.0113,0.6317,0.005
+WESAD,PhysioNet,none,subject_dann,0.6265,0.0123,0.6171,0.0152,0.6543,0.0206
+PhysioNet,WESAD,none,source_only,0.6619,0.0329,0.6678,0.0346,0.7773,0.0479
+PhysioNet,WESAD,none,finetune_k5 (uses target labels),0.8742,0.0345,0.8507,0.0305,0.9506,0.0159
+PhysioNet,WESAD,none,coral,0.6615,0.0333,0.6673,0.0351,0.7771,0.0486
+PhysioNet,WESAD,none,mmd,0.5851,0.0717,0.5643,0.0709,0.627,0.0626
+PhysioNet,WESAD,none,dann,0.683,0.043,0.6647,0.0488,0.7428,0.0502
+PhysioNet,WESAD,none,subject_dann,0.6498,0.0931,0.6278,0.1197,0.7045,0.1274
+WESAD,PhysioNet,subject_zscore,source_only,0.5436,0.0075,0.4521,0.0087,0.6381,0.0082
+WESAD,PhysioNet,subject_zscore,finetune_k5 (uses target labels),,,,,,
+WESAD,PhysioNet,subject_zscore,coral,0.5441,0.0077,0.4591,0.0102,0.6395,0.0081
+WESAD,PhysioNet,subject_zscore,mmd,0.557,0.0131,0.5188,0.016,0.6105,0.0132
+WESAD,PhysioNet,subject_zscore,dann,0.558,0.0052,0.4809,0.0063,0.634,0.0112
+WESAD,PhysioNet,subject_zscore,subject_dann,0.5544,0.0141,0.4674,0.0404,0.6278,0.0323
+PhysioNet,WESAD,subject_zscore,source_only,0.6983,0.0214,0.6117,0.0293,0.8878,0.0175
+PhysioNet,WESAD,subject_zscore,finetune_k5 (uses target labels),0.9201,0.0216,0.8653,0.0268,0.9731,0.0113
+PhysioNet,WESAD,subject_zscore,coral,0.69,0.0184,0.6027,0.0267,0.8612,0.0181
+PhysioNet,WESAD,subject_zscore,mmd,0.6974,0.062,0.6663,0.0511,0.7513,0.0602
+PhysioNet,WESAD,subject_zscore,dann,0.6961,0.0623,0.6387,0.0522,0.7885,0.0986
+PhysioNet,WESAD,subject_zscore,subject_dann,0.5187,0.0967,0.4741,0.0633,0.5587,0.182
