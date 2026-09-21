@@ -38,3 +38,6 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Local copies of papers and scratch results (copyright / not reproducible)
+sources/
