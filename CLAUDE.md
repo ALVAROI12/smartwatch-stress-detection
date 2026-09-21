@@ -9,7 +9,7 @@ Alvaro Ibarra's wrist-wearable stress detection research (UTSA, ECE). This repo 
 - `~/Projects/smartwatch-stress-detection` is a second worktree of the same repo on `thesis-final-figures` (thesis report, poster, chapter figures). The raw datasets live there: `WESAD/`, `EPM-E4/`, `Stress-Predict/`, `UBFC-Phys/`, `Campanella2024/`, `wearable-device-dataset/` (PhysioNet).
 - `scripts/`: feature extraction, relabeling, evaluation, tuning, domain adaptation, leave-one-dataset-out. `tests/`: pytest for the audit, split and relabel utilities.
 - `docs/advisor_correction_sheet.md`: the current state of the paper. Read it first.
-- `docs/literature/`: reading list (abstract-level) and its full-text evidence report.
+- `docs/literature/`: reading list (abstract-level), its full-text evidence report, and `dataset-and-claims-verification.md` (full-text check of all five dataset descriptors plus nine cited papers, 2026-09-21). **Section 1 of that file lists 7 open label fixes (Stress-Predict boundaries and S01, Campanella stress span, PhysioNet f13 and rest halves); none applied yet.**
 - `sources/` (git-ignored): local full texts of verified papers, the own IEEE draft (`ibarra-ieee-draft-six-class.txt`), Kaggle metadata for candidate E4 datasets, and scratch results from the 2026-09-20 JBHI chat (`jbhi-chat-scratch/`, including two probe CSVs not saved elsewhere).
 
 **The README headline numbers (94.53% accuracy, 96 subjects) are from the old leaky pipeline and are wrong.** See defect A in the correction sheet.
