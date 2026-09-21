@@ -26,7 +26,9 @@ Rebuilt and validated:
 - Wrist HR/HRV with NeuroKit2 and artefact rejection, checked against WESAD chest ECG: HR error 2.4 bpm, r = 0.94. Wrist RMSSD is weak (r = 0.53, +34 ms bias). Only 37% of stress windows keep usable PPG, because speech moves the wrist.
 - Evaluation: 20 subject-grouped splits plus leave-one-subject-out, nested subject-grouped tuning, Nadeau–Bengio corrected t-tests with Holm correction.
 - Baseline versus stress is confounded with time in session. The unconfounded task is stress versus all non-stress states, with per-subject z-scored physiology.
-- Cross-dataset transfer costs only 0.05–0.06 balanced accuracy on that task. PhysioNet is harder because its seated arithmetic stressors barely move EDA.
+- With WESAD and PhysioNet only, cross-dataset transfer cost 0.05–0.06 balanced accuracy on that task. PhysioNet is harder because its seated arithmetic stressors barely move EDA.
+- Leave-one-dataset-out over five datasets (`outputs/tables/jbhi_v2/leave_one_dataset_out_summary.csv`, physiology features) widens the gap to 0.01–0.30: PhysioNet −0.01, WESAD −0.07, Campanella −0.10, Stress-Predict −0.10, UBFC-Phys −0.30. UBFC-Phys keeps AUROC 0.928 while balanced accuracy drops to 0.579, so ranking survives but the decision threshold does not transfer. With HR/HRV/EDA features only, the UBFC-Phys gap shrinks to −0.09 (0.877 to 0.79), which points at a non-cardiac, non-EDA feature (likely skin temperature; untested).
+- The advisor PDF (`~/Desktop/JBHI_revision_report_for_Dr_Pan.pdf`) and `docs/advisor_correction_sheet.md` predate the five-dataset results and still describe the two-dataset test.
 - The model is not just detecting movement: physiology alone reaches 0.80 versus 0.83 with all modalities.
 - CORAL, MMD and DANN do not beat source-only training. Few-shot personalisation reaches 0.85–0.95.
 - Leave-one-dataset-out now covers five datasets (commit `53eaf0e`).
@@ -37,7 +39,7 @@ Open decisions waiting on the advisor: scope (drop or keep EPM-E4 and the exerci
 
 The evidence report checked 20 reading-list claims against full text: 8 supported, 7 overstated, 3 misattributed, 2 contradicted. Points that matter for this paper:
 - Cite Vos et al. (2023) for small datasets, weak validation practice and binary labels, and Schmidt et al. (2019) for the feature inventory, the activity confound and the leave-one-subject-out recommendation.
-- Prajod et al. (2024, ICMI) found stressor type drives cross-dataset transfer, but their only failing pair was chest ECG and differed in stress intensity. Our own result (transfer costs 0.05–0.06 once labels and features are fixed; PhysioNet is simply harder) is a direct counterpoint worth making in the paper.
+- Prajod et al. (2024, ICMI) found stressor type drives cross-dataset transfer, but their only failing pair was chest ECG and differed in stress intensity. Our five-dataset result is a counterpoint worth making in the paper: once labels and features are fixed, the gap is small for most datasets, and the largest one (UBFC-Phys) is a threshold shift with ranking intact.
 - The Nurse dataset's labels are model-generated and nurse-confirmed, with no validated non-stress class. Do not use it as a clean test set.
 - LifeSnaps has no depression measure and only Fitbit aggregates.
 - Khan et al. (2025) dementia-agitation E4 dataset: cite in related work only (1-minute windows won, trees beat deep models, window-level folds likely leak). Not a training dataset.
