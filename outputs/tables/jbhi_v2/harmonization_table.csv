@@ -1,4 +1,9 @@
 Dataset,Original Label,Harmonized Label,Number of Subjects,Number of Windows,n_windows_purity_ge_0_8
+Campanella2024,Backward subtraction (first 2.5 min),Stress,29,116,116
+Campanella2024,Baseline (3 min rest),Baseline,29,116,116
+Campanella2024,Lego with countdown,Manual task,29,87,87
+Campanella2024,Lego with instructions,Manual task,29,174,174
+Campanella2024,Lego without instructions,Manual task,29,435,435
 EPM-E4,ANGER,Anger,33,33,33
 EPM-E4,FEAR,Fear,33,394,394
 EPM-E4,HAPPINESS,Happiness,33,297,297

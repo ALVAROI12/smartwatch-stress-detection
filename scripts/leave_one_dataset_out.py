@@ -33,13 +33,17 @@ def main() -> None:
     args = parser.parse_args()
 
     df = pd.read_csv(args.input)
+    physiology = [c for c in df.columns if c not in META and c.startswith(("hr_", "hrv_", "eda_", "temp_"))]
+    feature_sets = {"physiology": physiology, "hr_hrv_eda": [c for c in physiology if not c.startswith("temp_")]}
+    # Per-subject scaling uses every window of that person's stress-protocol recording (label-free), including
+    # states that are not evaluated; separate exercise sessions are left out so they do not shift the reference.
+    df = df[~df["harmonized_label"].isin(["Aerobic", "Anaerobic"])]
+    grouped = df.groupby("subject_uid")[physiology]
+    df[physiology] = (df[physiology] - grouped.transform("mean")) / grouped.transform("std").replace(0, 1)
     df = df[df["harmonized_label"].isin(NON_STRESS + ["Stress"])]
     datasets = [d for d, g in df.groupby("dataset") if (g["harmonized_label"] == "Stress").any()]
     df = df[df["dataset"].isin(datasets)].reset_index(drop=True)
-    physiology = [c for c in df.columns if c not in META and c.startswith(("hr_", "hrv_", "eda_", "temp_"))]
-    feature_sets = {"physiology": physiology, "hr_hrv_eda": [c for c in physiology if not c.startswith("temp_")]}
-    grouped = df.groupby("subject_uid")[physiology]
-    z = (df[physiology] - grouped.transform("mean")) / grouped.transform("std").replace(0, 1)
+    z = df[physiology]
     y = (df["harmonized_label"] == "Stress").to_numpy(int)
     print(df.groupby("dataset").agg(subjects=("subject_uid", "nunique"), windows=("label", "size"),
                                     stress_windows=("harmonized_label", lambda s: int((s == "Stress").sum()))).to_string())

@@ -266,7 +266,48 @@ def extract_ubfc(root: Path) -> list[dict]:
     return rows
 
 
-EXTRACTORS = {"WESAD": extract_wesad, "PhysioNet": extract_physionet, "EPM-E4": extract_epm,
+# Campanella et al. 2024 (Data in Brief, CC BY): no per-subject markers exist, so stages follow the published schedule
+# from recording start. Wrist movement confirms the 3-min baseline and a still period from minute 27, but shows the
+# 2-min breaks starting about a minute late, so breaks are not labelled and task windows keep a 1-min guard.
+# The authors label every task as stress. Here only the seated subtraction counts as Stress: it raises EDA in 29/29
+# subjects and heart rate by ~5 bpm with still wrists, whereas the Lego tasks show no heart-rate rise and lose
+# 50-70% of PPG windows to hand movement. Lego windows are kept as "Manual task" (used for per-subject scaling only).
+CAMPANELLA_SEGMENTS = [(15, 165, "Baseline (3 min rest)", "Baseline"), (240, 720, "Lego without instructions", "Manual task"),
+                       (960, 1170, "Lego with instructions", "Manual task"), (1380, 1500, "Lego with countdown", "Manual task"),
+                       (1650, 1800, "Backward subtraction (first 2.5 min)", "Stress")]
+
+
+def load_headerless_e4(path: Path, fs: int) -> np.ndarray:
+    """This release strips the E4 header rows from some files and keeps them in others.
+
+    EDA values >= 1 uS were exported through a European-locale spreadsheet, which turned 1.038145 into
+    "1.038.145". E4 EDA always has six decimals, so a multi-dot token is its digits / 1e6 (checked: the
+    repaired signals are continuous, no 0.25 s jump above 1 uS in any subject).
+    """
+    text = pd.read_csv(path, header=None, dtype=str)
+    mangled = text.apply(lambda col: col.str.count(r"\.") > 1)
+    data = text.where(~mangled, text.apply(lambda col: col.str.replace(".", "", regex=False))).astype(float).to_numpy()
+    data = np.where(mangled.to_numpy(), data / 1e6, data)
+    if data[0, 0] > 1e9:  # unix start time
+        data = data[1:]
+    if np.all(data[0] == fs):  # sampling-rate row
+        data = data[1:]
+    return data
+
+
+def extract_campanella(root: Path) -> list[dict]:
+    rows = []
+    for folder in sorted((root / "Campanella2024").glob("subject_*")):
+        signals = {k: load_headerless_e4(folder / f"{k}.csv", FS[k]) for k in FS}
+        signals = {k: (v if k == "ACC" else v.ravel()) for k, v in signals.items()}
+        rows += windows_for_recording(signals, [tuple(map(float, seg[:2])) + seg[2:] for seg in CAMPANELLA_SEGMENTS],
+                                      {"dataset": "Campanella2024", "subject_id": folder.name,
+                                       "subject_uid": f"Campanella2024:{folder.name}"})
+    print("  Campanella2024", flush=True)
+    return rows
+
+
+EXTRACTORS = {"Campanella2024": extract_campanella, "WESAD": extract_wesad, "PhysioNet": extract_physionet, "EPM-E4": extract_epm,
               "Stress-Predict": extract_stress_predict, "UBFC-Phys": extract_ubfc}
 
 
