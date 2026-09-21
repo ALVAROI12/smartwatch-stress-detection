@@ -1,0 +1,19 @@
+variant,setting,bal_acc,auroc,stress_recall
+"1 xgboost, all physiology (as before)",WESAD->PhysioNet,0.7057444486174358,0.7992963945354677,56.30252100840336
+"1 xgboost, all physiology (as before)",PhysioNet->WESAD,0.8389605894863884,0.9411637682402672,73.31189710610933
+"1 xgboost, all physiology (as before)",pooled_unseen,0.8507244963325264,0.9303035228193839,79.38292067268728
+2 + missingness cue removed,WESAD->PhysioNet,0.7033120510774142,0.7944785456081874,57.14285714285714
+2 + missingness cue removed,PhysioNet->WESAD,0.8130093445779853,0.9380045376963057,67.84565916398714
+2 + missingness cue removed,pooled_unseen,0.8512802203341223,0.9294004182294093,79.99276200523475
+3 + modality-balanced fusion EDA|cardiac|temp,WESAD->PhysioNet,0.6454597202009296,0.7512880850664287,39.91596638655462
+3 + modality-balanced fusion EDA|cardiac|temp,PhysioNet->WESAD,0.727577006244509,0.9078025303425161,49.839228295819936
+3 + modality-balanced fusion EDA|cardiac|temp,pooled_unseen,0.8348088804778768,0.9223972855529983,76.69753338761211
+4 modality-balanced fusion EDA|cardiac (no temp),WESAD->PhysioNet,0.6965664757523121,0.8023860382141683,49.159663865546214
+4 modality-balanced fusion EDA|cardiac (no temp),PhysioNet->WESAD,0.8254199735547556,0.9509461422186198,69.13183279742765
+4 modality-balanced fusion EDA|cardiac (no temp),pooled_unseen,0.8526963411853983,0.9312977094156165,80.49842560818202
+5 monotonic physiology constraints,WESAD->PhysioNet,0.7113779869489696,0.7946105816628326,59.66386554621849
+5 monotonic physiology constraints,PhysioNet->WESAD,0.8258533324261885,0.9280032657214612,72.9903536977492
+5 monotonic physiology constraints,pooled_unseen,0.8514173321416323,0.927552822318589,80.71914865375973
+6 fusion EDA|cardiac + monotonic,WESAD->PhysioNet,0.7067567250363833,0.8008133420966151,53.78151260504202
+6 fusion EDA|cardiac + monotonic,PhysioNet->WESAD,0.8685828129575781,0.9554927127673736,80.06430868167203
+6 fusion EDA|cardiac + monotonic,pooled_unseen,0.8541478285458769,0.9302346847620082,82.04154119929301
