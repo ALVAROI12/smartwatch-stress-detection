@@ -1,0 +1,5 @@
+features,setting,auroc_stress_vs_baseline,auroc_stress_vs_later_non_stress,pct_later_non_stress_called_stress,pct_baseline_called_stress
+raw,WESAD->PhysioNet,0.641,0.734,20.83,36.62
+raw,PhysioNet->WESAD,0.602,0.592,55.662,49.904
+personal_baseline_delta,WESAD->PhysioNet,0.8,0.662,50.998,26.761
+personal_baseline_delta,PhysioNet->WESAD,0.881,0.706,84.645,61.42
