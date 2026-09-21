@@ -33,7 +33,7 @@ Rebuilt and validated:
 - `run_jbhi_experiments.py` must be run on the three-dataset table (WESAD, PhysioNet, EPM-E4: `harmonized_windows_v2_three_datasets_fixed.csv`), matching its committed results; on all six datasets its tasks change and it takes hours. `harmonization_table.csv` covers all six datasets, so regenerate it from the full table. That loss is mostly ranking: a best-possible threshold recovers at most 0.04, except 0.08 on UBFC-Phys. A label-free cut matching the source stress rate is not a general fix (it hurts Campanella, 0.821 to 0.733). HR/HRV/EDA is the defensible main feature set.
 - The advisor PDF (`~/Desktop/JBHI_revision_report_for_Dr_Pan.pdf`) and `docs/advisor_correction_sheet.md` predate the five-dataset results and still describe the two-dataset test.
 - The model is not just detecting movement: physiology alone reaches 0.80 versus 0.83 with all modalities.
-- CORAL, MMD and DANN do not beat source-only training. Few-shot personalisation reaches 0.85–0.95.
+- CORAL, MMD and DANN do not beat source-only training. Few-shot personalisation reaches 0.85–0.96 with per-subject z-scoring, but only 0.58 without it (physiology features, WESAD to PhysioNet); rerun on fixed labels 2026-09-21. Unsupervised DA in the hard direction: 0.54–0.66.
 - Leave-one-dataset-out now covers five datasets (commit `53eaf0e`).
 
 Open decisions waiting on the advisor: scope (drop or keep EPM-E4 and the exercise classes), the method contribution (candidate problem: detecting mild stress), a thesis correction note, labelling assumptions, more data, and compute.
