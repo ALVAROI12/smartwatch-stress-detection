@@ -1,7 +1,7 @@
 original_label,windows,pct_called_stress,self_report_rise
 Subtract,1,100.0,1.0
-TMCT,198,56.57,2.63
+TMCT,192,56.77,2.49
 Stroop,39,53.85,0.67
-Baseline,179,18.99,0.0
-First Rest,654,16.97,-0.58
-Second Rest,599,12.02,-0.65
+Baseline,174,19.54,0.0
+First Rest,621,16.59,-0.56
+Second Rest,572,11.89,-0.68

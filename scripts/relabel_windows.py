@@ -30,7 +30,9 @@ PHYSIONET_DIR = (
 EPM_SLICES = "EPM-E4/empatica_wearable_data/preprocessed/unclean-signals/empatica_slices/0.0078125"
 EPM_RAW = "EPM-E4/empatica_wearable_data/raw"
 EPM_TZ = ZoneInfo("Europe/Madrid")  # slice timestamps are local time; E4 start is unix UTC
-BASELINE_SEC = 180  # published protocol: 3-minute baseline in both versions
+# v1 documents a 3-minute baseline; v2 has no baseline start mark or duration (Hongn et al. 2025), so 180 s before
+# the first tag is our choice, matching v1. Every v2 session has at least 229 s before its first tag.
+BASELINE_SEC = 180
 
 # Tag indices follow the dataset authors' convention: T[0] = recording start, T[1:] = tags.csv rows.
 # Stressor spans are the ones the authors shade in Wearable_Dataset.ipynb; rest spans lie between them.
@@ -43,8 +45,13 @@ STAGE_TO_HARMONIZED = {"Baseline": "Baseline", "First Rest": "Rest", "Second Res
 EPM_TO_HARMONIZED = {"FEAR": "Fear", "ANGER": "Anger", "SADNESS": "Sadness", "HAPPINESS": "Happiness"}
 
 
-def physionet_stress_intervals(session_dir: Path) -> list[tuple[float, float, str]]:
-    """Return (start_s, end_s, stage) relative to recording start for one STRESS session."""
+def physionet_stress_intervals(session_dir: Path, baseline_sec: float = BASELINE_SEC,
+                               rest_second_half: bool = False) -> list[tuple[float, float, str]]:
+    """Return (start_s, end_s, stage) relative to recording start for one STRESS session.
+
+    rest_second_half keeps only the second half of First/Second Rest, as the dataset authors did "to minimize the
+    influence of any residual stress effects" (Hongn et al. 2025, Sci Data). Off by default; used as a sensitivity run.
+    """
     with open(session_dir / "EDA.csv") as handle:
         start = pd.to_datetime(handle.readline().strip())
         n_samples = sum(1 for _ in handle) - 1  # minus the sampling-rate row
@@ -53,17 +60,19 @@ def physionet_stress_intervals(session_dir: Path) -> list[tuple[float, float, st
         tags = pd.to_datetime(pd.read_csv(session_dir / "tags.csv", header=None)[0])
     except pd.errors.EmptyDataError:
         # f14_a: authors note this file holds only the baseline (Bluetooth dropped before task 1).
-        return [(max(0.0, duration - BASELINE_SEC), duration, "Baseline")]
+        return [(max(0.0, duration - baseline_sec), duration, "Baseline")]
     t = [0.0] + [(tag - start).total_seconds() for tag in tags]
     is_v1 = session_dir.name.startswith("S")
     expected = 14 if is_v1 else 10
     if len(t) != expected:
         raise ValueError(f"{session_dir.name}: expected {expected - 1} tags, found {len(t) - 1}")
     intervals = [(t[i], t[j], stage) for (i, j), stage in (STAGES_V1 if is_v1 else STAGES_V2).items()]
+    if rest_second_half:
+        intervals = [((a + b) / 2 if stage.endswith("Rest") else a, b, stage) for a, b, stage in intervals]
     if not is_v1 and not session_dir.name.endswith("_b"):
-        # ponytail: v2 has no explicit baseline marks; assume the 3 min before the first tag.
+        # ponytail: v2 has no explicit baseline marks; take baseline_sec before the first tag.
         # Replace with exact marks if the dataset authors can supply them.
-        intervals.append((max(0.0, t[1] - BASELINE_SEC), t[1], "Baseline"))
+        intervals.append((max(0.0, t[1] - baseline_sec), t[1], "Baseline"))
     return intervals
 
 

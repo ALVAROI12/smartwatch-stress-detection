@@ -18,6 +18,7 @@ from __future__ import annotations
 import argparse
 import pickle
 import warnings
+from functools import partial
 from pathlib import Path
 
 import neurokit2 as nk
@@ -25,8 +26,8 @@ import numpy as np
 import pandas as pd
 from scipy import signal
 
-from relabel_windows import (EPM_RAW, EPM_TO_HARMONIZED, PHYSIONET_DIR, STAGE_TO_HARMONIZED, epm_intervals,
-                             physionet_stress_intervals)
+from relabel_windows import (BASELINE_SEC, EPM_RAW, EPM_TO_HARMONIZED, PHYSIONET_DIR, STAGE_TO_HARMONIZED,
+                             epm_intervals, physionet_stress_intervals)
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 WINDOW, STEP = 60.0, 30.0
@@ -36,6 +37,8 @@ WESAD_LABELS = {1: "Baseline", 2: "Stress", 3: "Amusement", 4: "Meditation"}
 # data_constraints.txt: S02 STRESS files contain duplicated samples from these rows on.
 S02_STRESS_VALID_ROWS = {"ACC": 49545, "BVP": 99091, "EDA": 6195, "TEMP": 6195}
 NO_PPG_TEMP = {("STRESS", "f07")}  # protection dock left on: only EDA and ACC are valid
+# Hongn et al. 2025 (Sci Data) discarded this stress record for "bad fit of the wristband"; not in data_constraints.txt.
+PHYSIONET_EXCLUDED = {("STRESS", "f13")}
 
 
 def clean_beats(bvp: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
@@ -162,16 +165,17 @@ def extract_wesad(root: Path) -> list[dict]:
     return rows
 
 
-def extract_physionet(root: Path) -> list[dict]:
+def extract_physionet(root: Path, **interval_options) -> list[dict]:
     rows = []
     for session in ("STRESS", "AEROBIC", "ANAEROBIC"):
         for folder in sorted((root / PHYSIONET_DIR / session).iterdir()):
-            if not (folder / "BVP.csv").exists():
-                continue
             sid = folder.name
+            if not (folder / "BVP.csv").exists() or (session, sid.removesuffix("_a").removesuffix("_b")) in PHYSIONET_EXCLUDED:
+                continue
             signals = load_e4(folder, S02_STRESS_VALID_ROWS if (session, sid) == ("STRESS", "S02") else None)
             if session == "STRESS":
-                segments = [(a, b, stage, STAGE_TO_HARMONIZED[stage]) for a, b, stage in physionet_stress_intervals(folder)]
+                segments = [(a, b, stage, STAGE_TO_HARMONIZED[stage])
+                            for a, b, stage in physionet_stress_intervals(folder, **interval_options)]
             else:  # ponytail: exercise sessions kept whole (warm-up/cool-down included); stage them if Aerobic becomes a headline class
                 duration = len(signals["EDA"]) / FS["EDA"]
                 segments = [(0.0, duration, f"{session} session (whole recording)", session.capitalize())]
@@ -203,26 +207,45 @@ STRESS_PREDICT_STAGES = {"Baseline/Questionniare": ("Baseline (with questionnair
                          "Interview": ("TSST interview", "Stress"), "Hyperventilation": ("Hyperventilation", "Hyperventilation"),
                          "Relax": ("Relax", "Rest"), "Relax/Baseline": ("Relax", "Rest")}  # Consent and final questionnaire are skipped
 STRESS_PREDICT_TZ = "Europe/Dublin"  # time log is local wall-clock at minute resolution; E4 files are unix UTC
+# Iqbal et al. 2022 removed one participant because "the data collection protocol was not followed properly";
+# S01 is the one missing from their processed labels, and its log has the baseline after the Stroop test.
+STRESS_PREDICT_EXCLUDED = {"S01"}
+# E4 tags mark task starts and ends (S05-S35: Stroop start/end, Interview start/end, HPT start/end, final). The
+# hand-written log is minute-resolution and was 92-163 s off where the tag order confirms the right tag.
+STRESS_PREDICT_SNAP_SEC = 180
 
 
 def stress_predict_segments(log_row: pd.Series, header: pd.Series, date, e4_start: float, tags: np.ndarray):
-    """Stage boundaries from Time_logs.xlsx, snapped to the nearest E4 button tag when one lies within 90 s."""
-    def to_rel(clock) -> float:
+    """Stage boundaries from Time_logs.xlsx, snapped to the nearest E4 button tag within STRESS_PREDICT_SNAP_SEC.
+
+    A task boundary with no tag that close stays a minute-resolution log time that may be minutes off (S06 Interview
+    start: 256 s from its tag; S17 Interview end, S18 and S30 Stroop start: tag missing). That task and any stage
+    sharing the boundary are dropped rather than labelled from the log.
+    """
+    def to_abs(clock) -> float:
         stamp = pd.Timestamp.combine(pd.Timestamp(date).date(), clock).tz_localize(STRESS_PREDICT_TZ).timestamp()
         if stamp < e4_start - 1800:  # the log is a 12-hour clock without AM/PM: "01:11" in an afternoon session is 13:11
             stamp += 12 * 3600
-        if len(tags) and np.abs(tags - stamp).min() <= 90:
-            stamp = tags[np.abs(tags - stamp).argmin()]
-        return stamp - e4_start
+        return stamp
 
-    segments = []
+    def snap(stamp: float) -> tuple[float, bool]:
+        if len(tags) and np.abs(tags - stamp).min() <= STRESS_PREDICT_SNAP_SEC:
+            return tags[np.abs(tags - stamp).argmin()], True
+        return stamp, False
+
+    stages, unresolved = [], set()
     for col in range(4, len(header) - 2, 2):
         stage = header.iloc[col]
         if stage not in STRESS_PREDICT_STAGES or pd.isna(log_row.iloc[col]) or pd.isna(log_row.iloc[col + 1]):
             continue
         original, harmonized = STRESS_PREDICT_STAGES[stage]
-        segments.append((to_rel(log_row.iloc[col]) + 15, to_rel(log_row.iloc[col + 1]) - 15, original, harmonized))  # 15 s guard
-    return segments
+        logged = to_abs(log_row.iloc[col]), to_abs(log_row.iloc[col + 1])
+        (start, start_ok), (end, end_ok) = snap(logged[0]), snap(logged[1])
+        if harmonized in ("Stress", "Hyperventilation"):
+            unresolved |= {t for t, ok in zip(logged, (start_ok, end_ok)) if not ok}
+        stages.append((logged, start, end, original, harmonized))
+    return [(start - e4_start + 15, end - e4_start - 15, original, harmonized)  # 15 s guard
+            for logged, start, end, original, harmonized in stages if not unresolved & set(logged)]
 
 
 def extract_stress_predict(root: Path) -> list[dict]:
@@ -233,7 +256,7 @@ def extract_stress_predict(root: Path) -> list[dict]:
     for _, log_row in log.iloc[2:].iterrows():
         sid = str(log_row.iloc[0])
         folder = base / "Raw_data" / sid
-        if not (folder / "BVP.csv").exists():
+        if not (folder / "BVP.csv").exists() or sid in STRESS_PREDICT_EXCLUDED:
             continue
         with open(folder / "EDA.csv") as handle:
             e4_start = float(handle.readline().split(",")[0])
@@ -271,10 +294,16 @@ def extract_ubfc(root: Path) -> list[dict]:
 # 2-min breaks starting about a minute late, so breaks are not labelled and task windows keep a 1-min guard.
 # The authors label every task as stress. Here only the seated subtraction counts as Stress: it raises EDA in 29/29
 # subjects and heart rate by ~5 bpm with still wrists, whereas the Lego tasks show no heart-rate rise and lose
-# 50-70% of PPG windows to hand movement. Lego windows are kept as "Manual task" (used for per-subject scaling only).
+# 50-70% of PPG windows to hand movement. Lego windows are kept as "Manual task" (used for per-subject scaling only);
+# "Lego with countdown" also has participants count backwards from 180, so it carries some cognitive load.
+# The paper describes no transition time, so the countdown span ends 30 s before its nominal end (1500 s).
 CAMPANELLA_SEGMENTS = [(15, 165, "Baseline (3 min rest)", "Baseline"), (240, 720, "Lego without instructions", "Manual task"),
-                       (960, 1170, "Lego with instructions", "Manual task"), (1380, 1500, "Lego with countdown", "Manual task"),
-                       (1650, 1800, "Backward subtraction (first 2.5 min)", "Stress")]
+                       (960, 1170, "Lego with instructions", "Manual task"), (1380, 1470, "Lego with countdown", "Manual task")]
+# The subtraction has "no time constraint" (Campanella et al. 2024, Sec. 4.3); after it come a 2-min rest, a 1-min
+# presentation and a 2-min rest. ponytail: its end is estimated as recording end minus that 300 s tail, which assumes the
+# recording stops when the protocol does (implies 134-174 s tasks for subjects 03, 05, 22, 23, 24); an ACC-based
+# per-subject end would be more precise if a reviewer asks.
+CAMPANELLA_SUBTRACTION = (1650, 1800, 300, "Backward subtraction (up to 2.5 min)")
 
 
 def load_headerless_e4(path: Path, fs: int) -> np.ndarray:
@@ -300,7 +329,10 @@ def extract_campanella(root: Path) -> list[dict]:
     for folder in sorted((root / "Campanella2024").glob("subject_*")):
         signals = {k: load_headerless_e4(folder / f"{k}.csv", FS[k]) for k in FS}
         signals = {k: (v if k == "ACC" else v.ravel()) for k, v in signals.items()}
-        rows += windows_for_recording(signals, [tuple(map(float, seg[:2])) + seg[2:] for seg in CAMPANELLA_SEGMENTS],
+        start, latest_end, tail, original = CAMPANELLA_SUBTRACTION
+        end = min(latest_end, len(signals["EDA"]) / FS["EDA"] - tail - 15)  # 15 s guard before the post-task rest
+        segments = [tuple(map(float, seg[:2])) + seg[2:] for seg in CAMPANELLA_SEGMENTS] + [(start, end, original, "Stress")]
+        rows += windows_for_recording(signals, segments,
                                       {"dataset": "Campanella2024", "subject_id": folder.name,
                                        "subject_uid": f"Campanella2024:{folder.name}"})
     print("  Campanella2024", flush=True)
@@ -317,7 +349,13 @@ def main() -> None:
     parser.add_argument("--output", type=Path, default=None)
     parser.add_argument("--datasets", nargs="+", choices=list(EXTRACTORS), default=list(EXTRACTORS),
                         help="Extract only these; rows of other datasets already in the output file are kept.")
+    parser.add_argument("--physionet-baseline-sec", type=float, default=BASELINE_SEC,
+                        help="Sensitivity run: v2 baseline length before the first tag.")
+    parser.add_argument("--physionet-rest-second-half", action="store_true",
+                        help="Sensitivity run: keep only the second half of each PhysioNet rest period.")
     args = parser.parse_args()
+    EXTRACTORS["PhysioNet"] = partial(extract_physionet, baseline_sec=args.physionet_baseline_sec,
+                                      rest_second_half=args.physionet_rest_second_half)
     output = args.output or args.data_root / "data" / "processed" / "combined" / "harmonized_windows_v2.csv"
     df = pd.DataFrame([row for name in args.datasets for row in EXTRACTORS[name](args.data_root)])
     df["label"] = df["harmonized_label"]
