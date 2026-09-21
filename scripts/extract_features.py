@@ -66,8 +66,16 @@ def cardiac_features(beat_t: np.ndarray, ibi: np.ndarray, start: float, end: flo
     return out
 
 
-def other_features(bvp: np.ndarray, eda: np.ndarray, temp: np.ndarray, acc: np.ndarray) -> dict[str, float]:
-    """Ported unchanged from notebook 03 (cells 2-5), minus the peak-based HR/HRV block."""
+TEMP_FEATURES = ("temp_mean", "temp_std", "temp_min", "temp_max", "temp_range", "temp_slope")
+ACC_FEATURES = ("acc_mag_mean", "acc_mag_std", "acc_mag_min", "acc_mag_max", "acc_x_mean", "acc_y_mean", "acc_z_mean",
+                "acc_x_std", "acc_y_std", "acc_z_std", "acc_sma", "acc_energy", "acc_entropy")
+
+
+def other_features(bvp: np.ndarray, eda: np.ndarray, temp: np.ndarray | None, acc: np.ndarray | None) -> dict[str, float]:
+    """Ported unchanged from notebook 03 (cells 2-5), minus the peak-based HR/HRV block.
+
+    temp / acc may be None for datasets that did not release them; their features are then NaN.
+    """
     f = {"bvp_mean": bvp.mean(), "bvp_std": bvp.std(), "bvp_min": bvp.min(), "bvp_max": bvp.max()}
     f["bvp_range"] = f["bvp_max"] - f["bvp_min"]
 
@@ -81,10 +89,15 @@ def other_features(bvp: np.ndarray, eda: np.ndarray, temp: np.ndarray, acc: np.n
     f |= {"eda_tonic_mean": tonic.mean(), "eda_phasic_mean": np.abs(eda - tonic).mean(),
           "eda_slope": (eda[-1] - eda[0]) / len(eda) * FS["EDA"]}
 
-    f |= {"temp_mean": temp.mean(), "temp_std": temp.std(), "temp_min": temp.min(), "temp_max": temp.max()}
-    f["temp_range"] = f["temp_max"] - f["temp_min"]
-    f["temp_slope"] = (temp[-1] - temp[0]) / len(temp) * FS["TEMP"]
+    if temp is None:
+        f |= dict.fromkeys(TEMP_FEATURES, np.nan)
+    else:
+        f |= {"temp_mean": temp.mean(), "temp_std": temp.std(), "temp_min": temp.min(), "temp_max": temp.max()}
+        f["temp_range"] = f["temp_max"] - f["temp_min"]
+        f["temp_slope"] = (temp[-1] - temp[0]) / len(temp) * FS["TEMP"]
 
+    if acc is None:
+        return f | dict.fromkeys(ACC_FEATURES, np.nan)
     x, y, z = acc[:, 0], acc[:, 1], acc[:, 2]
     mag = np.sqrt(x ** 2 + y ** 2 + z ** 2)
     hist, _ = np.histogram(mag, bins=10, density=True)
@@ -101,13 +114,13 @@ def windows_for_recording(signals: dict[str, np.ndarray], segments: list[tuple[f
                           meta: dict, ppg_valid: bool = True) -> list[dict]:
     """segments: (start_s, end_s, original_label, harmonized_label). Windows never cross a segment edge."""
     beat_t, ibi = clean_beats(signals["BVP"]) if ppg_valid else (np.array([]), np.array([]))
-    duration = min(len(signals[k]) / FS[k] for k in FS)
+    duration = min(len(signals[k]) / FS[k] for k in signals)
     rows = []
     for seg_start, seg_end, original, harmonized in segments:
         start = max(0.0, seg_start)
         while start + WINDOW <= min(seg_end, duration):
-            cut = {k: signals[k][int(start * FS[k]): int((start + WINDOW) * FS[k])] for k in FS}
-            row = other_features(cut["BVP"], cut["EDA"], cut["TEMP"], cut["ACC"])
+            cut = {k: signals[k][int(start * FS[k]): int((start + WINDOW) * FS[k])] for k in signals}
+            row = other_features(cut["BVP"], cut["EDA"], cut.get("TEMP"), cut.get("ACC"))
             row |= cardiac_features(beat_t, ibi, start, start + WINDOW)
             if not ppg_valid:
                 row |= {k: np.nan for k in row if k.startswith(("bvp_", "temp_"))}
@@ -186,16 +199,91 @@ def extract_epm(root: Path) -> list[dict]:
     return rows
 
 
+STRESS_PREDICT_STAGES = {"Baseline/Questionniare": ("Baseline (with questionnaire)", "Baseline"), "Stroop Test": ("Stroop", "Stress"),
+                         "Interview": ("TSST interview", "Stress"), "Hyperventilation": ("Hyperventilation", "Hyperventilation"),
+                         "Relax": ("Relax", "Rest"), "Relax/Baseline": ("Relax", "Rest")}  # Consent and final questionnaire are skipped
+STRESS_PREDICT_TZ = "Europe/Dublin"  # time log is local wall-clock at minute resolution; E4 files are unix UTC
+
+
+def stress_predict_segments(log_row: pd.Series, header: pd.Series, date, e4_start: float, tags: np.ndarray):
+    """Stage boundaries from Time_logs.xlsx, snapped to the nearest E4 button tag when one lies within 90 s."""
+    def to_rel(clock) -> float:
+        stamp = pd.Timestamp.combine(pd.Timestamp(date).date(), clock).tz_localize(STRESS_PREDICT_TZ).timestamp()
+        if stamp < e4_start - 1800:  # the log is a 12-hour clock without AM/PM: "01:11" in an afternoon session is 13:11
+            stamp += 12 * 3600
+        if len(tags) and np.abs(tags - stamp).min() <= 90:
+            stamp = tags[np.abs(tags - stamp).argmin()]
+        return stamp - e4_start
+
+    segments = []
+    for col in range(4, len(header) - 2, 2):
+        stage = header.iloc[col]
+        if stage not in STRESS_PREDICT_STAGES or pd.isna(log_row.iloc[col]) or pd.isna(log_row.iloc[col + 1]):
+            continue
+        original, harmonized = STRESS_PREDICT_STAGES[stage]
+        segments.append((to_rel(log_row.iloc[col]) + 15, to_rel(log_row.iloc[col + 1]) - 15, original, harmonized))  # 15 s guard
+    return segments
+
+
+def extract_stress_predict(root: Path) -> list[dict]:
+    base = root / "Stress-Predict"
+    log = pd.read_excel(base / "Processed_data" / "Time_logs.xlsx", header=None)
+    header = log.iloc[0].ffill()
+    rows = []
+    for _, log_row in log.iloc[2:].iterrows():
+        sid = str(log_row.iloc[0])
+        folder = base / "Raw_data" / sid
+        if not (folder / "BVP.csv").exists():
+            continue
+        with open(folder / "EDA.csv") as handle:
+            e4_start = float(handle.readline().split(",")[0])
+        tag_file = folder / f"tags_{sid}.csv"
+        tags = pd.read_csv(tag_file, header=None)[0].to_numpy(float) if tag_file.stat().st_size else np.array([])
+        segments = stress_predict_segments(log_row, header, log_row.iloc[-1], e4_start, tags)
+        rows += windows_for_recording(load_e4(folder), segments, {"dataset": "Stress-Predict", "subject_id": sid,
+                                                                   "subject_uid": f"Stress-Predict:{sid}"})
+    print("  Stress-Predict", flush=True)
+    return rows
+
+
+def extract_ubfc(root: Path) -> list[dict]:
+    """UBFC-Phys: three separate 3-min recordings per subject (T1 rest, T2 speech, T3 arithmetic); BVP + EDA only.
+
+    The control group performed non-evaluative versions of T2/T3, so only the test group's tasks count as Stress.
+    """
+    rows = []
+    for folder in sorted((root / "UBFC-Phys").glob("s*"), key=lambda p: int(p.name[1:])):
+        sid = folder.name
+        group = (folder / f"info_{sid}.txt").read_text().split()[2]  # "test" or "ctrl"
+        for phase, original in (("T1", "T1 rest"), ("T2", "T2 speech"), ("T3", "T3 arithmetic")):
+            signals = {"BVP": pd.read_csv(folder / f"bvp_{sid}_{phase}.csv", header=None)[0].to_numpy(float),
+                       "EDA": pd.read_csv(folder / f"eda_{sid}_{phase}.csv", header=None)[0].to_numpy(float)}
+            harmonized = "Baseline" if phase == "T1" else ("Stress" if group == "test" else "Control task")
+            duration = len(signals["EDA"]) / FS["EDA"]
+            rows += windows_for_recording(signals, [(0.0, duration, f"{original} ({group} group)", harmonized)],
+                                          {"dataset": "UBFC-Phys", "subject_id": f"{sid}_{phase}", "subject_uid": f"UBFC-Phys:{sid}"})
+    print("  UBFC-Phys", flush=True)
+    return rows
+
+
+EXTRACTORS = {"WESAD": extract_wesad, "PhysioNet": extract_physionet, "EPM-E4": extract_epm,
+              "Stress-Predict": extract_stress_predict, "UBFC-Phys": extract_ubfc}
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data-root", type=Path, default=REPO_ROOT)
     parser.add_argument("--output", type=Path, default=None)
+    parser.add_argument("--datasets", nargs="+", choices=list(EXTRACTORS), default=list(EXTRACTORS),
+                        help="Extract only these; rows of other datasets already in the output file are kept.")
     args = parser.parse_args()
-    rows = extract_wesad(args.data_root) + extract_physionet(args.data_root) + extract_epm(args.data_root)
-    df = pd.DataFrame(rows)
-    df["label"] = df["harmonized_label"]
-    df.insert(0, "window_id", df.groupby(["dataset", "subject_id"]).cumcount())
     output = args.output or args.data_root / "data" / "processed" / "combined" / "harmonized_windows_v2.csv"
+    df = pd.DataFrame([row for name in args.datasets for row in EXTRACTORS[name](args.data_root)])
+    df["label"] = df["harmonized_label"]
+    if output.exists() and set(args.datasets) != set(EXTRACTORS):
+        kept = pd.read_csv(output)
+        df = pd.concat([kept[~kept["dataset"].isin(args.datasets)].drop(columns="window_id"), df], ignore_index=True)
+    df.insert(0, "window_id", df.groupby(["dataset", "subject_id"]).cumcount())
     df.to_csv(output, index=False)
     print(f"wrote {output}: {len(df)} windows, {df['subject_uid'].nunique()} subjects")
     print(df.groupby(["dataset", "harmonized_label"]).agg(

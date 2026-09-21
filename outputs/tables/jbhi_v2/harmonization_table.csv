@@ -11,6 +11,17 @@ PhysioNet,Second Rest,Rest,36,599,599
 PhysioNet,Stroop,Stress,18,39,39
 PhysioNet,Subtract,Stress,1,1,1
 PhysioNet,TMCT,Stress,36,198,198
+Stress-Predict,Baseline (with questionnaire),Baseline,35,602,602
+Stress-Predict,Hyperventilation,Hyperventilation,32,55,55
+Stress-Predict,Relax,Rest,35,1139,1139
+Stress-Predict,Stroop,Stress,35,331,331
+Stress-Predict,TSST interview,Stress,35,620,620
+UBFC-Phys,T1 rest (ctrl group),Baseline,8,40,40
+UBFC-Phys,T1 rest (test group),Baseline,11,55,55
+UBFC-Phys,T2 speech (ctrl group),Control task,8,40,40
+UBFC-Phys,T2 speech (test group),Stress,11,55,55
+UBFC-Phys,T3 arithmetic (ctrl group),Control task,8,40,40
+UBFC-Phys,T3 arithmetic (test group),Stress,11,55,55
 WESAD,amusement,Amusement,15,165,165
 WESAD,baseline,Baseline,15,566,566
 WESAD,meditation,Meditation,15,356,356
