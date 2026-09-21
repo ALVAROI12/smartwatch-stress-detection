@@ -56,3 +56,9 @@ Candidate extra E4 datasets (metadata in `sources/kaggle-candidates/`, not downl
 - Every claim about a paper needs a full-text check with a verbatim quote. The reading list is abstract-level and was wrong or overstated in 12 of 20 checked claims.
 - Label wrist-device conclusions drawn from chest or clinical ECG studies as extrapolations.
 - The `academic-research-skills` plugin is installed (`deep-research`, `academic-paper`, `academic-paper-reviewer`, `academic-pipeline`).
+
+## Resume point (2026-09-21, Mac battery died)
+
+Tuning on the fixed labels was interrupted after about 200 of 1,080 rows; `tune_baselines.py` resumes from `outputs/tables/jbhi_v2/tuned_baselines_per_split.csv`. Run from `scripts/`:
+`caffeinate -i ../.venv/bin/python tune_baselines.py --input /Users/octa/Projects/smartwatch-stress-detection/data/processed/combined/harmonized_windows_v2_three_datasets_fixed.csv --output-dir ../outputs/tables/jbhi_v2 --n-jobs 8 && ../.venv/bin/python compare_models.py --dir ../outputs/tables/jbhi_v2`
+Then update the tuned figures in `docs/make_advisor_report.py` (0.83 vs 0.80 and p = 0.13-0.38; nine-class 0.42; 0 of 48 comparisons significant), rebuild the PDF, commit it to `jbhi-revision-with-memo`, and commit the tuning tables here. The Desktop PDF dated 21 September predates the softened label-fix claim and the corrected DA range; do not send it.
