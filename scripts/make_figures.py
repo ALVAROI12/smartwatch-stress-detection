@@ -57,7 +57,7 @@ def dot_rows(ax, frame: pd.DataFrame, columns: dict[str, str], xlabel: str) -> N
 
 def leakage() -> None:
     t = pd.read_csv(TABLES / "leakage_check.csv")
-    names = ["Windows split at random\n(old thesis pipeline)", "Unseen subjects\n(subject-grouped split)"]
+    names = ["Windows split at random\n(thesis hold-out procedure)", "Unseen subjects\n(subject-grouped split)"]
     fig, ax = plt.subplots(figsize=(6.2, 3.2))
     for i, (metric, label) in enumerate((("accuracy", "Accuracy"), ("balanced_accuracy", "Balanced accuracy"))):
         color, _ = SERIES[i]
@@ -70,7 +70,7 @@ def leakage() -> None:
     ax.set_yticks(range(2), names)
     ax.invert_yaxis()
     ax.set_xlim(0, 1.05)
-    ax.set_xlabel("Six-class task, 10 repeats (mean, 95% CI)")
+    ax.set_xlabel("11-class task, corrected data (mean, 95% CI)")
     ax.legend(loc="lower center", bbox_to_anchor=(0.5, 1.0), ncol=2)
     save(fig, "fig1_window_vs_subject_split")
 

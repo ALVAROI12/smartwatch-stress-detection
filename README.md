@@ -2,7 +2,13 @@
 
 Stress detection from the Empatica E4 wristband (heart rate and HRV from wrist PPG, electrodermal activity, skin temperature), evaluated across five public datasets. The pipeline, results and literature review here form the working copy for a journal revision (IEEE JBHI).
 
-> **The numbers in earlier versions of this README were wrong.** The old headline of "94.53% accuracy, 96 subjects" came from a window-level train/test split that put the same people on both sides. On unseen subjects the same six-class model scores 49% accuracy (balanced accuracy 0.36). The old notebooks, models and figures are kept in [`legacy/`](legacy/) for reference only. Do not cite them.
+> **The numbers in earlier versions of this README were wrong.** The thesis (2026) reported a six-class model in four ways. The two headline figures were inflated:
+> - **94.53% (5-fold cross-validation):** windows from the same people were in both training and test.
+> - **93.8% (independent hold-out):** the thesis text says 15% of subjects were held out, but the notebook split windows at random.
+>
+> The thesis's own leave-one-subject-out figure, 72.0%, was a genuine subject-level test. It still ran on data with misaligned WESAD labels, whole-session PhysioNet "stress" labels and unfiltered BVP peaks. There is no like-for-like corrected six-class figure. The corrected pipeline splits the thesis classes further: emotion into anger, fear, happiness and sadness, and rest and meditation into their own classes. On that 11-class version, leave-one-subject-out gives 51% accuracy (balanced accuracy 0.35).
+>
+> The old notebooks, models and figures are kept in [`legacy/`](legacy/) for reference only. Do not cite them.
 
 ## What the pipeline does
 
@@ -32,9 +38,11 @@ All numbers come from the tables in [`outputs/tables/jbhi_v2/`](outputs/tables/j
 
 ### 1. Splitting by window instead of by subject inflates accuracy
 
-| Split (six-class task, 10 repeats) | Accuracy | Balanced accuracy |
+On the corrected data (11 classes), the thesis's hold-out procedure (a random 15% of windows) versus a true subject hold-out:
+
+| Split (11-class task, 10 repeats) | Accuracy | Balanced accuracy |
 |---|---|---|
-| Random 15% of windows (old thesis pipeline) | 0.921 | 0.807 |
+| Random 15% of windows (as in the thesis notebook) | 0.921 | 0.807 |
 | 15% of subjects held out | **0.494** | **0.355** |
 
 ![Window vs subject split](outputs/figures/jbhi_v2/fig1_window_vs_subject_split.png)
