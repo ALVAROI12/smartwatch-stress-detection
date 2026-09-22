@@ -13,7 +13,7 @@ Papers already verified in `dataset-and-claims-verification.md` were not redone:
 | 3a | Window-level split leakage (92% vs 49%) | **Already published** | Saeb et al. (2017); Bahameish et al. (2024) |
 | 3b | Baseline-order confound | **Partly anticipated** (concept stated qualitatively, never quantified on wrist stress data) | Richer et al. (2024) |
 | 3c | Missing channel posing as a domain gap | **Novel for wearable stress** (general concept exists) | Zhou et al. (2023); Mishra et al. (2020) |
-| 4a | Few-shot personalisation, 5 windows per class, 0.85–0.95 | **Partly anticipated, and at risk**: see Section 4 | Tervonen et al. (2026); Stewart et al. (2020); Akkaya (2026) |
+| 4a | Few-shot personalisation, 5 windows per class | **Partly anticipated**; survives the chronological rerun on WESAD (0.82–0.95 BA with first-in-time windows and a 30 s gap; random selection inflated it by up to 0.08). See Section 4 | Tervonen et al. (2026); Stewart et al. (2020); Akkaya (2026) |
 | 4b | Per-user few-shot calibration on an unseen dataset | **Novel as far as found** | Dahal (2026, SSRN preprint; read in full 2026-09-22: adapts with 10–30% of target-dataset subjects, not per-user labels) |
 | 5 | Wrist HR/HRV validated against chest ECG in the pipeline | **Partly anticipated**; present as a methods check | Watanabe et al. (2025); Milstein & Gordon (2020) |
 
