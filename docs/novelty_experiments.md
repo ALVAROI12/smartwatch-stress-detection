@@ -89,6 +89,54 @@ Bands: rise ≤ 1 is mild; PhysioNet moderate is 1–3 and strong > 3; WESAD mod
 
 **Reading.** On public E4 data, "mild stress" defined by self-report has no measurable detection gap. The misses (PhysioNet TMCT within recall 0.64) are not the low-rated tasks. The pilot is small (69 units, 8 strong), so it cannot exclude a modest effect. It does not support building the method contribution on self-rated intensity with these datasets. Two things would change that: a dataset with graded stressor doses within a subject, or a different definition of "mild", such as a small physiological response. The second is circular unless it is defined on data kept apart from evaluation.
 
+## 5. Per-user few-shot calibration on an unseen dataset (contribution 4b, 2026-09-22)
+
+`scripts/fewshot_unseen_dataset.py`; tables in `outputs/tables/jbhi_v2/fewshot/`.
+
+**Design.**
+- For each target dataset, XGBoost is trained on the other four datasets only. The task, the HR/HRV/EDA features and the model match leave-one-dataset-out.
+- Each target user gives k labelled windows per class (k = 1, 2, 3, 5), picked by `domain_adaptation.split_support_query`. Query windows within 60 + 30 s of a calibration window are dropped.
+- Every method is scored on the same query windows:
+  - **source_only:** the model trained on the other datasets, at threshold 0.5.
+  - **threshold:** a per-user threshold at the midpoint of the mean support score per class.
+  - **refit:** retrained with the user's windows added at 10% of total training weight, fixed in advance.
+  - **support_only:** nearest class centroid on the user's windows alone.
+- Statistics: pooled balanced accuracy per dataset, a subject-level bootstrap of the difference to source_only, and Holm correction within each configuration.
+- The query set changes with k, so compare methods within a row, not across k.
+- Campanella (4 windows per class per subject) is evaluable only at k = 1, and UBFC-Phys only up to k = 2.
+
+**Main result: whole-session z-scoring, first-in-time calibration windows.** Balanced accuracy; the refit and threshold columns give the change from source_only.
+
+| Dataset | k | source_only | refit | threshold | support_only |
+|---|---|---|---|---|---|
+| WESAD | 1 / 3 / 5 | 0.890 / 0.888 / 0.883 | +0.005 / +0.008 / +0.003 | +0.003 / +0.011 / +0.012 | 0.754 / 0.779 / 0.781 |
+| PhysioNet | 1 / 3 / 5 | 0.772 / 0.808 / 0.834 | +0.014 / 0.000 / −0.005 | −0.075 / −0.086* / −0.078 | 0.647 / 0.721 / 0.752 |
+| Stress-Predict | 1 / 3 / 5 | 0.666 / 0.679 / 0.690 | +0.016 / +0.020 / +0.021 | −0.013 / −0.004 / −0.007 | 0.561* / 0.598* / 0.604* |
+| UBFC-Phys | 1 / 2 | 0.818 / 0.788 | −0.042 / +0.015 | +0.016 / +0.045 | 0.747 / 0.758 |
+| Campanella | 1 | 0.823 | +0.043 | −0.025 | 0.923 |
+
+\* significant after Holm correction. No refit gain is significant in this configuration.
+
+**Selection of the calibration windows decides whether few-shot "works".** Taking the windows at random from the recording, with the same 30 s gap, produces the only significant refit gains:
+- With whole-session z-scoring: WESAD at k = 5, +0.03 [0.011, 0.053].
+- With raw features: WESAD at k = 2–5 (+0.05 to +0.10) and Stress-Predict at k = 2–5 (+0.03 to +0.05).
+- The WESAD user-only model reaches 0.93 with random windows vs 0.78 with first-in-time windows.
+
+With first-in-time windows none of these survive. This matches Akkaya (2026) and Tervonen et al. (2026).
+
+**Without per-subject normalisation, calibration substitutes for it.**
+- With raw features and first-in-time windows, refit adds +0.02 to +0.13 (Campanella 0.653 → 0.787, UBFC-Phys 0.597 → 0.672, WESAD 0.776 → 0.807), though none is significant.
+- On UBFC-Phys the user-only model beats source_only by 0.21 (significant).
+- Once windows are z-scored per subject, that gain is gone.
+
+**Reading.**
+- Contribution 4b is now tested, and the answer is mostly negative.
+- With correct labels and per-subject z-scoring, a few labelled windows per new user add at most about 0.02–0.04 balanced accuracy on an unseen dataset, and nothing significant.
+- A per-user threshold does not help (it significantly hurts PhysioNet).
+- The model trained on the other datasets beats the user's own few windows everywhere except Campanella (k = 1, not significant).
+- Random calibration windows produce apparent gains that disappear under a deployable, first-in-time protocol.
+- For the paper: this supports the small-transfer-cost headline (there is little left for the user to fix) and is a leakage-controlled negative result, not a method contribution. The first-in-time non-stress calibration windows are the start of Baseline, so the order confound (3b) applies here too.
+
 ## Not done
 
 - A literal rerun of Kwon's public code (github.com/RURUGURU/isohr-wearable-stress). It needs the Nurse dataset, and section 3 already answers the question that matters.
