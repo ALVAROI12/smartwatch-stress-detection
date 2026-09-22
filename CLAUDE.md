@@ -59,6 +59,10 @@ Candidate extra E4 datasets (metadata in `sources/kaggle-candidates/`, not downl
 - Label wrist-device conclusions drawn from chest or clinical ECG studies as extrapolations.
 - The `academic-research-skills` plugin is installed (`deep-research`, `academic-paper`, `academic-paper-reviewer`, `academic-pipeline`).
 
-## Pending decision
+## Novelty experiments (merged 2026-09-22, `29afa47`)
 
-Branch `jbhi-novelty-experiments` (commit `38a4569`, worktree `~/Projects/smartwatch-stress-detection-experiments`, write-up `docs/novelty_experiments.md`) holds three experiments not yet merged: non-transductive normalisation keeps the small transfer cost (raw features −0.01 to 0.05); cross-dataset models call 69.5% of PhysioNet exercise windows "stress" (external PhysioNet 0.746 to 0.583); in Kwon et al.'s WESAD + Stress-Predict setting the label fixes change transfer by at most 0.02. Merge only when the user decides.
+Write-up in `docs/novelty_experiments.md`; tables in `outputs/tables/jbhi_v2/novelty_experiments/`; new opt-in flags in `leave_one_dataset_out.py` (default output unchanged, verified).
+- Non-transductive normalisation keeps the small transfer cost: raw features −0.01 to 0.05. Causal (earlier windows only) scaling keeps it on WESAD, PhysioNet and Stress-Predict but loses about 0.10 externally on UBFC-Phys and Campanella (short recordings). Keep whole-session z-scoring as main, state it is transductive, report raw and causal as sensitivity.
+- Exercise: models trained on the other datasets call 69.5% of PhysioNet exercise windows "stress" (external PhysioNet 0.746 to 0.583, p_holm 0.011); with exercise in training only 4–6%. The small transfer cost holds for seated/lab non-stress only.
+- Kwon et al. (2026) WESAD + Stress-Predict setting: label fixes change transfer by at most 0.02 (n.s.); our pipeline beats their Stress-Predict AUROC (0.67 vs 0.56). The label audit is a correctness contribution, not the cause of the small transfer cost.
+- Still unread: AutoStress benchmark (Schreiber & Maleshkova, IEEE CAI 2026) and Dahal (2026); get them via the UTSA library.
