@@ -1,0 +1,9 @@
+dataset,stage,n_subjects,mean_delta,sd_delta,pct_rose
+PhysioNet,First Rest,36,-0.44,1.58,27.78
+PhysioNet,Opposite Opinion,36,0.88,1.85,47.22
+PhysioNet,Real Opinion,36,0.49,1.56,47.22
+PhysioNet,Second Rest,36,-0.33,1.55,25.0
+PhysioNet,Stroop,18,0.53,1.27,61.11
+PhysioNet,Subtract,36,1.18,1.99,58.33
+PhysioNet,TMCT,36,2.38,2.04,88.89
+WESAD,Stress,15,1.53,1.13,80.0

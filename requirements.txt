@@ -1,0 +1,5 @@
+-r requirements-tuning.txt
+matplotlib==3.11.2
+neurokit2==0.2.13
+torch==2.14.0
+pytest==9.1.1

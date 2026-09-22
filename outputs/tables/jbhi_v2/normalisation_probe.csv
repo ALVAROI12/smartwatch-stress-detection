@@ -1,0 +1,13 @@
+features,setting,balanced_accuracy,auroc
+raw,WESAD->PhysioNet,0.626,0.716
+raw,PhysioNet->WESAD,0.814,0.927
+raw,pooled_unseen_subjects,0.788,0.868
+whole_recording_zscore,WESAD->PhysioNet,0.685,0.776
+whole_recording_zscore,PhysioNet->WESAD,0.842,0.946
+whole_recording_zscore,pooled_unseen_subjects,0.848,0.931
+personal_baseline_delta,WESAD->PhysioNet,0.646,0.701
+personal_baseline_delta,PhysioNet->WESAD,0.647,0.725
+personal_baseline_delta,pooled_unseen_subjects,0.788,0.869
+trailing_10min_delta,WESAD->PhysioNet,0.589,0.689
+trailing_10min_delta,PhysioNet->WESAD,0.719,0.858
+trailing_10min_delta,pooled_unseen_subjects,0.813,0.892

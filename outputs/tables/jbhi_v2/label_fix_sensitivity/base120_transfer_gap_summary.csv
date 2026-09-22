@@ -1,0 +1,7 @@
+test_dataset,trained_on,balanced_accuracy_mean,balanced_accuracy_std,auroc_mean,auroc_std
+PhysioNet,PhysioNet (other subjects),0.758,0.05,0.85,0.04
+PhysioNet,WESAD only,0.702,0.072,0.785,0.062
+PhysioNet,both datasets,0.745,0.054,0.848,0.042
+WESAD,WESAD (other subjects),0.9,0.069,0.973,0.022
+WESAD,PhysioNet only,0.844,0.029,0.94,0.021
+WESAD,both datasets,0.938,0.032,0.985,0.011

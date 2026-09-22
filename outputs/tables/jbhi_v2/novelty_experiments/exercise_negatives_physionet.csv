@@ -1,0 +1,13 @@
+features,test_dataset,trained_on,metric,with_exercise,without_exercise,diff,t,p,n_splits,p_holm
+physiology,PhysioNet,within_dataset,balanced_accuracy,0.8176,0.7604,0.0572,1.4605,0.1605,20,0.689
+physiology,PhysioNet,within_dataset,auroc,0.9376,0.8527,0.0848,3.3846,0.0031,20,0.028
+physiology,PhysioNet,other_datasets_only,balanced_accuracy,0.5654,0.7352,-0.1699,-4.5131,0.0002,20,0.0029
+physiology,PhysioNet,other_datasets_only,auroc,0.5784,0.8001,-0.2217,-4.3741,0.0003,20,0.0036
+physiology,PhysioNet,all_datasets,balanced_accuracy,0.8448,0.77,0.0748,1.8498,0.08,20,0.4798
+physiology,PhysioNet,all_datasets,auroc,0.9316,0.8318,0.0998,2.6342,0.0163,20,0.1144
+hr_hrv_eda,PhysioNet,within_dataset,balanced_accuracy,0.805,0.7762,0.0288,0.6402,0.5297,20,0.689
+hr_hrv_eda,PhysioNet,within_dataset,auroc,0.9114,0.8536,0.0578,1.5493,0.1378,20,0.689
+hr_hrv_eda,PhysioNet,other_datasets_only,balanced_accuracy,0.583,0.746,-0.163,-3.8596,0.0011,20,0.0106
+hr_hrv_eda,PhysioNet,other_datasets_only,auroc,0.6249,0.811,-0.1861,-3.2917,0.0038,20,0.0307
+hr_hrv_eda,PhysioNet,all_datasets,balanced_accuracy,0.8221,0.7829,0.0392,1.1389,0.2689,20,0.689
+hr_hrv_eda,PhysioNet,all_datasets,auroc,0.9104,0.8538,0.0566,1.3585,0.1902,20,0.689

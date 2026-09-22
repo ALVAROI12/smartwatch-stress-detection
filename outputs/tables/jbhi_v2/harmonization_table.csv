@@ -1,0 +1,33 @@
+Dataset,Original Label,Harmonized Label,Number of Subjects,Number of Windows,n_windows_purity_ge_0_8
+Campanella2024,Backward subtraction (up to 2.5 min),Stress,29,102,102
+Campanella2024,Baseline (3 min rest),Baseline,29,116,116
+Campanella2024,Lego with countdown,Manual task,29,58,58
+Campanella2024,Lego with instructions,Manual task,29,174,174
+Campanella2024,Lego without instructions,Manual task,29,435,435
+EPM-E4,ANGER,Anger,33,33,33
+EPM-E4,FEAR,Fear,33,394,394
+EPM-E4,HAPPINESS,Happiness,33,297,297
+EPM-E4,SADNESS,Sadness,33,131,131
+PhysioNet,AEROBIC session (whole recording),Aerobic,30,2143,2143
+PhysioNet,ANAEROBIC session (whole recording),Anaerobic,31,1620,1620
+PhysioNet,Baseline,Baseline,35,174,174
+PhysioNet,First Rest,Rest,35,621,621
+PhysioNet,Second Rest,Rest,35,572,572
+PhysioNet,Stroop,Stress,18,39,39
+PhysioNet,Subtract,Stress,1,1,1
+PhysioNet,TMCT,Stress,35,192,192
+Stress-Predict,Baseline (with questionnaire),Baseline,34,616,616
+Stress-Predict,Hyperventilation,Hyperventilation,31,53,53
+Stress-Predict,Relax,Rest,34,1079,1079
+Stress-Predict,Stroop,Stress,31,296,296
+Stress-Predict,TSST interview,Stress,32,555,555
+UBFC-Phys,T1 rest (ctrl group),Baseline,8,40,40
+UBFC-Phys,T1 rest (test group),Baseline,11,55,55
+UBFC-Phys,T2 speech (ctrl group),Control task,8,40,40
+UBFC-Phys,T2 speech (test group),Stress,11,55,55
+UBFC-Phys,T3 arithmetic (ctrl group),Control task,8,40,40
+UBFC-Phys,T3 arithmetic (test group),Stress,11,55,55
+WESAD,amusement,Amusement,15,165,165
+WESAD,baseline,Baseline,15,566,566
+WESAD,meditation,Meditation,15,356,356
+WESAD,stress,Stress,15,311,311
