@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Rebuild the 60 s feature windows from raw signals, anchored to protocol stages.
 
-Replaces notebooks/03_feature_extraction.ipynb, which had three defects:
+Replaces legacy/notebooks/03_feature_extraction.ipynb, which had three defects:
   1. WESAD: signals came from the raw E4 CSVs but labels from the synchronized SX.pkl, mapped by a
      length ratio. The raw recording starts 16-26 min earlier, so ~81% of windows got the wrong label.
      Here both signals and labels come from SX.pkl.
