@@ -19,8 +19,7 @@ Papers already verified in `dataset-and-claims-verification.md` were not redone:
 
 **Read before claiming novelty.** None of these could be retrieved in full:
 - ~~Schreiber & Maleshkova (2026), AutoStress Benchmark~~ **Read in full on 2026-09-22 (UTSA copy): no longer a risk.** See "AutoStress and Cui (read 2026-09-22)" below.
-- **Dahal (2026), SSRN preprint.** Few-shot adaptation across WESAD, PhysioNet, SWELL-KW and UBFC-Phys, with fine-tuning on 30% of the target dataset's subjects (full abstract via Crossref). Risk to 4b.
-- **Calza-Metre & Borzì (2026), *Smart Health*.** Only the underlying MSc thesis was read.
+- ~~Dahal (2026)~~ and ~~Calza-Metre & Borzì (2026)~~ **read in full on 2026-09-22**: no verdict changes. See "Papers read 2026-09-22" below.
 - **Akkaya (2026), *BMC Med Inform Decis Mak*.** Abstract only.
 - **Menghini et al. (2019), *Psychophysiology*.** Abstract only.
 
@@ -213,7 +212,9 @@ Three more agents searched the unread papers and forward citations, domain adapt
 - Kwon (2026): accelerometer features lower cross-corpus transfer.
 - Gap we can fill: subject-held-out, stress-vs-all-non-stress on wrist data with and without exercise among the negatives. Running on branch `jbhi-novelty-experiments`.
 
-## AutoStress and Cui (read 2026-09-22)
+## Papers read 2026-09-22 (UTSA and free copies)
+
+### AutoStress and Cui
 
 **Schreiber & Maleshkova (2026), AutoStress Benchmark, IEEE CAI: no leave-one-dataset-out.** Full text: `sources/novelty/schreiber-2026-autostress.txt`.
 - **Data (§III-A, B):** WESAD (15, E4), the PhysioNet "Wearable Dataset" of Hongn et al. (36, E4) and VitaStress (21, Corsano CardioWatch 287-2B); 72 subjects. The round-2 inference was right. No UBFC-Phys, Stress-Predict or Campanella.
@@ -234,6 +235,38 @@ Three more agents searched the unread papers and forward citations, domain adapt
 - The title says "cross-dataset", but each of SIPD (own; E4 and Honor Band 5), WESAD (E4) and CLAS (Shimmer3, earlobe PPG) is trained and tested separately. The paper uses "k-fold cross-validation with k = 5" (§4.2). It does not say that folds are grouped by subject.
 - On WESAD it uses "a 2-min sliding window with a stride of 2-sec" (§4.2), giving 5,818 windows. The reported 94.8–98.9% accuracy is therefore probably inflated by leakage between neighbouring windows (our inference).
 - Use in the paper: related work on PPG features only, or as another example of record-wise evaluation. No bearing on contributions 1–5.
+
+### Dahal (2026), SSRN: 4b stays novel
+
+Full text: `sources/novelty/dahal-2026-shift-aware.txt` (6 pages, not peer-reviewed).
+- **Data and features:** WESAD, PhysioNet (Hongn), SWELL-KW and UBFC-Phys, labelled binary stress/non-stress. Random Forest on EDA and HR/BVP summary statistics.
+- **Adaptation is at dataset level.** §H: "fine-tune on 10/20/30% of target subjects selected stratified by stress prevalence. Target subjects not in the adaptation set are evaluated zero-shot." That is not a few labels per new user, so 4b (per-user few-shot calibration on an unseen dataset) stays novel.
+- **Transfer is pairwise, not pooled LODO.** WESAD→PhysioNet ROC-AUC goes from 0.413 (zero-shot, below chance) to 0.842 with 30% of target subjects; PhysioNet→WESAD goes from 0.614 to 0.691.
+- **Other results.** Participant-wise normalisation lifts SWELL R vs T from 0.601 to 0.857. Cost-aware thresholds differ by dataset (WESAD 0.37, PhysioNet 0.41 at 1:1). These are consistent with our z-scoring and threshold findings.
+- **Weak source.** It describes UBFC-Phys as "camera-based physiological proxies", and its extended characterisation credits WESAD's stress data to "chest-worn devices". Cite as a preprint only.
+
+### Calza-Metre & Borzì (2026), *Smart Health*: matches the thesis
+
+Full text: `sources/novelty/calzametre-2026-smart-health.txt`.
+- **Design (§3, "Evaluation strategies"):** four E4 wrist datasets (WESAD, Campanella, VerBio, AffectiveRoad); within-dataset LOSO, then pairwise zero-shot transfer.
+  - The source model is "the LOSO fold with the highest macro-F1", which is an optimistic choice.
+  - Target windows are "transformed using the source preprocessing". There is no per-subject normalisation.
+- **Results (Table 7):** the same as the thesis. WESAD XGBoost macro-F1 is 0.866 within and 0.630 from Campanella. The abstract reports an average F1 drop of −21% for deep models.
+- **Labels (Table 3):** Campanella is labelled "rest vs. cognitive/social/combined stress", i.e. every task counts as stress, which differs from our subtraction-only label.
+- **Mild stress.** VerBio stress is thresholded at 0.20. §4.2 says this corresponds "to mild perceived arousal rather than strong and discrete autonomic responses", and VerBio is the worst source. Cite this for the mild-stress question.
+- The verdict on contribution 1 is unchanged.
+
+### Cahoon & Garcia (2023), ACM BCB: no threat
+
+Full text: `sources/novelty/cahoon-2023-healthcare-workers.txt`.
+- WESAD, Nurse (CSDN) and TILES-2019, using heart rate and step count only.
+- "All models were trained using five-fold stratified cross-validation", not grouped by subject.
+- Within-dataset XGBoost reaches ROC-AUC 0.83 (WESAD), 0.65 (CSDN) and 0.84 (TILES-2019). Pairwise transfer without adaptation gives 0.46–0.52 (§4, Table 5). Supervised TrAdaBoost, which uses target labels, improves it.
+- Use as related work on healthcare-worker transfer.
+
+### ISPAAD (Schreiber & Maleshkova 2025), *BIO Web of Conferences*
+
+Full text: `sources/novelty/schreiber-2025-ispaad.txt`. It is the dataset paper behind AutoStress (WESAD, PhysioNet Hongn, VitaStress; 71 subjects) and reports no transfer experiments.
 
 ## Experiments run after this search
 
@@ -274,13 +307,15 @@ Benchekroun, M., Velmovitsky, P. E., Istrate, D., Zalc, V., Morita, P. P., & Len
 
 Calza-Metre, M. (2025). *Machine learning for stress detection based on wearable sensor data* [Master's thesis, Politecnico di Torino]. https://webthesis.biblio.polito.it/38110/
 
-Calza-Metre, M., & Borzì, L. (2026). Machine learning-based automatic stress detection: Performance and generalization across datasets. *Smart Health, 41*, Article 100693. https://doi.org/10.1016/j.smhl.2026.100693 [Not read; thesis used as proxy]
+Calza-Metre, M., & Borzì, L. (2026). Machine learning-based automatic stress detection: Performance and generalization across datasets. *Smart Health, 41*, Article 100693. https://doi.org/10.1016/j.smhl.2026.100693 
 
 Can, Y. S., Benouis, M., & André, E. (2026). Cross-dataset generalizability analysis of multimodal self-supervised learning for stress recognition across lab and daily contexts. *IEEE Access, 14*, 35930–35943. https://doi.org/10.1109/ACCESS.2026.3670764
 
 Cui, X., Sun, H., Chen, Z., & Peng, C.-K. (2025). Enhanced PPG-based stress detection: A multivariate cross-dataset analysis across devices and tasks. *Biomedical Signal Processing and Control, 110*, Article 108149. https://doi.org/10.1016/j.bspc.2025.108149
 
-Dahal, S. (2026). *A shift-aware deployment framework for wearable stress AI: Cross-dataset phenotype audit, few-shot adaptation, statistical reliability, and cost-aware policy* [Preprint]. SSRN. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7406759 [Unverifiable]
+Cahoon, J. L., & Garcia, L. A. (2023). Continuous stress monitoring for healthcare workers: Evaluating generalizability across real-world datasets. In *Proceedings of the 14th ACM International Conference on Bioinformatics, Computational Biology and Health Informatics (BCB '23)*. ACM. https://doi.org/10.1145/3584371.3612974
+
+Dahal, S. (2026). *A shift-aware deployment framework for wearable stress AI: Cross-dataset phenotype audit, few-shot adaptation, statistical reliability, and cost-aware policy* [Preprint]. SSRN. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7406759 
 
 Farahani, S. A., Cao, H., & Rahmani, A. M. (2026). *When clean signals are not enough: Detecting structural ambiguity for safe wearable stress classification* (arXiv:2608.18397) [Preprint]. arXiv.
 
@@ -311,6 +346,8 @@ Saeed, A., Spathis, D., Oh, J., Choi, E., & Etemad, A. (2025). Learning under la
 Sah, R. K., & Ghasemzadeh, H. (2021). *Stress classification and personalization: Getting the most out of the least* (arXiv:2107.05666) [Preprint]. arXiv. https://doi.org/10.48550/arXiv.2107.05666
 
 Schmidt, P., Reiss, A., Duerichen, R., Marberger, C., & Van Laerhoven, K. (2018). Introducing WESAD, a multimodal dataset for wearable stress and affect detection. In *Proceedings of the 20th ACM International Conference on Multimodal Interaction* (pp. 400–408). ACM. https://doi.org/10.1145/3242969.3242985
+
+Schreiber, P., & Maleshkova, M. (2025). ISPAAD: Integrated stress, physical activity, and amusement dataset. *BIO Web of Conferences, 195*, Article 01003. https://doi.org/10.1051/bioconf/202519501003
 
 Schreiber, P., & Maleshkova, M. (2026). AutoStress benchmark: Evaluating factors that influence cross dataset generalizabilty in stress recognition. In *2026 IEEE Conference on Artificial Intelligence (CAI)* (pp. 1335–1341). IEEE. https://doi.org/10.1109/CAI68641.2026.11536323
 
