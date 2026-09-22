@@ -18,7 +18,7 @@ Papers already verified in `dataset-and-claims-verification.md` were not redone:
 | 5 | Wrist HR/HRV validated against chest ECG in the pipeline | **Partly anticipated**; present as a methods check | Watanabe et al. (2025); Milstein & Gordon (2020) |
 
 **Read before claiming novelty.** None of these could be retrieved in full:
-- **Schreiber & Maleshkova (2026), AutoStress Benchmark, IEEE CAI.** A cross-dataset benchmark on "an integrated version of publicly available datasets" (abstract). Round 2 narrowed it down (see Round 2 below): its reference list cites WESAD, Stress-Predict, Hongn 2025, Campanella 2024, Nurse and VitaStress, but not UBFC-Phys. The integrated dataset is probably the authors' ISPAAD (WESAD, PhysioNet Hongn, VitaStress on a Corsano watch). This is an inference; validation and numbers are still unknown. It remains the biggest risk to contribution 1. Get it through UTSA library access.
+- ~~Schreiber & Maleshkova (2026), AutoStress Benchmark~~ **Read in full on 2026-09-22 (UTSA copy): no longer a risk.** See "AutoStress and Cui (read 2026-09-22)" below.
 - **Dahal (2026), SSRN preprint.** Few-shot adaptation across WESAD, PhysioNet, SWELL-KW and UBFC-Phys, with fine-tuning on 30% of the target dataset's subjects (full abstract via Crossref). Risk to 4b.
 - **Calza-Metre & Borzì (2026), *Smart Health*.** Only the underlying MSc thesis was read.
 - **Akkaya (2026), *BMC Med Inform Decis Mak*.** Abstract only.
@@ -55,7 +55,7 @@ Papers already verified in `dataset-and-claims-verification.md` were not redone:
 | Vos 2023 JBI | 6 (5 E4 + SWELL) | one held-out target (WESAD) | not described | stress vs non-stress | accuracy | 80% → 59% (85% with synthesis) |
 | Mishra 2020 | 4 private (2 E4) | pairwise | z-score HR, min–max EDA | arithmetic stress vs rest | median AUROC | E4↔E4 ≈ 0.01 |
 | Can 2026 | 5 (4 E4) | SSL transfer, target labels used | SD scaling | stress vs non-stress | weighted F1 | 1–3 points, not zero-shot |
-| AutoStress 2026 | probably 3 (WESAD, PhysioNet Hongn, VitaStress; 2 E4) | unknown | unknown | baseline vs stress | accuracy | Unverifiable ("up to 84%" accuracy) |
+| AutoStress 2026 | 3 (WESAD, PhysioNet Hongn, VitaStress; 2 E4, 1 Corsano) | no: pooled LOSO + 10× 80/20 subject splits; LODO named as future work | none described | baseline vs cognitive/social stress | accuracy, BA | not measured (pooled LOSO acc 0.84; per-dataset BA 0.74–0.92) |
 | Dahal 2026 (SSRN) | 4 (WESAD, PhysioNet, SWELL-KW, UBFC-Phys) | pairwise, then fine-tuning on 30% of target subjects | participant-wise on SWELL | stress | ROC-AUC | WESAD→PhysioNet 0.413 zero-shot; Unverifiable |
 
 ## 2. Label quality drives apparent transfer failure
@@ -213,6 +213,28 @@ Three more agents searched the unread papers and forward citations, domain adapt
 - Kwon (2026): accelerometer features lower cross-corpus transfer.
 - Gap we can fill: subject-held-out, stress-vs-all-non-stress on wrist data with and without exercise among the negatives. Running on branch `jbhi-novelty-experiments`.
 
+## AutoStress and Cui (read 2026-09-22)
+
+**Schreiber & Maleshkova (2026), AutoStress Benchmark, IEEE CAI: no leave-one-dataset-out.** Full text: `sources/novelty/schreiber-2026-autostress.txt`.
+- **Data (§III-A, B):** WESAD (15, E4), the PhysioNet "Wearable Dataset" of Hongn et al. (36, E4) and VitaStress (21, Corsano CardioWatch 287-2B); 72 subjects. The round-2 inference was right. No UBFC-Phys, Stress-Predict or Campanella.
+- **Task (§III-D):** "baseline vs. mental stress". Exercise and amusement are excluded (§IV). This is not our stress vs all non-stress task.
+- **Validation (§III-D, E):** classifier selection on "10× 80/20 subject-aware splits", then leave-one-subject-out on the pooled data. Also LOSO on WESAD + VitaStress only, and LOSO with dataset- and class-balancing weights. No per-subject normalisation is described.
+- **Results (§IV):**
+  - Pooled XGBoost LOSO accuracy is 0.84 (SD 0.18).
+  - Per-dataset LOSO balanced accuracy (Table IV): VitaStress 0.915, WESAD 0.807, PhysioNet 0.739.
+  - WESAD + VitaStress only: 0.87 accuracy.
+  - Balancing: no gain (0.83).
+- **They name LODO as future work.** §IV-B: "domain differences remain and should be explored with harmonization, LODO (leave-one-dataset-out) experiments, and domain-adaptive methods in future work."
+- **Use in the paper.** Cite it as pooled multi-dataset work that did not hold out datasets. It supports two of our points:
+  - PhysioNet is the hardest target there too (0.739 BA vs our 0.776 within).
+  - They attribute the gap to "mismatches in stressor tasks".
+- **Verdict for contribution 1 is unchanged.** Kwon et al. (2026) stay the closest prior work, and they remain the only verified pooled LODO on wrist E4.
+
+**Cui, Sun, Chen & Peng (2025), *Biomedical Signal Processing and Control* 110, 108149: not a transfer study.** Full text: `sources/novelty/cui-2025-ppg-cross-dataset.txt`.
+- The title says "cross-dataset", but each of SIPD (own; E4 and Honor Band 5), WESAD (E4) and CLAS (Shimmer3, earlobe PPG) is trained and tested separately. The paper uses "k-fold cross-validation with k = 5" (§4.2). It does not say that folds are grouped by subject.
+- On WESAD it uses "a 2-min sliding window with a stride of 2-sec" (§4.2), giving 5,818 windows. The reported 94.8–98.9% accuracy is therefore probably inflated by leakage between neighbouring windows (our inference).
+- Use in the paper: related work on PPG features only, or as another example of record-wise evaluation. No bearing on contributions 1–5.
+
 ## Experiments run after this search
 
 See `docs/novelty_experiments.md`, branch `jbhi-novelty-experiments`. Three results change the framing below:
@@ -256,6 +278,8 @@ Calza-Metre, M., & Borzì, L. (2026). Machine learning-based automatic stress de
 
 Can, Y. S., Benouis, M., & André, E. (2026). Cross-dataset generalizability analysis of multimodal self-supervised learning for stress recognition across lab and daily contexts. *IEEE Access, 14*, 35930–35943. https://doi.org/10.1109/ACCESS.2026.3670764
 
+Cui, X., Sun, H., Chen, Z., & Peng, C.-K. (2025). Enhanced PPG-based stress detection: A multivariate cross-dataset analysis across devices and tasks. *Biomedical Signal Processing and Control, 110*, Article 108149. https://doi.org/10.1016/j.bspc.2025.108149
+
 Dahal, S. (2026). *A shift-aware deployment framework for wearable stress AI: Cross-dataset phenotype audit, few-shot adaptation, statistical reliability, and cost-aware policy* [Preprint]. SSRN. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7406759 [Unverifiable]
 
 Farahani, S. A., Cao, H., & Rahmani, A. M. (2026). *When clean signals are not enough: Detecting structural ambiguity for safe wearable stress classification* (arXiv:2608.18397) [Preprint]. arXiv.
@@ -288,7 +312,7 @@ Sah, R. K., & Ghasemzadeh, H. (2021). *Stress classification and personalization
 
 Schmidt, P., Reiss, A., Duerichen, R., Marberger, C., & Van Laerhoven, K. (2018). Introducing WESAD, a multimodal dataset for wearable stress and affect detection. In *Proceedings of the 20th ACM International Conference on Multimodal Interaction* (pp. 400–408). ACM. https://doi.org/10.1145/3242969.3242985
 
-Schreiber, P., & Maleshkova, M. (2026). AutoStress benchmark: Evaluating factors that influence cross dataset generalizabilty in stress recognition. In *2026 IEEE Conference on Artificial Intelligence (CAI)* (pp. 1335–1341). IEEE. https://doi.org/10.1109/CAI68641.2026.11536323 [Abstract only]
+Schreiber, P., & Maleshkova, M. (2026). AutoStress benchmark: Evaluating factors that influence cross dataset generalizabilty in stress recognition. In *2026 IEEE Conference on Artificial Intelligence (CAI)* (pp. 1335–1341). IEEE. https://doi.org/10.1109/CAI68641.2026.11536323
 
 Schuurmans, A. A. T., de Looff, P., Nijhof, K. S., Rosada, C., Scholte, R. H. J., Popma, A., & Otten, R. (2020). Validity of the Empatica E4 wristband to measure heart rate variability (HRV) parameters: A comparison to electrocardiography (ECG). *Journal of Medical Systems, 44*, Article 190. https://doi.org/10.1007/s10916-020-01648-w
 
