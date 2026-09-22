@@ -46,7 +46,7 @@ The external drop is significant after Holm correction: BA −0.163, p_holm = 0.
 
 **Reading.** A model trained on datasets without exercise mistakes exercise for stress about 70% of the time. This matches the 82.6% that Aydoğan & Villagra Povina (2026) report on PhysioNet. Once exercise is among the training negatives, the error nearly vanishes (4–6%).
 
-**For the paper.** This is a controlled cross-dataset result that we did not find in the literature. It limits the headline: the small transfer cost holds for seated or lab non-stress states. Exercise must be among the training negatives, or the model needs an activity gate. It also bears on the EPM-E4 / exercise scope decision.
+**For the paper.** Partly anticipated: Aydoğan & Villagra Povina (2026, read in full 2026-09-22) also report 71.0% from a WESAD-trained model and 6.2–7.0% once exercise is a training class, within one pairwise transfer and one dataset. What is ours is the pooled five-dataset design with per-subject normalisation and corrected tests (see `docs/literature/novelty-search.md`). It limits the headline: the small transfer cost holds for seated or lab non-stress states. Exercise must be among the training negatives, or the model needs an activity gate. It also bears on the EPM-E4 / exercise scope decision.
 
 ## 3. The Kwon et al. (2026) setting: WESAD + Stress-Predict only
 

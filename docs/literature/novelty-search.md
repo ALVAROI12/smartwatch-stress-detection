@@ -20,6 +20,7 @@ Papers already verified in `dataset-and-claims-verification.md` were not redone:
 **Read before claiming novelty.** None of these could be retrieved in full:
 - ~~Schreiber & Maleshkova (2026), AutoStress Benchmark~~ **Read in full on 2026-09-22 (UTSA copy): no longer a risk.** See "AutoStress and Cui (read 2026-09-22)" below.
 - ~~Dahal (2026)~~ and ~~Calza-Metre & Borzì (2026)~~ **read in full on 2026-09-22**: no verdict changes. See "Papers read 2026-09-22" below.
+- ~~Aydoğan & Villagra Povina (2026)~~, ~~Fecke & Rehof (2026)~~ and ~~Zhu et al. (2023)~~ **read in full on 2026-09-22 (UTSA copies)**. No Summary verdict changes, but the exercise result is partly anticipated. See "Remaining UTSA papers" below.
 - **Akkaya (2026), *BMC Med Inform Decis Mak*.** Abstract only.
 - **Menghini et al. (2019), *Psychophysiology*.** Abstract only.
 
@@ -68,6 +69,8 @@ Papers already verified in `dataset-and-claims-verification.md` were not redone:
   - They never measure the effect on transfer.
   - Our PhysioNet second-half-rest result (external 0.746 → 0.797) is the first measurement of this effect that we found.
   - The Hongn 2025 descriptor also uses second-half rests (see `dataset-and-claims-verification.md`, fix 6).
+- **Aydoğan & Villagra Povina (2026)** audited the PhysioNet event tags and found that the STRESS sessions "contain both rest and stress-induction blocks" (our defect D). They also use second-half rests and exclude f07 and f13. They do not measure the effect of these fixes on transfer; their own WESAD→PhysioNet test keeps session-level labels. Cite them as an independent finding of the PhysioNet labelling problem.
+- **O'Brien et al. (2026)** see false positives "spike at the beginning of rest periods that immediately follow stress tasks" on Campanella. This is qualitative support for the recovery mechanism, not a measurement.
 - **Singh et al. (2026, FEEL; arXiv, marked NeurIPS 2025 D&B)** cover 19 datasets, including WESAD, UBFC-Phys and PhysioNet. §5.2: "Labeling strategy emerged as a major factor influencing model generalization". The evidence is correlational (grouping datasets by labelling method), and the task is arousal/valence, not stress.
 - **Benchekroun et al. (2023)** only speculate that the labels in their field dataset "may not be as accurate". The label-noise-robust learning literature, e.g. Saeed et al. (2025), models random synthetic noise, not systematic protocol errors.
 - No paper documents label-timing misalignment in WESAD.
@@ -85,6 +88,7 @@ Papers already verified in `dataset-and-claims-verification.md` were not redone:
 - **Kriklenko & Kovaleva (2026)** concede that fixed task order confounds their workload labels with "protocol position".
 - **Tervonen et al. (2023)** describe carryover ("physiological leakage") between stressors.
 - **Tognotti et al. (2026)** quantify a related but different mechanism. Letting the normalisation baseline overlap the test windows inflates accuracy by 3–13 points.
+- **Fecke & Rehof (2026)** avoid that overlap by removing calibration-baseline windows from the test set (chest ECG). They do not discuss that the remaining test windows come later in the session than the calibration data.
 - **Bahameish et al. (2024)** drop 8 WESAD participants whose meditation preceded stress. This shows awareness of order in WESAD, handled by exclusion rather than analysis.
 - Not found in any paper:
   - a demonstration on public wrist stress datasets that baseline-first recording confounds baseline vs stress with time in session;
@@ -165,6 +169,9 @@ Only papers read in full. "OK" means LOSO or subject-grouped with no tuning on t
 | Gil-Martín et al. 2022 (IEEE AESM) | WESAD wrist, all signals / wrist physiology | binary | LOSO | acc 92.70, F1 92.55 / acc 87.30 | Optimistic (preprocessing chosen on LOSO results); the often-quoted 96.62 uses chest + wrist |
 | Gil-Martín et al. 2022 | WESAD wrist, all signals | 3-class | LOSO | acc 74.90, F1 74.60 | Optimistic |
 | Hosseini, E. et al. 2023 (IEEE BIBM) | WESAD wrist EDA | stress vs baseline only | LOSO | acc 97.03 | Optimistic (feature subset chosen on LOSO results; amusement dropped) |
+| Zhu et al. 2023 (IEEE JBHI) | WESAD wrist EDA, RF | binary (stress vs rest of protocol) | 10 random splits, 2 test subjects each | acc 86.5, F1 0.792 | Optimistic (best of 10 model/feature settings chosen on test results) |
+| O'Brien et al. 2026 (SmartComp Companion) | Campanella wrist BVP+EDA, RF | binary (all tasks = stress) | LOSO | median BA ≈ 0.80 (60 s) / ≈ 0.90 (120 s), from figure | Optimistic (grid search over LOSO; test subject's labelled rest windows used for normalisation) |
+| Fecke & Rehof 2026 (IEEE Access) | WESAD **chest ECG** HRV, MLP | binary (stress vs all non-stress) | LOSO, calibration windows removed from test | F1 0.904, acc 0.939 | Optimistic (non-nested tuning on LOSO); chest, not wrist |
 | Zhao et al. 2025 (PULSE, arXiv) | PhysioNet Hongn 2025, wrist BVP/ACC/TEMP | binary | LOSO | AUROC 0.965 (no-teacher baseline 0.827) | OK-ish; pretraining exposure not stated |
 
 Excluded as leaky or not subject-grouped:
@@ -177,15 +184,15 @@ Excluded as leaky or not subject-grouped:
 - Naegelin et al. 2023, *J Biomed Inform* (lab office simulation; stratified 10-fold over 1-min segments with hyperparameters selected "over the 10 test data folds"; chest-ECG HRV).
 - Dahal, Bogue-Jimenez & Doblas 2023, *Sensors* (chest ECG; 70% of each subject's windows in training; their own WESAD LOSO check ranges 0.31–0.95).
 
-Unverifiable (no full text): Zhu et al. 2023 (JBHI, wrist EDA), Al Dossary et al. 2025 (ICMI). Ladakis et al. (2025) was read in round 2 and is not a benchmark for us: its datasets are PhysioNet Non-EEG (Affectiva Q), Drivers and Nurses (only Nurses is E4), and the "74.1% balanced accuracy" in the round-1 snippet is its description of Siirtola & Röning (2020), not its own result.
+Unverifiable (no full text): Al Dossary et al. 2025 (ICMI). Zhu et al. 2023 (JBHI) was read on 2026-09-22 and is now in the table. Ladakis et al. (2025) was read in round 2 and is not a benchmark for us: its datasets are PhysioNet Non-EEG (Affectiva Q), Drivers and Nurses (only Nurses is E4), and the "74.1% balanced accuracy" in the round-1 snippet is its description of Siirtola & Röning (2020), not its own result.
 
 ## Round 2 (2026-09-21 evening): gaps filled
 
 Three more agents searched the unread papers and forward citations, domain adaptation / threshold transfer / mild stress, and wrist EDA / exercise. Nothing overturns a verdict above. Load-bearing figures were re-checked against the saved texts.
 
 **Forward citations.** None of the papers citing Kwon (2026; 0 citers so far), Prajod et al. (2024), Hongn et al. (2025) or Campanella et al. (2024) runs pooled LODO on wrist E4. Worth citing:
-- **Aydoğan & Villagra Povina (2026), *Med Eng Phys* (abstract only).** On PhysioNet, XGBoost reaches BA 0.703 for rest vs stress but labels 82.6% of exercise-session windows as stress. WESAD→PhysioNet transfer "remained poor".
-- **Fecke & Rehof (2026), *IEEE Access* (abstract only).** Normalises against short baseline sections to prevent "normalization data leakage". Cite next to Tognotti (2026).
+- **Aydoğan & Villagra Povina (2026), *Med Eng Phys*** (read in full 2026-09-22; see "Remaining UTSA papers"). On PhysioNet, XGBoost reaches BA 0.703 for rest vs stress but labels 82.6% of exercise-session windows as stress. WESAD→PhysioNet transfer "remained poor".
+- **Fecke & Rehof (2026), *IEEE Access*** (read in full 2026-09-22; chest ECG). Normalises against short baseline sections to prevent "normalization data leakage". Cite next to Tognotti (2026).
 - **Moon et al. (2026), ReliaGate.** Uses WESAD, UBFC-Phys, Campanella and PhysioNet, but only within each dataset.
 
 **Domain adaptation does not beat source-only: partly anticipated.**
@@ -274,6 +281,67 @@ Full text: `sources/novelty/cahoon-2023-healthcare-workers.txt`.
 
 Full text: `sources/novelty/schreiber-2025-ispaad.txt`. It is the dataset paper behind AutoStress (WESAD, PhysioNet Hongn, VitaStress; 71 subjects) and reports no transfer experiments.
 
+## Remaining UTSA papers, read 2026-09-22 (evening)
+
+Five papers from the UTSA library, read in full; text copies are in `sources/novelty/`. Aydoğan & Villagra Povina changes the novelty of the exercise result (see "Experiments run after this search"). No verdict in the Summary table changes.
+
+### Aydoğan & Villagra Povina (2026), *Med Eng Phys*: the exercise result is partly anticipated
+
+Full text: `sources/novelty/aydogan-2026-stress-or-arousal.txt` (published 18 September 2026).
+- **Data and labels (§2.1).** PhysioNet (Hongn) plus WESAD. They first used the whole STRESS folder as "stress", then audited the event tags and found that "these recordings contain both rest and stress-induction blocks". The primary analysis therefore uses protocol blocks: baseline as rest, "only the second half of the interleaved post-stressor rest periods", and f07 and f13 excluded. This is our defect D and label fixes 5 and 6, found independently.
+- **Primary test (§2.6).** Within PhysioNet, 29 participants, nested leave-one-participant-out, rest vs stress. Threshold calibrated on training participants only. Aerobic and anaerobic sessions are "never used for training, hyperparameter selection, preprocessing fitting, or threshold selection" and serve only as a challenge set. 60 s windows, 30 s step. No per-subject normalisation is described.
+- **Results (§3.2, Table 3).**
+  - XGBoost: BA 0.703, stress detection 0.604, rest specificity 0.801, and "82.6% of held-out exercise-session windows" called stress.
+  - Participant level: exercise false-stress 0.840 [0.775, 0.897] vs rest false-stress 0.221 [0.151, 0.301].
+  - The effect is model-dependent: SVM-RBF calls only 43.3% of exercise windows stress.
+  - Adding time-domain HRV changes exercise false-stress by at most 0.026 (Table 5).
+- **Cross-dataset (secondary, §3.4, §3.6).** A WESAD-trained random forest "labelled 71.0% of PhysioNet aerobic/anaerobic session windows as stress". Without accelerometer features the rate is still 0.721, and it rises with motion quartile (0.544 to 0.815). This transfer uses session-level PhysioNet labels, which the authors themselves call a mix of rest and stress.
+- **With exercise in training (§3.4).** In a within-PhysioNet three-session-class benchmark, "aerobic and anaerobic false-stress rates were 0.062 and 0.070".
+- **What this means for us.**
+  - Our 69.5% (exercise-free training, external PhysioNet) matches their 71.0% (WESAD-trained) and 82.6% (within PhysioNet). Our 4–6% with exercise among the training negatives matches their 6.2–7.0%. Neither half of our exercise result is new on its own.
+  - What they do not have: pooled leave-one-dataset-out over five datasets, per-subject normalisation, corrected tests, and the with/without-exercise contrast inside one cross-dataset design. Claim only that combination.
+  - Their WESAD→PhysioNet failure uses whole-session labels. Our small PhysioNet transfer cost uses protocol labels. This is a direct example of contribution 2 (label quality changes the apparent transfer result), but only as a contrast between two papers, not a controlled test.
+  - Cite them for the label audit of PhysioNet as well. We can no longer say no one else found the whole-session labelling problem.
+
+### Fecke & Rehof (2026), *IEEE Access*: chest ECG, calibration-baseline normalisation
+
+Full text: `sources/novelty/fecke-2026-person-specific-normalization.txt`.
+- **Data.** WESAD and SWELL-KW **chest ECG** (RespiBAN; TMSi Mobi), and their union. Not wrist data. The union is pooled under LOSO; no dataset is held out.
+- **Normalisation (§V-B).** Per-person statistics come from "a leading segment of the person's cleaned ECG associated with neutrality". Test windows that "fully or partially coincide with the corresponding person's baseline must be excluded from all test sets". Baseline length is tuned (650 s on WESAD, 1595 s on SWELL-KW); robust scaling wins.
+- **Validation (§VIII, §X-B).** Hyperparameters, window length (255–300 s) and truncation were tuned with "non-nested LOSO-CV on the entirety of each input dataset", with manual search. The authors call the bias "slight". We flag it as Optimistic.
+- **Results (Tables 7–10).** Best F1: WESAD 0.904 (MLP), SWELL-KW 0.917 (GBM), union 0.840 (MLP). The union is 0.06–0.08 below each dataset alone, which they attribute to stressor type, citing Prajod et al. (2024).
+- **Use in the paper.**
+  - This is published precedent for non-transductive per-subject normalisation from a calibration baseline. Cite it where we report the raw and causal variants.
+  - Its WESAD calibration segment is the start of baseline, so the remaining non-stress test windows come later in the session than the calibration data. The order confound (3b) is not discussed.
+  - Chest ECG only: any use for wrist conclusions is an extrapolation.
+
+### Zhu et al. (2023), *IEEE JBHI*: per-dataset wrist EDA, optimistic
+
+Full text: `sources/novelty/zhu-2023-wrist-eda-jbhi.txt`. Tables checked against the PDF images.
+- **Data (§III-C, Table II).** CLAS (Shimmer3, finger EDA), UTD (Affectiva Q; this is the PhysioNet non-EEG dataset, with "PhysicalStress" excluded), VerBIO (E4, 18 subjects) and WESAD (E4). Each dataset is trained and tested separately.
+- **Validation (§IV-A4, Table IV).** Test set is 10% of subjects (2 for WESAD), repeated 10 times with random splits; "leave-one-subject-out" is used only for validation. The reported best result per dataset is the best of 5 classifiers × 2 feature sets on test results.
+- **Results (Table V, VI).** WESAD EDA-only: RF 86.5% accuracy, F1 0.792. VerBIO: SVM 92.9%. UTD: RF 73.1%. CLAS: SVM 68.5%.
+- **Other claims.** "EDA outperforms ECG and PPG" (Tables VIII–X). WESAD "ECG" is the chest RespiBAN, although the paper frames all modalities as wrist-available. Gender-specific models score higher for women; WESAD has 3 women.
+- **Use:** fair-comparison table only, flagged Optimistic. No cross-dataset test.
+
+### O'Brien, Qirtas & Visentin (2026), IEEE SmartComp Companion: Campanella under LOSO
+
+Full text: `sources/novelty/smartcomp-2026-robust-subject-independent.txt` (6 pages).
+- **Data and labels (§III-A).** Campanella (29 subjects, E4 BVP and EDA only). "All task periods were labelled as stress". This differs from our subtraction-only label.
+- **Normalisation (§III-C).** "For each subject, the mean and standard deviation of each feature were computed from that subject's rest segments only." This includes the held-out subject's rest segments, which requires test labels.
+- **Validation (§III-D).** "Hyperparameter optimisation was performed for each classifier using grid search parameters over a LOSO-CV procedure." Not nested.
+- **Results (§IV-A, Fig. 1).** RF median BA about 80% at 60 s windows and about 90% at 120 s. Read from a figure; no table.
+- **Error timing (§IV-C).** "False positives, where rest segments are incorrectly classified as stress, spike at the beginning of rest periods that immediately follow stress tasks." Supports our post-stressor-recovery point (Section 2 and 3b) as a qualitative observation on Campanella. They do not measure its effect.
+- **Use:** fair-comparison table (Optimistic) and one sentence in the recovery discussion.
+
+### Pinge, Bandyopadhyay, Ghosh & Sen (2022), COMSNETS NetHealth workshop: not relevant
+
+Full text: `sources/novelty/pinge-2022-ecg-vs-ppg-hr-stress.txt`.
+- Own study, 5 usable participants; Polar H10 and Garmin HRM Dual (chest) vs Garmin Vivosmart 4 (wrist PPG), not an E4.
+- Heart rate RMSE vs Polar H10: 5.2 bpm (Garmin chest) and 10.23 bpm (Garmin wrist). LOSO random forest F1 0.80–0.85 per device (Table II).
+- The conclusion gives different F1 values ("82%, 79%, and 76%") from Table II (0.85, 0.82, 0.80), with device order changed. Internally inconsistent.
+- Use at most as background for wrist vs chest heart-rate error; Bent et al. (2020) is the stronger citation.
+
 ## Papers cited in the MSc thesis, checked 2026-09-22
 
 The author's thesis cites several papers the novelty search had not covered. Eleven were checked, ten against full text (`sources/novelty/`). None changes a verdict. Details are in the agent notes (outside the repo).
@@ -319,6 +387,7 @@ The author's thesis cites several papers the novelty search had not covered. Ele
 See `docs/novelty_experiments.md`, branch `jbhi-novelty-experiments`. Three results change the framing below:
 - **The small transfer cost does not depend on transductive z-scoring.** With raw features the cost is −0.01 to 0.05. A causal (past-windows-only) scaling keeps it on long recordings (PhysioNet, Stress-Predict, WESAD) but loses about 0.10 externally on short recordings (Campanella, UBFC-Phys).
 - **Exercise breaks cross-dataset transfer.** A model trained on datasets without exercise calls 69.5% of PhysioNet exercise windows stress, and external BA falls from 0.746 to 0.583 (p_holm = 0.011). With exercise among the training negatives, only 4–6% are called stress.
+  - **Partly anticipated** by Aydoğan & Villagra Povina (2026): 82.6% within PhysioNet, 71.0% from a WESAD-trained model, and 6.2–7.0% once exercise is a training class. Claim only the pooled five-dataset design with per-subject normalisation and corrected tests, and cite them for both rates.
 - **The label fixes are not what separates us from Kwon et al.** In their WESAD + Stress-Predict setting the fixes change transfer by at most 0.02 (not significant). Our pipeline beats their Stress-Predict AUROC (0.67 vs 0.56) with or without the fixes. Contribution 2 should be framed as data quality, not as the cause of the small transfer cost.
 
 ## Recommended framing
@@ -339,7 +408,8 @@ See `docs/novelty_experiments.md`, branch `jbhi-novelty-experiments`. Three resu
 - "Prior work reports near-chance cross-dataset transfer" (citing only Prajod): soften. Kwon's Stress-Predict *cost* is 0.06–0.08 AUROC, and Mishra found about 0.01 between E4 studies. Near-chance results come from low within-dataset ceilings (Kwon on Stress-Predict and Nurse) or from chest-ECG studies (Prajod). Even chest-strap→E4 heart-rate transfer in Mishra et al. (2020, Table 4) keeps AUROC at 0.75–0.80.
 - "Few-shot personalisation reaches 0.85–0.95": do not state it until the chronological rerun is done.
 - The wrist HR/HRV validation as a listed contribution: drop it and keep it as a methods check.
-- Per-subject z-scoring over the whole session: state openly that it is transductive (it uses unlabelled test-subject windows), and report one variant that is not.
+- Per-subject z-scoring over the whole session: state openly that it is transductive (it uses unlabelled test-subject windows), and report one variant that is not. Cite Fecke & Rehof (2026) as precedent for calibration-baseline normalisation.
+- "Exercise false alarms are a new finding": drop. Cite Aydoğan & Villagra Povina (2026) and present ours as a cross-dataset replication with the fix measured.
 
 ## References
 
@@ -450,5 +520,17 @@ Naegelin, M., Weibel, R. P., Kerr, J. I., Schinazi, V. R., La Marca, R., von Wan
 Sharma, N., & Gedeon, T. (2012). Objective measures, sensors and computational techniques for stress recognition and classification: A survey. *Computer Methods and Programs in Biomedicine, 108*(3), 1287–1301. https://doi.org/10.1016/j.cmpb.2012.07.003 [Abstract only]
 
 Varoquaux, G. (2018). Cross-validation failure: Small sample sizes lead to large error bars. *NeuroImage, 180*, 68–77. https://doi.org/10.1016/j.neuroimage.2017.06.061
+
+### References added 2026-09-22 (remaining UTSA papers; DOIs checked in Crossref)
+
+Aydoğan, Y., & Villagra Povina, F. (2026). Stress or arousal? Exercise confounding in wearable stress detection. *Medical Engineering & Physics, 147*(9), Article 095021. https://doi.org/10.1088/1873-4030/aea41e
+
+Fecke, M., & Rehof, J. (2026). Machine learning-based stress detection using robust HRV features and person-specific normalization. *IEEE Access, 14*, 74450–74471. https://doi.org/10.1109/ACCESS.2026.3692752
+
+O'Brien, P. B., Qirtas, M. M., & Visentin, A. (2026). Robust wearable stress detection using physiological feature engineering and subject-independent evaluation. In *2026 IEEE International Conference on Smart Computing Workshops and Other Affiliated Events (SmartComp Companion)* (pp. 7–12). IEEE. https://doi.org/10.1109/SmartComp-Companion70724.2026.00018
+
+Pinge, A., Bandyopadhyay, S., Ghosh, S., & Sen, S. (2022). A comparative study between ECG-based and PPG-based heart rate monitors for stress detection. In *2022 14th International Conference on COMmunication Systems & NETworkS (COMSNETS)* (pp. 84–89). IEEE. https://doi.org/10.1109/COMSNETS53615.2022.9668342
+
+Zhu, L., Spachos, P., Ng, P. C., Yu, Y., Wang, Y., Plataniotis, K., & Hatzinakos, D. (2023). Stress detection through wrist-based electrodermal activity monitoring and machine learning. *IEEE Journal of Biomedical and Health Informatics, 27*(5), 2155–2165. https://doi.org/10.1109/JBHI.2023.3239305
 
 AI disclosure: the searches, full-text retrieval and quotations were done by AI agents (Claude). The orchestrating agent re-checked every quote and figure in this file against the saved full texts, except those marked abstract-only. One agent error was caught and corrected: the Q1 notes misread Mishra et al.'s Table 4 chest-strap→E4 values. No human has yet checked the quotations against the sources.
