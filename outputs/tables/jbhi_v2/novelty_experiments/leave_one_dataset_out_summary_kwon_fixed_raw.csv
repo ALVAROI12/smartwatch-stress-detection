@@ -1,0 +1,13 @@
+features,test_dataset,trained_on,balanced_accuracy,auroc
+physiology,Stress-Predict,within_dataset,0.648,0.714
+physiology,Stress-Predict,other_datasets_only,0.548,0.612
+physiology,Stress-Predict,all_datasets,0.639,0.694
+physiology,WESAD,within_dataset,0.885,0.946
+physiology,WESAD,other_datasets_only,0.753,0.82
+physiology,WESAD,all_datasets,0.839,0.931
+hr_hrv_eda,Stress-Predict,within_dataset,0.662,0.715
+hr_hrv_eda,Stress-Predict,other_datasets_only,0.602,0.659
+hr_hrv_eda,Stress-Predict,all_datasets,0.645,0.7
+hr_hrv_eda,WESAD,within_dataset,0.834,0.923
+hr_hrv_eda,WESAD,other_datasets_only,0.755,0.834
+hr_hrv_eda,WESAD,all_datasets,0.839,0.929

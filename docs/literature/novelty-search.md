@@ -18,8 +18,8 @@ Papers already verified in `dataset-and-claims-verification.md` were not redone:
 | 5 | Wrist HR/HRV validated against chest ECG in the pipeline | **Partly anticipated**; present as a methods check | Watanabe et al. (2025); Milstein & Gordon (2020) |
 
 **Read before claiming novelty.** None of these could be retrieved in full:
-- **Schreiber & Maleshkova (2026), AutoStress Benchmark, IEEE CAI.** A cross-dataset benchmark on "an integrated version of publicly available datasets" (abstract). Semantic Scholar lists it as citing WESAD, Stress-Predict and Campanella 2024. Its datasets, devices, validation and numbers are unknown, so it is the biggest risk to contribution 1. Get it through UTSA library access.
-- **Dahal (2026), SSRN preprint.** Few-shot adaptation across WESAD, PhysioNet, SWELL-KW and UBFC-Phys (search snippets only). Risk to 4b.
+- **Schreiber & Maleshkova (2026), AutoStress Benchmark, IEEE CAI.** A cross-dataset benchmark on "an integrated version of publicly available datasets" (abstract). Round 2 narrowed it down (see Round 2 below): its reference list cites WESAD, Stress-Predict, Hongn 2025, Campanella 2024, Nurse and VitaStress, but not UBFC-Phys. The integrated dataset is probably the authors' ISPAAD (WESAD, PhysioNet Hongn, VitaStress on a Corsano watch). This is an inference; validation and numbers are still unknown. It remains the biggest risk to contribution 1. Get it through UTSA library access.
+- **Dahal (2026), SSRN preprint.** Few-shot adaptation across WESAD, PhysioNet, SWELL-KW and UBFC-Phys, with fine-tuning on 30% of the target dataset's subjects (full abstract via Crossref). Risk to 4b.
 - **Calza-Metre & Borzì (2026), *Smart Health*.** Only the underlying MSc thesis was read.
 - **Akkaya (2026), *BMC Med Inform Decis Mak*.** Abstract only.
 - **Menghini et al. (2019), *Psychophysiology*.** Abstract only.
@@ -55,7 +55,8 @@ Papers already verified in `dataset-and-claims-verification.md` were not redone:
 | Vos 2023 JBI | 6 (5 E4 + SWELL) | one held-out target (WESAD) | not described | stress vs non-stress | accuracy | 80% → 59% (85% with synthesis) |
 | Mishra 2020 | 4 private (2 E4) | pairwise | z-score HR, min–max EDA | arithmetic stress vs rest | median AUROC | E4↔E4 ≈ 0.01 |
 | Can 2026 | 5 (4 E4) | SSL transfer, target labels used | SD scaling | stress vs non-stress | weighted F1 | 1–3 points, not zero-shot |
-| AutoStress 2026 | unknown | unknown | unknown | baseline vs stress | accuracy | Unverifiable |
+| AutoStress 2026 | probably 3 (WESAD, PhysioNet Hongn, VitaStress; 2 E4) | unknown | unknown | baseline vs stress | accuracy | Unverifiable ("up to 84%" accuracy) |
+| Dahal 2026 (SSRN) | 4 (WESAD, PhysioNet, SWELL-KW, UBFC-Phys) | pairwise, then fine-tuning on 30% of target subjects | participant-wise on SWELL | stress | ROC-AUC | WESAD→PhysioNet 0.413 zero-shot; Unverifiable |
 
 ## 2. Label quality drives apparent transfer failure
 
@@ -110,7 +111,9 @@ Papers already verified in `dataset-and-claims-verification.md` were not redone:
   - **Stewart et al. (2020).** WESAD, but chest signals. Six context windows gave AUC 0.970 when taken from baseline and 0.984 when drawn at random. The authors warn that random context windows are correlated with neighbouring test windows.
   - **Han et al. (2024), IMWUT.** Chronological (the "initial sequence of data points from each label") and it does help on WESAD (AUROC about 0.91 → 0.97). Its budget is at least 20% of the person's data, about 40 windows.
 
-**Our own protocol matches the risky pattern.** Found by reading the repo; the brief forbids code changes, so none were made.
+**Update, 2026-09-21 evening: the rerun was done** in the main JBHI session (commit `bae4e5e`, `domain_adaptation.py --support chronological --gap 30`). On WESAD, the first 5 windows per class as support with a 30 s gap reach 0.82–0.95 balanced accuracy, +0.16 to +0.26 over source-only; random support had inflated this by up to 0.08. PhysioNet cannot be evaluated this way (a median of 5 Baseline windows per subject, all consumed as support). So the claim survives the chronological protocol on WESAD, unlike Tervonen et al. (2026). Per-subject z-scoring in that run still uses the whole recording, which the normalisation experiment on branch `jbhi-novelty-experiments` addresses.
+
+**Our original protocol matched the risky pattern** (as found in the literature pass):
 - `scripts/domain_adaptation.py:121` draws the 5 support windows per class with `rng.permutation`, anywhere in the recording.
 - Windows are 60 s with a 30 s step (`scripts/extract_features.py:33`), so each support window shares half its signal with a neighbouring test window.
 - The model there is a small neural network, not XGBoost.
@@ -169,7 +172,53 @@ Excluded as leaky or not subject-grouped:
 - Birkenmaier et al. 2026 (98.62%; hyperparameters "conducted on the complete dataset prior to LOSO evaluation"; chest EDA).
 - Hagos et al. 2026 (internally inconsistent numbers).
 
-Unverifiable (no full text): Zhu et al. 2023 (JBHI, wrist EDA), Ladakis et al. 2025 (multi-dataset E4), Al Dossary et al. 2025 (ICMI).
+Unverifiable (no full text): Zhu et al. 2023 (JBHI, wrist EDA), Al Dossary et al. 2025 (ICMI). Ladakis et al. (2025) was read in round 2 and is not a benchmark for us: its datasets are PhysioNet Non-EEG (Affectiva Q), Drivers and Nurses (only Nurses is E4), and the "74.1% balanced accuracy" in the round-1 snippet is its description of Siirtola & Röning (2020), not its own result.
+
+## Round 2 (2026-09-21 evening): gaps filled
+
+Three more agents searched the unread papers and forward citations, domain adaptation / threshold transfer / mild stress, and wrist EDA / exercise. Nothing overturns a verdict above. Load-bearing figures were re-checked against the saved texts.
+
+**Forward citations.** None of the papers citing Kwon (2026; 0 citers so far), Prajod et al. (2024), Hongn et al. (2025) or Campanella et al. (2024) runs pooled LODO on wrist E4. Worth citing:
+- **Aydoğan & Villagra Povina (2026), *Med Eng Phys* (abstract only).** On PhysioNet, XGBoost reaches BA 0.703 for rest vs stress but labels 82.6% of exercise-session windows as stress. WESAD→PhysioNet transfer "remained poor".
+- **Fecke & Rehof (2026), *IEEE Access* (abstract only).** Normalises against short baseline sections to prevent "normalization data leakage". Cite next to Tognotti (2026).
+- **Moon et al. (2026), ReliaGate.** Uses WESAD, UBFC-Phys, Campanella and PhysioNet, but only within each dataset.
+
+**Domain adaptation does not beat source-only: partly anticipated.**
+- Kwon (2026), §3.3 is headed "Four Unsupervised Adaptation Methods Do Not Recover Transfer" (CORAL, subspace alignment, TCA, importance weighting; no per-subject normalisation). Their §4.4 says "Adversarial representation learning … was not evaluated".
+- Xiao et al. (2025): subject-adversarial DANN on normalised wrist data gains about 0.01 out-of-distribution (0.6843 vs 0.6712) and loses in distribution.
+- Sigcha et al. (2026, *Applied Sciences*): EDA-only CORAL across two datasets is direction-dependent.
+- Not found: a head-to-head of per-subject normalisation vs DA for stress. Claim that part (our DANN and subject-DANN arms, all on top of z-scoring). State the scope if DA was run on WESAD↔PhysioNet only.
+
+**Ranking vs threshold: partly anticipated.**
+- Mishra et al. (2020, §5.2) treat "building a model and choosing a decision (classification) threshold" as "two separate components". Their label-free clustering threshold always beat a fixed one, whereas our label-free stress-rate cut hurt Campanella (0.821 → 0.733). Report that contrast.
+- Not found: a split of cross-dataset loss into ranking and threshold parts, or prior-shift correction (Saerens EM, black-box shift estimation) applied to wearable stress.
+- Argument to add: for a binary task, prior-shift correction only rescales the odds, so its gain is capped by the oracle-threshold gain we already report (at most +0.04, or +0.08 on UBFC-Phys). It also assumes p(x|y) is unchanged, which fails across protocols.
+
+**Mild stress: open, but not named as such in reviews.**
+- Siirtola & Röning (2020, AffectiveROAD, E4): training on continuous stress targets gave BA 82.3% vs 74.1% for binary training. This is the closest method precedent.
+- Kaya et al. (2026): psychological stress was confused with rest in 50% of windows.
+- No paper reports mild-vs-strong performance under subject-independent or cross-dataset validation.
+- A defensible design would be an intensity-stratified evaluation plus one simple method (ordinal or regression training). PhysioNet's per-task self-rated stress (1–10) is the best graded label already in our pipeline. UBFC-Phys ctrl/test cannot be used: it is between-subject, so per-subject z-scoring removes the difference. Graded levels run in increasing order reintroduce the order confound.
+
+**Wrist EDA validity: weak agreement, relative changes tracked for strong stressors.**
+- Milstein & Gordon (2020): SCL r = 0.298 during conversation.
+- van Lier et al. (2020): mean cross-correlation 0.25 with the reference.
+- Liang et al. (2026): wrist SCR rate still gives LOSO BA 0.71 for TSST vs all non-stress.
+- Adopt Kleckner et al. (2018) quality rules (EDA 0.05–60 μS, slope within ±10 μS/s, 5 s padding; κ = 0.74 against experts). Make the temperature rule optional, because UBFC-Phys has no temperature. Report invalid and flat-signal rates per dataset.
+- Soften "EDA carries most of the stress signal" to strong social stressors.
+
+**Exercise as a confound: known, with numbers.**
+- Gjoreski et al. (2017, E4): a lab-trained detector in daily life flagged 1,630 of 4,938 no-stress events as stress; context features raised precision to 0.95.
+- Sevil et al. (2021): stress detection held at 87.16% on subjects not used in training, with activity recognised separately.
+- Kwon (2026): accelerometer features lower cross-corpus transfer.
+- Gap we can fill: subject-held-out, stress-vs-all-non-stress on wrist data with and without exercise among the negatives. Running on branch `jbhi-novelty-experiments`.
+
+## Experiments run after this search
+
+See `docs/novelty_experiments.md`, branch `jbhi-novelty-experiments`. Three results change the framing below:
+- **The small transfer cost does not depend on transductive z-scoring.** With raw features the cost is −0.01 to 0.05. A causal (past-windows-only) scaling keeps it on long recordings (PhysioNet, Stress-Predict, WESAD) but loses about 0.10 externally on short recordings (Campanella, UBFC-Phys).
+- **Exercise breaks cross-dataset transfer.** A model trained on datasets without exercise calls 69.5% of PhysioNet exercise windows stress, and external BA falls from 0.746 to 0.583 (p_holm = 0.011). With exercise among the training negatives, only 4–6% are called stress.
+- **The label fixes are not what separates us from Kwon et al.** In their WESAD + Stress-Predict setting the fixes change transfer by at most 0.02 (not significant). Our pipeline beats their Stress-Predict AUROC (0.67 vs 0.56) with or without the fixes. Contribution 2 should be framed as data quality, not as the cause of the small transfer cost.
 
 ## Recommended framing
 
