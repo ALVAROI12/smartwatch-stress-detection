@@ -1,0 +1,25 @@
+features,subset,ba,auroc,n
+ecg_hr3 only,all,0.918,0.963,278.8
+ecg_hr3 only,cov<0.5,0.93,0.968,74.05
+ecg_hr3 only,cov>=0.5,0.916,0.96,204.75
+ecg_hr3+eda,all,0.956,0.993,278.8
+ecg_hr3+eda,cov<0.5,0.962,0.994,74.05
+ecg_hr3+eda,cov>=0.5,0.944,0.987,204.75
+ecg_hr3+wrist_hr5+eda,all,0.961,0.993,278.8
+ecg_hr3+wrist_hr5+eda,cov<0.5,0.972,0.993,74.05
+ecg_hr3+wrist_hr5+eda,cov>=0.5,0.937,0.986,204.75
+eda only,all,0.891,0.946,278.8
+eda only,cov<0.5,0.896,0.962,74.05
+eda only,cov>=0.5,0.893,0.938,204.75
+wrist_hr3 only,all,0.824,0.869,278.8
+wrist_hr3 only,cov<0.5,0.5,0.5,74.05
+wrist_hr3 only,cov>=0.5,0.771,0.917,204.75
+wrist_hr3+eda,all,0.913,0.975,278.8
+wrist_hr3+eda,cov<0.5,0.888,0.977,74.05
+wrist_hr3+eda,cov>=0.5,0.896,0.968,204.75
+wrist_hr5 only,all,0.84,0.885,278.8
+wrist_hr5 only,cov<0.5,0.5,0.5,74.05
+wrist_hr5 only,cov>=0.5,0.819,0.949,204.75
+wrist_hr5+eda (current),all,0.916,0.977,278.8
+wrist_hr5+eda (current),cov<0.5,0.886,0.977,74.05
+wrist_hr5+eda (current),cov>=0.5,0.902,0.97,204.75

@@ -1,0 +1,39 @@
+dataset,question,model,rho,lo,hi,n
+Stress-Predict,Stroop vs TSST interview per-subject recall,recall_within,-0.138,-0.512,0.239,30
+Stress-Predict,Stroop vs TSST interview per-subject recall,recall_ext,0.2,-0.159,0.534,30
+Stress-Predict,within vs external recall (Stroop),both,0.469,0.09,0.753,31
+Stress-Predict,within vs external recall (TSST interview),both,0.307,-0.078,0.651,32
+Stress-Predict,within vs external recall (pooled stressors),both,0.2,-0.173,0.543,33
+Stress-Predict,recall vs base_hr_mean (pooled),recall_within,0.031,-0.363,0.397,29
+Stress-Predict,recall vs base_hr_mean (pooled),recall_ext,-0.061,-0.416,0.35,29
+Stress-Predict,recall vs base_hrv_rmssd (pooled),recall_within,0.143,-0.251,0.539,29
+Stress-Predict,recall vs base_hrv_rmssd (pooled),recall_ext,0.183,-0.215,0.566,29
+Stress-Predict,recall vs base_eda_mean (pooled),recall_within,0.183,-0.18,0.548,33
+Stress-Predict,recall vs base_eda_mean (pooled),recall_ext,0.483,0.184,0.701,33
+Stress-Predict,recall vs base_cardiac_coverage (pooled),recall_within,0.131,-0.262,0.49,33
+Stress-Predict,recall vs base_cardiac_coverage (pooled),recall_ext,-0.347,-0.671,0.034,33
+Stress-Predict,recall vs stress_cardiac_coverage (pooled),recall_within,0.277,-0.118,0.593,33
+Stress-Predict,recall vs stress_cardiac_coverage (pooled),recall_ext,-0.329,-0.653,0.068,33
+Stress-Predict,recall vs sr_delta (pooled),recall_within,,,,0
+Stress-Predict,recall vs sr_delta (pooled),recall_ext,,,,0
+Stress-Predict,share of misses from worst 20% subjects (k=7; their share of stress windows=0.23),hit_within,0.381,,,33
+Stress-Predict,share of misses from worst 20% subjects (k=7; their share of stress windows=0.23),hit_ext,0.369,,,33
+PhysioNet,Stroop vs TMCT per-subject recall,recall_within,0.444,-0.042,0.784,18
+PhysioNet,Stroop vs TMCT per-subject recall,recall_ext,0.097,-0.371,0.546,18
+PhysioNet,within vs external recall (Stroop),both,0.724,0.258,0.977,18
+PhysioNet,within vs external recall (TMCT),both,0.635,0.392,0.833,35
+PhysioNet,within vs external recall (pooled stressors),both,0.639,0.368,0.822,35
+PhysioNet,recall vs base_hr_mean (pooled),recall_within,-0.12,-0.43,0.25,34
+PhysioNet,recall vs base_hr_mean (pooled),recall_ext,-0.165,-0.453,0.146,34
+PhysioNet,recall vs base_hrv_rmssd (pooled),recall_within,0.035,-0.333,0.387,34
+PhysioNet,recall vs base_hrv_rmssd (pooled),recall_ext,-0.139,-0.469,0.197,34
+PhysioNet,recall vs base_eda_mean (pooled),recall_within,-0.003,-0.334,0.325,35
+PhysioNet,recall vs base_eda_mean (pooled),recall_ext,0.181,-0.19,0.532,35
+PhysioNet,recall vs base_cardiac_coverage (pooled),recall_within,0.056,-0.322,0.429,35
+PhysioNet,recall vs base_cardiac_coverage (pooled),recall_ext,0.064,-0.292,0.38,35
+PhysioNet,recall vs stress_cardiac_coverage (pooled),recall_within,0.093,-0.233,0.432,35
+PhysioNet,recall vs stress_cardiac_coverage (pooled),recall_ext,-0.03,-0.386,0.338,35
+PhysioNet,recall vs sr_delta (pooled),recall_within,0.112,-0.252,0.439,35
+PhysioNet,recall vs sr_delta (pooled),recall_ext,0.014,-0.375,0.333,35
+PhysioNet,share of misses from worst 20% subjects (k=7; their share of stress windows=0.24),hit_within,0.5,,,35
+PhysioNet,share of misses from worst 20% subjects (k=7; their share of stress windows=0.23),hit_ext,0.611,,,35
