@@ -69,6 +69,26 @@ These are HR/HRV/EDA features. Kwon et al. report LODO AUROC of 0.890 (WESAD tar
 
 **For the paper.** Contribution 2 cannot rest on "fixing labels cut the transfer cost from 0.04–0.09 to 0.015–0.05" as a causal effect. Most of that change is within split noise. Present the label audit as a data-quality contribution: seven documented errors, and every external score rose, but the gains are mostly not significant. The contrast with Kwon should rest on the pipeline (per-subject z-scoring helps WESAD as target: 0.834 → 0.914 AUROC), not on the label fixes.
 
+## 4. Mild-stress pilot (2026-09-22): self-rated intensity does not predict missed detections
+
+`scripts/mild_stress_probe.py`; tables in `outputs/tables/jbhi_v2/mild_stress/`. Same task, HR/HRV/EDA features and per-subject z-scoring as leave-one-dataset-out. Each graded window gets an out-of-sample probability from leave-one-subject-out inside its dataset (within) and from one model trained on the other five datasets (external).
+
+**Graded labels.** Only PhysioNet (per-task stress 1–10) and WESAD (PANAS "Stressed" 1–5 for the TSST) rate each task for the same person. Stress-Predict has only STAI before and after the session. UBFC-Phys ctrl/test is between-subject, and Campanella has no ratings. The grade is the rise over the person's own Baseline rating. One unit is one rated task of one person: 54 in PhysioNet (35 subjects; Stroop and TMCT, since opinion tasks are too short for a 60 s window) and 15 in WESAD.
+
+| Dataset | Trained on | Spearman ρ, rise vs recall [95% CI, subject bootstrap] | Recall (mild / moderate / strong units) | Non-stress false-stress |
+|---|---|---|---|---|
+| PhysioNet | within | −0.08 [−0.42, 0.21] | 0.69 / 0.69 / 0.63 (29 / 19 / 6) | 0.11 |
+| PhysioNet | external | 0.02 [−0.30, 0.31] | 0.76 / 0.82 / 0.75 | 0.28 |
+| WESAD | within | −0.49 [−0.87, 0.17] | 0.99 / 0.96 / 0.50 (7 / 6 / 2) | 0.02 |
+| WESAD | external | −0.60 [−0.84, −0.08] | 0.99 / 0.91 / 0.62 | 0.13 |
+
+Bands: rise ≤ 1 is mild; PhysioNet moderate is 1–3 and strong > 3; WESAD moderate is 2 and strong > 2.
+
+- The task people rated milder is not the one that is missed. In PhysioNet, Stroop (mean rise 0.67) is detected at least as well as TMCT (mean rise 2.49). Paired over the 18 subjects with both tasks, TMCT − Stroop recall is −0.18 within (Wilcoxon p = 0.064) and −0.02 external (p = 0.89).
+- WESAD's negative ρ rests on 2 subjects with the largest rise and should not be read as an effect.
+
+**Reading.** On public E4 data, "mild stress" defined by self-report has no measurable detection gap. The misses (PhysioNet TMCT within recall 0.64) are not the low-rated tasks. The pilot is small (69 units, 8 strong), so it cannot exclude a modest effect. It does not support building the method contribution on self-rated intensity with these datasets. Two things would change that: a dataset with graded stressor doses within a subject, or a different definition of "mild", such as a small physiological response. The second is circular unless it is defined on data kept apart from evaluation.
+
 ## Not done
 
 - A literal rerun of Kwon's public code (github.com/RURUGURU/isohr-wearable-stress). It needs the Nurse dataset, and section 3 already answers the question that matters.

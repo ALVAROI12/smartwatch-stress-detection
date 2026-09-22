@@ -1,0 +1,5 @@
+dataset,trained_on,units,subjects,rho_rise_recall,rho_ci95,rho_rise_mean_p,unit_recall,nonstress_false_stress
+PhysioNet,within,54,35,-0.084,"(np.float64(-0.416), np.float64(0.214))",0.041,0.687,0.111
+PhysioNet,external,54,35,0.023,"(np.float64(-0.296), np.float64(0.305))",0.032,0.778,0.275
+WESAD,within,15,15,-0.494,"(np.float64(-0.87), np.float64(0.173))",-0.469,0.909,0.024
+WESAD,external,15,15,-0.595,"(np.float64(-0.843), np.float64(-0.077))",-0.486,0.908,0.132
