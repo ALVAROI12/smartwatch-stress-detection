@@ -25,7 +25,7 @@ Papers already verified in `dataset-and-claims-verification.md` were not redone:
 
 ## 1. Five-dataset leave-one-dataset-out on the wrist E4
 
-**Verdict: partly anticipated.** Pooled LODO on public E4 wrist corpora is already published. Pairwise transfer across four E4 corpora, and a five-dataset E4 "cross-dataset" paper, also exist. No verified paper has five public E4 wrist datasets in pooled LODO, uses Hongn 2025 PhysioNet as a target, uses stress vs all non-stress with per-subject z-scored HR/HRV+EDA, or reports a small external cost on every target.
+**Verdict: partly anticipated.** Pooled LODO on public E4 wrist corpora is already published. Pairwise transfer across four E4 corpora, and a five-dataset E4 "cross-dataset" paper, also exist. No verified paper has five public E4 wrist datasets in pooled LODO, uses Hongn 2025 PhysioNet as a target, uses stress vs all non-stress with per-subject z-scored HR/HRV+EDA, or reports that no target shows a large external cost. (Per-target costs of 0.015–0.05 are within the error bars expected for 15–35 test subjects; Varoquaux, 2018. Claim "no large cost", not "equal performance".)
 
 **Kwon, Yoon, Hur & Kang (2026), *Healthcare*: the closest paper.** Full text: `sources/novelty/kwon-2026-iso-hr-cross-corpus.txt`.
 - Data: three E4 wrist corpora (WESAD, Stress-Predict, Nurse). PhysioNet (Hongn 2025) is used only to set a movement threshold.
@@ -162,6 +162,9 @@ Only papers read in full. "OK" means LOSO or subject-grouped with no tuning on t
 | Kwon et al. 2026 | WESAD / Stress-Predict, E4 | binary | LOSO | AUROC 0.876–0.897 / 0.563–0.633 | OK |
 | Simon & Chetouani 2026 (arXiv) | WESAD wrist | 3-class | LOSO | acc 83.99, macro-F1 77.07 | OK (no calibration) |
 | Rashid et al. 2023 (IEEE IoT J) | WESAD wrist | binary / 3-class | LOSO | acc 94.12 / 86.34 | Optimistic |
+| Gil-Martín et al. 2022 (IEEE AESM) | WESAD wrist, all signals / wrist physiology | binary | LOSO | acc 92.70, F1 92.55 / acc 87.30 | Optimistic (preprocessing chosen on LOSO results); the often-quoted 96.62 uses chest + wrist |
+| Gil-Martín et al. 2022 | WESAD wrist, all signals | 3-class | LOSO | acc 74.90, F1 74.60 | Optimistic |
+| Hosseini, E. et al. 2023 (IEEE BIBM) | WESAD wrist EDA | stress vs baseline only | LOSO | acc 97.03 | Optimistic (feature subset chosen on LOSO results; amusement dropped) |
 | Zhao et al. 2025 (PULSE, arXiv) | PhysioNet Hongn 2025, wrist BVP/ACC/TEMP | binary | LOSO | AUROC 0.965 (no-teacher baseline 0.827) | OK-ish; pretraining exposure not stated |
 
 Excluded as leaky or not subject-grouped:
@@ -170,6 +173,9 @@ Excluded as leaky or not subject-grouped:
 - Campanella et al. 2023 (random 10-fold).
 - Birkenmaier et al. 2026 (98.62%; hyperparameters "conducted on the complete dataset prior to LOSO evaluation"; chest EDA).
 - Hagos et al. 2026 (internally inconsistent numbers).
+- Can et al. 2019, *Sensors* (own programming-contest dataset, 3-class; 88.20% general model; participant not respected in cross-validation according to the full-text check).
+- Naegelin et al. 2023, *J Biomed Inform* (lab office simulation; stratified 10-fold over 1-min segments with hyperparameters selected "over the 10 test data folds"; chest-ECG HRV).
+- Dahal, Bogue-Jimenez & Doblas 2023, *Sensors* (chest ECG; 70% of each subject's windows in training; their own WESAD LOSO check ranges 0.31–0.95).
 
 Unverifiable (no full text): Zhu et al. 2023 (JBHI, wrist EDA), Al Dossary et al. 2025 (ICMI). Ladakis et al. (2025) was read in round 2 and is not a benchmark for us: its datasets are PhysioNet Non-EEG (Affectiva Q), Drivers and Nurses (only Nurses is E4), and the "74.1% balanced accuracy" in the round-1 snippet is its description of Siirtola & Röning (2020), not its own result.
 
@@ -268,6 +274,46 @@ Full text: `sources/novelty/cahoon-2023-healthcare-workers.txt`.
 
 Full text: `sources/novelty/schreiber-2025-ispaad.txt`. It is the dataset paper behind AutoStress (WESAD, PhysioNet Hongn, VitaStress; 71 subjects) and reports no transfer experiments.
 
+## Papers cited in the MSc thesis, checked 2026-09-22
+
+The author's thesis cites several papers the novelty search had not covered. Eleven were checked, ten against full text (`sources/novelty/`). None changes a verdict. Details are in the agent notes (outside the repo).
+
+- **Li & Washington (2024), *JMIR AI*.**
+  - WESAD **chest RespiBAN** only, despite "consumer wearable" in the title.
+  - 3 classes; personalised models trained on the first 70% of each class.
+  - Personalised 95.06% vs participant-exclusive 67.65%.
+  - Supports 4a only as a large-budget, chest-based contrast. Do not cite it as wrist or consumer-device evidence.
+- **Albaladejo-González et al. (2023), *J Ambient Intell Humaniz Comput*** (https://doi.org/10.1007/s12652-022-04365-z).
+  - WESAD E4 wrist BVP vs SWELL-KW chest ECG, 50 HRV features, 5-min windows.
+  - Pairwise transfer; MLP macro-F1 falls 99.03 → 28.41 (WESAD→SWELL) and 82.75 → 57.28 (SWELL→WESAD).
+  - Normalises on "the first 50% of" each subject's non-stress windows, so its non-stress test windows are the second half of baseline: the order confound of 3b, not discussed.
+  - Add to "Other multi-dataset work"; no verdict change.
+- **Dahal, Bogue-Jimenez & Doblas (2023), *Sensors*.** Chest ECG, WESAD + SWELL pooled, windows split within subjects, no cross-dataset test. A leakage example (3a), not a benchmark.
+- **Bent et al. (2020), *npj Digit Med*.**
+  - Includes the E4, using its onboard 1 Hz HR against ECG.
+  - MAE 11.3 bpm at rest and 12.8 bpm during activity; error during activity "on average, 30% higher than during rest".
+  - Supports the motion caveat. Not comparable to our 2.4 bpm, which is BVP-derived with artefact rejection.
+- **Gillinov et al. (2017), *MSSE*.** Abstract only. No E4; exercise background only.
+- **Varoquaux (2018), *NeuroImage*.**
+  - Expected error bars for binary classification: ±10% at n = 100, ±15% at n = 30.
+  - "The standard error across folds strongly underestimates them."
+  - Hence the softened wording for contribution 1 above.
+- **Gil-Martín et al. (2022)** and **E. Hosseini et al. (2023):** added to the fair comparison table as Optimistic.
+- **Can et al. (2019)**, **Naegelin et al. (2023)** and **Dahal et al. (2023):** added to the excluded list.
+- **Mattern et al. (2023).** Wrist E4, four recalled emotions (not stress); 75% is window-level 10-fold vs 32% LOSO. Use only in the leakage discussion.
+- **Sharma & Gedeon.**
+  - The thesis cites "2021, CMPB 208, 106219"; that DOI does not exist in Crossref.
+  - The real paper is Sharma & Gedeon (2012), *Computer Methods and Programs in Biomedicine, 108*(3), 1287–1301, https://doi.org/10.1016/j.cmpb.2012.07.003.
+
+**Thesis bibliography corrections for the correction note:**
+- Gil-Martín's 96.6% is chest + wrist; wrist-only is 92.70%.
+- Can et al. (2019) is neither SWELL nor LOSO.
+- Naegelin et al. (2023) is a lab simulation, not free-living.
+- Li & Washington (2024) is chest data.
+- Dahal et al. (2023) is not subject-independent.
+- Fix the Sharma & Gedeon year, volume and DOI.
+- Add the Albaladejo-González DOI.
+
 ## Experiments run after this search
 
 See `docs/novelty_experiments.md`, branch `jbhi-novelty-experiments`. Three results change the framing below:
@@ -277,7 +323,7 @@ See `docs/novelty_experiments.md`, branch `jbhi-novelty-experiments`. Three resu
 
 ## Recommended framing
 
-1. **Headline:** the largest pooled leave-one-dataset-out evaluation on public wrist-E4 stress data (five datasets), with a small external cost on every target once labels are audited.
+1. **Headline:** the largest pooled leave-one-dataset-out evaluation on public wrist-E4 stress data (five datasets), where no target shows a large external cost (0.015–0.05 balanced accuracy, within small-sample error bars).
    - Do not say "first cross-dataset" or "first LODO": Kwon et al. (2026) did LODO on three E4 corpora.
    - Frame the contrast with Kwon, Calza-Metre, Xiao and Vos as "reported failures shrink after label audit and per-subject normalisation".
    - Note that Stress-Predict is hard within-dataset for everyone.
@@ -378,5 +424,31 @@ Xiao, Y., Sharma, H., Kaur, S., Bergen-Cico, D., & Salekin, A. (2025). Human het
 Zhao, Z., Pendiyala, K., Mortazavi, M., & Yan, N. (2025). *PULSE: Privileged knowledge transfer from rich to deployable sensors for embodied multi-sensory learning* (arXiv:2510.24058) [Preprint]. arXiv. https://doi.org/10.48550/arXiv.2510.24058
 
 Zhou, H., Balakrishnan, S., & Lipton, Z. C. (2023). *Domain adaptation under missingness shift* (arXiv:2211.02093) [Preprint]. arXiv. https://doi.org/10.48550/arXiv.2211.02093
+
+### References added 2026-09-22 (thesis-cited papers; DOIs checked in Crossref)
+
+Albaladejo-González, M., Ruipérez-Valiente, J. A., & Gómez Mármol, F. (2023). Evaluating different configurations of machine learning models and their transfer learning capabilities for stress detection using heart rate. *Journal of Ambient Intelligence and Humanized Computing, 14*(8), 11011–11021. https://doi.org/10.1007/s12652-022-04365-z
+
+Bent, B., Goldstein, B. A., Kibbe, W. A., & Dunn, J. P. (2020). Investigating sources of inaccuracy in wearable optical heart rate sensors. *npj Digital Medicine, 3*, Article 18. https://doi.org/10.1038/s41746-020-0226-6
+
+Can, Y. S., Chalabianloo, N., Ekiz, D., & Ersoy, C. (2019). Continuous stress detection using wearable sensors in real life: Algorithmic programming contest case study. *Sensors, 19*(8), Article 1849. https://doi.org/10.3390/s19081849
+
+Dahal, K., Bogue-Jimenez, B., & Doblas, A. (2023). Global stress detection framework combining a reduced set of HRV features and random forest model. *Sensors, 23*(11), Article 5220. https://doi.org/10.3390/s23115220
+
+Gil-Martín, M., San-Segundo, R., Mateos, A., & Ferreiros-López, J. (2022). Human stress detection with wearable sensors using convolutional neural networks. *IEEE Aerospace and Electronic Systems Magazine, 37*(1), 60–70. https://doi.org/10.1109/MAES.2021.3115198
+
+Gillinov, S., Etiwy, M., Wang, R., Blackburn, G., Phelan, D., Gillinov, A. M., Houghtaling, P., Javadikasgari, H., & Desai, M. Y. (2017). Variable accuracy of wearable heart rate monitors during aerobic exercise. *Medicine & Science in Sports & Exercise, 49*(8), 1697–1703. https://doi.org/10.1249/MSS.0000000000001284 [Abstract only]
+
+Hosseini, E., Fang, R., Zhang, R., Rafatirad, S., & Homayoun, H. (2023). Emotion and stress recognition utilizing galvanic skin response and wearable technology: A real-time approach for mental health care. In *2023 IEEE International Conference on Bioinformatics and Biomedicine (BIBM)* (pp. 1125–1131). IEEE. https://doi.org/10.1109/BIBM58861.2023.10386049
+
+Li, J., & Washington, P. (2024). A comparison of personalized and generalized approaches to emotion recognition using consumer wearable devices: Machine learning study. *JMIR AI, 3*, Article e52171. https://doi.org/10.2196/52171
+
+Mattern, E., Jackson, R. R., Doshmanziari, R., Dewitte, M., Varagnolo, D., & Knorn, S. (2023). Emotion recognition from physiological signals collected with a wrist device and emotional recall. *Bioengineering, 10*(11), Article 1308. https://doi.org/10.3390/bioengineering10111308
+
+Naegelin, M., Weibel, R. P., Kerr, J. I., Schinazi, V. R., La Marca, R., von Wangenheim, F., Hoelscher, C., & Ferrario, A. (2023). An interpretable machine learning approach to multimodal stress detection in a simulated office environment. *Journal of Biomedical Informatics, 139*, Article 104299. https://doi.org/10.1016/j.jbi.2023.104299
+
+Sharma, N., & Gedeon, T. (2012). Objective measures, sensors and computational techniques for stress recognition and classification: A survey. *Computer Methods and Programs in Biomedicine, 108*(3), 1287–1301. https://doi.org/10.1016/j.cmpb.2012.07.003 [Abstract only]
+
+Varoquaux, G. (2018). Cross-validation failure: Small sample sizes lead to large error bars. *NeuroImage, 180*, 68–77. https://doi.org/10.1016/j.neuroimage.2017.06.061
 
 AI disclosure: the searches, full-text retrieval and quotations were done by AI agents (Claude). The orchestrating agent re-checked every quote and figure in this file against the saved full texts, except those marked abstract-only. One agent error was caught and corrected: the Q1 notes misread Mishra et al.'s Table 4 chest-strap→E4 values. No human has yet checked the quotations against the sources.

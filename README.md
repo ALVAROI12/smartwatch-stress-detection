@@ -47,7 +47,7 @@ On the corrected data (11 classes), the thesis's hold-out procedure (a random 15
 
 ![Window vs subject split](outputs/figures/jbhi_v2/fig1_window_vs_subject_split.png)
 
-### 2. Transfer to an unseen dataset costs little
+### 2. No dataset shows a large transfer cost
 
 **Setup.** Leave-one-dataset-out, stress vs all non-stress, per-subject z-scored HR/HRV + EDA, XGBoost, 20 splits of the same test subjects. **External** means the model saw no data from the test dataset.
 
