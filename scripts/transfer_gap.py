@@ -24,15 +24,31 @@ from probe_normalisation import fit_predict
 from run_jbhi_experiments import META, REPO_ROOT, grouped_split
 
 
+def stress_effect(df: pd.DataFrame, cols: list[str]) -> pd.DataFrame:
+    """Median over subjects of (mean Stress - mean non-stress), in per-subject z-units, per dataset."""
+    grouped = df.groupby("subject_uid")[cols]
+    zframe = (df[cols] - grouped.transform("mean")) / grouped.transform("std").replace(0, 1)
+    y = (df["harmonized_label"] == "Stress").to_numpy(int)
+    means = zframe.assign(y=y, dataset=df["dataset"], subject=df["subject_uid"]).groupby(["dataset", "subject", "y"])[cols].mean().unstack("y")
+    return (means.xs(1, axis=1, level=1) - means.xs(0, axis=1, level=1)).groupby("dataset").median().T.round(2)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path,
                         default=REPO_ROOT / "data" / "processed" / "combined" / "harmonized_windows_v2.csv")
     parser.add_argument("--output-dir", type=Path, default=REPO_ROOT / "outputs" / "tables" / "jbhi_v2")
+    parser.add_argument("--effect-size-only", action="store_true",
+                        help="Only write stress_effect_size_all_datasets.csv (every dataset with Stress windows).")
     args = parser.parse_args()
 
     df = pd.read_csv(args.input)
     cols = [c for c in df.columns if c not in META and c.startswith(("hr_", "hrv_", "eda_", "temp_"))]
+    if args.effect_size_only:
+        df = df[~df["harmonized_label"].isin(["Aerobic", "Anaerobic"])]
+        df = df[df["dataset"].isin(df.loc[df["harmonized_label"] == "Stress", "dataset"].unique())].reset_index(drop=True)
+        stress_effect(df, cols).to_csv(args.output_dir / "stress_effect_size_all_datasets.csv")
+        return
     df = df[df["dataset"].isin(["WESAD", "PhysioNet"]) & ~df["harmonized_label"].isin(["Aerobic", "Anaerobic"])].reset_index(drop=True)
     grouped = df.groupby("subject_uid")[cols]
     zframe = (df[cols] - grouped.transform("mean")) / grouped.transform("std").replace(0, 1)
@@ -63,8 +79,7 @@ def main() -> None:
                                                   self_report_rise=("self_report_stress_delta", "mean")).round(2)
     stages.sort_values("pct_called_stress", ascending=False).to_csv(args.output_dir / "wesad_model_on_physionet_stages.csv")
 
-    means = zframe.assign(y=y, dataset=df["dataset"], subject=df["subject_uid"]).groupby(["dataset", "subject", "y"])[cols].mean().unstack("y")
-    effect = (means.xs(1, axis=1, level=1) - means.xs(0, axis=1, level=1)).groupby("dataset").median().T.round(2)
+    effect = stress_effect(df, cols)
     effect.to_csv(args.output_dir / "stress_effect_size_by_dataset.csv")
     print("\nstress effect (z-units, median over subjects), largest WESAD effects first:")
     print(effect.sort_values("WESAD", key=abs, ascending=False).head(8).to_string())

@@ -1,0 +1,9 @@
+original_label,units,mean_rise,recall,windows,mean_rise_window_weighted,dataset,trained_on
+Stroop,18,0.528,0.773,39,0.667,PhysioNet,within
+Subtract,1,1.0,1.0,1,1.0,PhysioNet,within
+TMCT,35,2.243,0.633,192,2.495,PhysioNet,within
+Stroop,18,0.528,0.796,39,0.667,PhysioNet,external
+Subtract,1,1.0,1.0,1,1.0,PhysioNet,external
+TMCT,35,2.243,0.762,192,2.495,PhysioNet,external
+stress,15,1.533,0.909,311,1.556,WESAD,within
+stress,15,1.533,0.908,311,1.556,WESAD,external

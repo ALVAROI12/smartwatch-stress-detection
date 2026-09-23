@@ -1,6 +1,8 @@
 """Fix 4: sensor warm-up since donning. WESAD from raw E4 CSVs (offset to the synchronised pkl found by exact
 match of the wrist EDA stream); PhysioNet, Stress-Predict and Campanella from their raw E4 files, whose clock
 already starts at recording start. UBFC-Phys has per-task files (no donning clock) and is excluded."""
+import argparse
+import os
 import pickle
 import sys
 from pathlib import Path
@@ -9,8 +11,11 @@ import numpy as np
 import pandas as pd
 
 REPO = Path(__file__).resolve().parents[1]
-# Raw datasets and the feature table live in the thesis worktree (see CLAUDE.md); override with DATA_ROOT.
-DATA_ROOT = Path(__import__("os").environ.get("DATA_ROOT", "/Users/octa/Projects/smartwatch-stress-detection"))
+_cli = argparse.ArgumentParser(description=__doc__)
+_cli.add_argument("--data-root", type=Path, default=Path(os.environ.get("DATA_ROOT", REPO)),
+                  help="folder holding the raw datasets and data/processed/combined/harmonized_windows_v2.csv "
+                       "(default: $DATA_ROOT, else this repo)")
+DATA_ROOT = _cli.parse_args().data_root
 sys.path.insert(0, str(REPO / "scripts"))
 from extract_features import load_e4, load_headerless_e4  # noqa: E402
 from relabel_windows import PHYSIONET_DIR  # noqa: E402
@@ -66,6 +71,17 @@ def trajectories(recs: dict[str, tuple[np.ndarray, np.ndarray]]) -> dict:
     return out, pooled
 
 
+def per_subject_temp(recs: dict[str, tuple[np.ndarray, np.ndarray]]) -> pd.DataFrame:
+    """Per recording: first-minute temperature offset and change over the first 30 min (per-minute means)."""
+    rows = []
+    for sid, (temp, _) in recs.items():
+        m = pd.Series(temp[:HORIZON_MIN * 60 * FS]).groupby(np.arange(min(len(temp), HORIZON_MIN * 60 * FS)) // (60 * FS)).mean()
+        rows.append({"subject": sid, "temp_min0_minus_min1_4": m[0] - m.loc[1:4].mean(),
+                     "temp_min30_minus_min1": m.get(30, np.nan) - m[1],
+                     "temp_30_40_minus_1_5": m.loc[30:39].mean() - m.loc[1:4].mean()})
+    return pd.DataFrame(rows)
+
+
 results, curves = [], {}
 
 # --- WESAD: raw E4 vs synchronised pkl -------------------------------------------------------------------
@@ -83,6 +99,7 @@ for pkl in sorted((DATA_ROOT / "WESAD").glob("S*/S*.pkl")):
 offsets = pd.DataFrame(offsets)
 offsets.to_csv(OUT / "wesad_offsets.csv", index=False)
 wesad_stats, curves["WESAD"] = trajectories(recs)
+per_subject = [per_subject_temp(recs).assign(dataset="WESAD")]
 w = windows[windows["dataset"] == "WESAD"].merge(offsets, left_on="subject_id", right_on="subject")
 w["minutes_since_donning"] = w["timestamp_start"] / 60 + w["offset_min"]
 per_class = w.groupby("harmonized_label")["minutes_since_donning"].describe(percentiles=[.25, .5, .75])
@@ -106,11 +123,13 @@ for name, items in sources.items():
         except Exception as e:  # noqa: BLE001
             print(f"skip {name} {sid}: {e}")
     stats, curves[name] = trajectories(recs)
+    per_subject.append(per_subject_temp(recs).assign(dataset=name))
     d = windows[(windows["dataset"] == name) & (windows["harmonized_label"] == "Baseline")]
     base = d["timestamp_start"] / 60
     results.append({"dataset": name, "clock_origin": "raw E4 recording start (timestamp_start = 0)", **stats,
                     "baseline_median_min": base.median(), **{f"baseline_within_{m}min": (base <= m).mean() for m in (10, 15, 20)}})
 
+pd.concat(per_subject).round(3).to_csv(OUT / "warmup_per_subject_temp.csv", index=False)
 res = pd.DataFrame(results).round(4)
 res.to_csv(OUT / "warmup_since_donning.csv", index=False)
 pd.concat([c.assign(dataset=k) for k, c in curves.items()]).reset_index().to_csv(OUT / "warmup_curves_1min.csv", index=False)

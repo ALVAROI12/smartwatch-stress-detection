@@ -1,4 +1,5 @@
 """Time-in-session, warm-up drift and wrist sensor ceiling probes. Outputs next to this file."""
+import argparse
 import os
 import sys
 from pathlib import Path
@@ -14,8 +15,10 @@ from run_jbhi_experiments import META, grouped_split  # noqa: E402
 
 OUT = REPO / "outputs" / "tables" / "jbhi_v2" / "contribution_probes" / "timeprobe"
 OUT.mkdir(parents=True, exist_ok=True)
-# The feature table lives in the thesis worktree (see CLAUDE.md); override with HARMONIZED_CSV.
-DATA = Path(os.environ.get("HARMONIZED_CSV", "/Users/octa/Projects/smartwatch-stress-detection/data/processed/combined/harmonized_windows_v2.csv"))
+_cli = argparse.ArgumentParser(description=__doc__)
+_cli.add_argument("--input", type=Path, help="feature table (default: $HARMONIZED_CSV, else data/processed/combined/harmonized_windows_v2.csv)",
+                  default=Path(os.environ.get("HARMONIZED_CSV", REPO / "data/processed/combined/harmonized_windows_v2.csv")))
+DATA = _cli.parse_args().input
 N_JOBS = 8
 
 df = pd.read_csv(DATA)
