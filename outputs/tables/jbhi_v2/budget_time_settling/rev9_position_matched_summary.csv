@@ -1,0 +1,16 @@
+dataset,model,ba_unmatched,ba_dataset_range,splits_dataset_range,ba_subject_range,splits_subject_range
+Campanella2024,phys_external,0.9,,0,,0
+Campanella2024,phys_within,0.995,,0,,0
+Campanella2024,time_only_within,1.0,,0,,0
+PhysioNet,phys_external,0.742,0.706,20,0.74,20
+PhysioNet,phys_within,0.776,0.772,20,0.783,20
+PhysioNet,time_only_within,0.826,0.62,20,0.621,20
+Stress-Predict,phys_external,0.656,0.671,20,0.687,20
+Stress-Predict,phys_within,0.698,0.67,20,0.674,20
+Stress-Predict,time_only_within,0.947,0.881,20,0.898,20
+UBFC-Phys,phys_external,0.773,,0,,0
+UBFC-Phys,phys_within,0.792,,0,,0
+UBFC-Phys,time_only_within,0.5,,0,,0
+WESAD,phys_external,0.896,0.876,20,,0
+WESAD,phys_within,0.916,0.929,20,,0
+WESAD,time_only_within,0.9,0.602,20,,0

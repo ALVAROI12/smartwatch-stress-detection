@@ -1,0 +1,6 @@
+dataset,clock,stress_min_p5,stress_min_p95,nonstress_min_median,n_nonstress,n_subjects,n_nonstress_dataset_range,n_subj_with_matched_nonstress_dataset_range,n_nonstress_subject_range,n_subj_with_matched_nonstress_subject_range
+Campanella2024,recording start,27.25,28.75,0.75,116,29,0,0,0,0
+PhysioNet,recording start,4.44,13.77,16.52,1367,35,349,35,193,19
+Stress-Predict,recording start,10.54,29.94,20.18,1695,34,282,33,241,30
+UBFC-Phys,none (per-task files restart at 0),0.0,2.0,1.0,95,19,95,19,55,11
+WESAD,recording start,31.91,63.48,18.0,1087,15,134,13,0,0
