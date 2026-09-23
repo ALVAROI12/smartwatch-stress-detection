@@ -27,7 +27,7 @@ The paper's direction changed on 2026-09-22. Working title: **"What Do Wrist-Wor
 
 - Leave-one-dataset-out over five E4 datasets: transfer cost 0.015–0.05 balanced accuracy (HR/HRV/EDA).
 - Within WESAD + PhysioNet + EPM-E4: 0.831 balanced accuracy (95% CI 0.813–0.850) on subject-grouped splits, 0.849 LOSO.
-- Exercise is called stress 69% of the time when exercise is not in training, 8% when it is. At matched arousal, external stress vs rest is only 0.58 (0.78 within dataset); lower-demand tasks, hyperventilation, Lego and anger are no more separable (nulls underpowered, MDD 0.12–0.22); exercise is separable (0.89).
+- Exercise is called stress 69% of the time when exercise is not in training, 8% when it is. At matched arousal, stress vs rest (external) is 0.95 on WESAD but 0.57–0.70 on the other four; the earlier pooled 0.58 was a pooling artefact (fixed 2026-09-23, `matched_arousal_per_dataset/`). Against their own dataset's reference, no probe is more separable than rest externally; Lego and anger fall below; exercise +0.19 once trained. Nulls underpowered (MDD 0.12–0.22). HR-only matching on WESAD agrees with Kwon (0.98).
 - Minutes since start alone beats physiology within dataset on PhysioNet (0.83 vs 0.78) and Stress-Predict (0.95 vs 0.70).
 
 ## Deliverables

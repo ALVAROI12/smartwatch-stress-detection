@@ -69,7 +69,7 @@ def fig2_panel():
     m = pd.read_csv(T / "contribution_probes/hardening/partA_inference.csv")
     m = m[(m["index"] == "hr+eda") & (m.variant == "full_model")]
     rows = [("exercise", "cond3_added_negative", "Exercise (model shown exercise)"),
-            ("Baseline/Rest (ref)", "external", "Baseline / rest (reference)"),
+            ("Baseline/Rest (ref)", "external", "Baseline / rest (pooled)"),
             ("EPM Fear", "external", "Fear clips"),
             ("UBFC Control task", "external", "UBFC-Phys control version"),
             ("Hyperventilation", "external", "Hyperventilation"),
