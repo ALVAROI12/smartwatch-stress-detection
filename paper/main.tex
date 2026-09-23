@@ -284,7 +284,26 @@ Table~\ref{tab:neg} collects results that close directions the literature has pr
 
 \emph{Deployment.} A detector that responds to arousal will raise alerts during any arousing activity. As an illustration, at a stress prevalence of 5\% and recall 0.75, false-stress rates of 0.10, 0.33 and 0.69, the range of Table~\ref{tab:panel}, give positive predictive values of 0.28, 0.11 and 0.05. Outputs of such detectors are better labelled ``arousal'' than ``stress'' until a specificity panel says otherwise.
 
-\emph{Reporting norms.} We propose that a wearable stress detector be published with three checks: an index-only baseline, reporting how far the trained model beats an untrained HR+EDA index under the same split; a specificity panel, its false-stress rate on exercise, on lower-demand versions of its stressor tasks and on strong emotion, with CIs and at least about 20 subjects per state, the way an assay reports cross-reactivity; and a matched-arousal test against a reference pair, with a stated equivalence margin, where such states are available. We also propose three protocol rules: a settling period before baseline, or time since donning as a covariate; position-matched negatives, or at least a report of the time-only classifier, whenever baseline precedes the stressor; and exercise among the training negatives, or an activity gate, whenever the deployment includes movement.
+\begin{table}[!t]
+\centering
+\caption{Proposed Reporting Checklist for Wearable Stress Detectors}
+\label{tab:checklist}
+\scriptsize
+\begin{tabularx}{\columnwidth}{@{}lL@{}}
+\toprule
+Item & What to report \\
+\midrule
+Splits & Subject-grouped splits; leave-one-dataset-out when several datasets are pooled; corrected paired tests (e.g.\ Nadeau--Bengio) with CIs on every difference. \\
+Index-only baseline & BA and AUROC of an untrained HR+EDA arousal index under the same splits, and the model-minus-index difference with its CI. \\
+Specificity panel & False-stress rate with subject-bootstrap CI on exercise, on a lower-demand version of each stressor task, and on strong emotion; subjects and windows per state; rate at the reported threshold and at fixed sensitivity. \\
+Matched-arousal test & Index defined before the analysis, ideally on channels the model does not use; the stress-versus-rest reference pair; $\Delta$ ref with CI; an equivalence margin (e.g.\ $\pm$0.10) and the minimum detectable deviation. \\
+Protocol position & Time-only classifier BA; results under position-matched negatives whenever baseline precedes the stressor; time since donning or a settling period before baseline. \\
+Missing data & Fraction of windows without usable pulse, by class. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\emph{Reporting norms.} We propose that a wearable stress detector be published with the checks in Table~\ref{tab:checklist}, three of them new: an index-only baseline, reporting how far the trained model beats an untrained HR+EDA index under the same split; a specificity panel, its false-stress rate on exercise, on lower-demand versions of its stressor tasks and on strong emotion, with CIs and at least about 20 subjects per state, the way an assay reports cross-reactivity; and a matched-arousal test against a reference pair, with a stated equivalence margin, where such states are available. We also propose three protocol rules: a settling period before baseline, or time since donning as a covariate; position-matched negatives, or at least a report of the time-only classifier, whenever baseline precedes the stressor; and exercise among the training negatives, or an activity gate, whenever the deployment includes movement.
 
 \emph{What a decisive study needs.} No public E4 dataset separates speech from evaluation within subject or counterbalances order; UBFC-Phys contrasts two demand levels of a social task between subjects. The friendly TSST, built to match the TSST in structure and cognitive demand with the social-evaluative elements removed, and run within subject in randomised order by Richer et al.~\cite{richer2024}, is the control such a study needs on the wrist. A within-subject design with speech and evaluation crossed, cycling at matched heart rate, cognitive load without feedback, Latin-square order with baselines at both ends, chest ECG and a palmar EDA reference would settle whether wrist EDA carries an evaluative-threat signature that the present data cannot resolve, and would provide the first order-matched baseline on the wrist.
 
