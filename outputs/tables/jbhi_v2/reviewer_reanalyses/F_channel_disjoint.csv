@@ -1,0 +1,27 @@
+variant,index,score,probe,n,auc,lo,hi,p_raw,p_holm
+disjoint_hr_only_model_eda,hr_only,external,exercise,2765,0.6228,0.5063,0.7232,0.0135,0.054
+disjoint_hr_only_model_eda,hr_only,external,Hyperventilation,552,0.4544,0.3019,0.6056,0.4108,0.9925
+disjoint_hr_only_model_eda,hr_only,external,UBFC Control task,130,0.4669,0.3613,0.58,0.5772,0.9925
+disjoint_hr_only_model_eda,hr_only,external,Campanella Manual task,259,0.7264,0.584,0.8349,0.0005,0.0035
+disjoint_hr_only_model_eda,hr_only,external,EPM Fear,1353,0.6053,0.5318,0.6745,0.001,0.005
+disjoint_hr_only_model_eda,hr_only,external,EPM Anger,999,0.4316,0.3201,0.5587,0.3308,0.9925
+disjoint_hr_only_model_eda,hr_only,external,Baseline/Rest (ref),3910,0.6825,0.6237,0.7408,0.0005,0.0035
+disjoint_hr_only_model_eda,hr_only,cond3_added_negative,exercise,2765,0.8904,0.8319,0.9389,0.0005,0.003
+disjoint_hr_only_model_eda,hr_only,cond3_added_negative,Hyperventilation,552,0.4691,0.3335,0.6175,0.5522,1.0
+disjoint_hr_only_model_eda,hr_only,cond3_added_negative,UBFC Control task,130,0.4537,0.3453,0.5671,0.4338,1.0
+disjoint_hr_only_model_eda,hr_only,cond3_added_negative,Campanella Manual task,259,0.8389,0.7306,0.9066,0.0005,0.003
+disjoint_hr_only_model_eda,hr_only,cond3_added_negative,EPM Fear,1353,0.711,0.6499,0.7736,0.0005,0.003
+disjoint_hr_only_model_eda,hr_only,cond3_added_negative,EPM Anger,999,0.4487,0.3236,0.597,0.4778,1.0
+disjoint_eda_only_model_hr,eda_only,external,exercise,3817,0.2873,0.2097,0.4141,0.0005,0.0035
+disjoint_eda_only_model_hr,eda_only,external,Hyperventilation,904,0.5259,0.4264,0.6384,0.6067,1.0
+disjoint_eda_only_model_hr,eda_only,external,UBFC Control task,190,0.493,0.3532,0.6326,0.8971,1.0
+disjoint_eda_only_model_hr,eda_only,external,Campanella Manual task,769,0.4249,0.2509,0.5255,0.1509,0.4528
+disjoint_eda_only_model_hr,eda_only,external,EPM Fear,2000,0.7196,0.6635,0.7743,0.0005,0.0035
+disjoint_eda_only_model_hr,eda_only,external,EPM Anger,1639,0.6195,0.5394,0.7696,0.06,0.2399
+disjoint_eda_only_model_hr,eda_only,external,Baseline/Rest (ref),5445,0.626,0.5867,0.6663,0.0005,0.0035
+disjoint_eda_only_model_hr,eda_only,cond3_added_negative,exercise,3817,0.7017,0.6248,0.8214,0.0005,0.003
+disjoint_eda_only_model_hr,eda_only,cond3_added_negative,Hyperventilation,904,0.539,0.4324,0.6521,0.4443,1.0
+disjoint_eda_only_model_hr,eda_only,cond3_added_negative,UBFC Control task,190,0.5351,0.3837,0.6674,0.5677,1.0
+disjoint_eda_only_model_hr,eda_only,cond3_added_negative,Campanella Manual task,769,0.4857,0.2724,0.6099,0.8596,1.0
+disjoint_eda_only_model_hr,eda_only,cond3_added_negative,EPM Fear,2000,0.7898,0.7417,0.8342,0.0005,0.003
+disjoint_eda_only_model_hr,eda_only,cond3_added_negative,EPM Anger,1639,0.7425,0.6642,0.8426,0.0005,0.003

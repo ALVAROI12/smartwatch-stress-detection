@@ -1,0 +1,20 @@
+score,probe,auc,lo90,hi90,boot_sd,equiv_0.05,equiv_0.10,mdd_80pct
+external,exercise,0.7587,0.6877,0.8197,0.0415,False,False,0.1163
+external,Baseline/Rest (ref),0.5839,0.5453,0.6229,0.0233,False,False,0.0654
+external,Hyperventilation,0.5233,0.4492,0.5957,0.0441,False,True,0.1236
+external,UBFC Control task,0.5768,0.5095,0.6503,0.0432,False,False,0.1209
+external,Campanella Manual task,0.3551,0.2769,0.5285,0.0728,False,False,0.2039
+external,EPM Fear,0.6327,0.592,0.6747,0.0254,False,False,0.0711
+external,EPM Anger,0.3896,0.3291,0.5091,0.054,False,False,0.1511
+cond3_added_negative,exercise,0.892,0.8437,0.928,0.0257,False,False,0.0721
+cond3_added_negative,Baseline/Rest (ref) [exercise model],0.7089,0.6781,0.738,0.0183,False,False,0.0514
+cond3_added_negative,Hyperventilation,0.5596,0.4736,0.648,0.0521,False,False,0.1459
+cond3_added_negative,Baseline/Rest (ref) [Hyperventilation model],0.7235,0.6947,0.7516,0.0174,False,False,0.0486
+cond3_added_negative,UBFC Control task,0.568,0.4827,0.6513,0.0525,False,False,0.1471
+cond3_added_negative,Baseline/Rest (ref) [UBFC Control task model],0.7226,0.6937,0.7523,0.0178,False,False,0.0497
+cond3_added_negative,Campanella Manual task,0.496,0.4522,0.6822,0.0774,False,False,0.2168
+cond3_added_negative,Baseline/Rest (ref) [Campanella Manual task model],0.714,0.6836,0.7423,0.0176,False,False,0.0494
+cond3_added_negative,EPM Fear,0.7787,0.7451,0.8117,0.0203,False,False,0.0568
+cond3_added_negative,Baseline/Rest (ref) [EPM Fear model],0.7243,0.6947,0.7529,0.0179,False,False,0.0501
+cond3_added_negative,EPM Anger,0.431,0.3522,0.5858,0.0697,False,False,0.1952
+cond3_added_negative,Baseline/Rest (ref) [EPM Anger model],0.7231,0.6934,0.7524,0.0178,False,False,0.0498
