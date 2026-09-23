@@ -41,3 +41,6 @@ Thumbs.db
 
 # Local copies of papers and scratch results (copyright / not reproducible)
 sources/
+
+# graphify knowledge graph output (regenerate with /graphify)
+graphify-out/
