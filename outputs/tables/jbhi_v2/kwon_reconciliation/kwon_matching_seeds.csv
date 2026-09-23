@@ -1,0 +1,127 @@
+negatives,score,condition,seed,n,auc
+baseline,within_LOSO,"b: Kwon iso-HR (5 bpm, within subject)",0,98,0.98
+baseline,within_LOSO,"b: Kwon iso-HR (5 bpm, within subject)",1,98,0.981
+baseline,within_LOSO,"b: Kwon iso-HR (5 bpm, within subject)",2,98,0.98
+baseline,within_LOSO,"b: Kwon iso-HR (5 bpm, within subject)",3,98,0.981
+baseline,within_LOSO,"b: Kwon iso-HR (5 bpm, within subject)",4,98,0.98
+baseline,within_LOSO,"b: Kwon iso-HR (5 bpm, within subject)",5,98,0.982
+baseline,within_LOSO,"b: Kwon iso-HR (5 bpm, within subject)",6,98,0.979
+baseline,within_LOSO,"f: Kwon-style iso-EDA (0.5 SD, within subject)",0,100,0.88
+baseline,within_LOSO,"f: Kwon-style iso-EDA (0.5 SD, within subject)",1,100,0.872
+baseline,within_LOSO,"f: Kwon-style iso-EDA (0.5 SD, within subject)",2,100,0.877
+baseline,within_LOSO,"f: Kwon-style iso-EDA (0.5 SD, within subject)",3,100,0.888
+baseline,within_LOSO,"f: Kwon-style iso-EDA (0.5 SD, within subject)",4,100,0.883
+baseline,within_LOSO,"f: Kwon-style iso-EDA (0.5 SD, within subject)",5,100,0.876
+baseline,within_LOSO,"f: Kwon-style iso-EDA (0.5 SD, within subject)",6,100,0.874
+baseline,within_LOSO,g: Kwon-style iso-HR x EDA (within subject),0,4,0.75
+baseline,within_LOSO,g: Kwon-style iso-HR x EDA (within subject),1,4,0.75
+baseline,within_LOSO,g: Kwon-style iso-HR x EDA (within subject),2,4,0.75
+baseline,within_LOSO,g: Kwon-style iso-HR x EDA (within subject),3,4,0.75
+baseline,within_LOSO,g: Kwon-style iso-HR x EDA (within subject),4,4,0.75
+baseline,within_LOSO,g: Kwon-style iso-HR x EDA (within subject),5,4,0.75
+baseline,within_LOSO,g: Kwon-style iso-HR x EDA (within subject),6,4,0.75
+baseline,external,"b: Kwon iso-HR (5 bpm, within subject)",0,98,0.983
+baseline,external,"b: Kwon iso-HR (5 bpm, within subject)",1,98,0.985
+baseline,external,"b: Kwon iso-HR (5 bpm, within subject)",2,98,0.983
+baseline,external,"b: Kwon iso-HR (5 bpm, within subject)",3,98,0.978
+baseline,external,"b: Kwon iso-HR (5 bpm, within subject)",4,98,0.975
+baseline,external,"b: Kwon iso-HR (5 bpm, within subject)",5,98,0.977
+baseline,external,"b: Kwon iso-HR (5 bpm, within subject)",6,98,0.978
+baseline,external,"f: Kwon-style iso-EDA (0.5 SD, within subject)",0,100,0.862
+baseline,external,"f: Kwon-style iso-EDA (0.5 SD, within subject)",1,100,0.877
+baseline,external,"f: Kwon-style iso-EDA (0.5 SD, within subject)",2,100,0.882
+baseline,external,"f: Kwon-style iso-EDA (0.5 SD, within subject)",3,100,0.877
+baseline,external,"f: Kwon-style iso-EDA (0.5 SD, within subject)",4,100,0.884
+baseline,external,"f: Kwon-style iso-EDA (0.5 SD, within subject)",5,100,0.864
+baseline,external,"f: Kwon-style iso-EDA (0.5 SD, within subject)",6,100,0.862
+baseline,external,g: Kwon-style iso-HR x EDA (within subject),0,4,0.75
+baseline,external,g: Kwon-style iso-HR x EDA (within subject),1,4,0.75
+baseline,external,g: Kwon-style iso-HR x EDA (within subject),2,4,0.75
+baseline,external,g: Kwon-style iso-HR x EDA (within subject),3,4,0.75
+baseline,external,g: Kwon-style iso-HR x EDA (within subject),4,4,0.75
+baseline,external,g: Kwon-style iso-HR x EDA (within subject),5,4,0.75
+baseline,external,g: Kwon-style iso-HR x EDA (within subject),6,4,0.75
+baseline+meditation (Kwon),within_LOSO,"b: Kwon iso-HR (5 bpm, within subject)",0,102,0.98
+baseline+meditation (Kwon),within_LOSO,"b: Kwon iso-HR (5 bpm, within subject)",1,102,0.982
+baseline+meditation (Kwon),within_LOSO,"b: Kwon iso-HR (5 bpm, within subject)",2,102,0.979
+baseline+meditation (Kwon),within_LOSO,"b: Kwon iso-HR (5 bpm, within subject)",3,102,0.982
+baseline+meditation (Kwon),within_LOSO,"b: Kwon iso-HR (5 bpm, within subject)",4,102,0.978
+baseline+meditation (Kwon),within_LOSO,"b: Kwon iso-HR (5 bpm, within subject)",5,102,0.978
+baseline+meditation (Kwon),within_LOSO,"b: Kwon iso-HR (5 bpm, within subject)",6,102,0.981
+baseline+meditation (Kwon),within_LOSO,"f: Kwon-style iso-EDA (0.5 SD, within subject)",0,116,0.882
+baseline+meditation (Kwon),within_LOSO,"f: Kwon-style iso-EDA (0.5 SD, within subject)",1,116,0.879
+baseline+meditation (Kwon),within_LOSO,"f: Kwon-style iso-EDA (0.5 SD, within subject)",2,116,0.873
+baseline+meditation (Kwon),within_LOSO,"f: Kwon-style iso-EDA (0.5 SD, within subject)",3,116,0.881
+baseline+meditation (Kwon),within_LOSO,"f: Kwon-style iso-EDA (0.5 SD, within subject)",4,116,0.879
+baseline+meditation (Kwon),within_LOSO,"f: Kwon-style iso-EDA (0.5 SD, within subject)",5,116,0.867
+baseline+meditation (Kwon),within_LOSO,"f: Kwon-style iso-EDA (0.5 SD, within subject)",6,116,0.883
+baseline+meditation (Kwon),within_LOSO,g: Kwon-style iso-HR x EDA (within subject),0,4,0.75
+baseline+meditation (Kwon),within_LOSO,g: Kwon-style iso-HR x EDA (within subject),1,4,0.75
+baseline+meditation (Kwon),within_LOSO,g: Kwon-style iso-HR x EDA (within subject),2,4,0.75
+baseline+meditation (Kwon),within_LOSO,g: Kwon-style iso-HR x EDA (within subject),3,4,0.75
+baseline+meditation (Kwon),within_LOSO,g: Kwon-style iso-HR x EDA (within subject),4,4,0.75
+baseline+meditation (Kwon),within_LOSO,g: Kwon-style iso-HR x EDA (within subject),5,4,0.75
+baseline+meditation (Kwon),within_LOSO,g: Kwon-style iso-HR x EDA (within subject),6,4,0.75
+baseline+meditation (Kwon),external,"b: Kwon iso-HR (5 bpm, within subject)",0,102,0.982
+baseline+meditation (Kwon),external,"b: Kwon iso-HR (5 bpm, within subject)",1,102,0.985
+baseline+meditation (Kwon),external,"b: Kwon iso-HR (5 bpm, within subject)",2,102,0.98
+baseline+meditation (Kwon),external,"b: Kwon iso-HR (5 bpm, within subject)",3,102,0.98
+baseline+meditation (Kwon),external,"b: Kwon iso-HR (5 bpm, within subject)",4,102,0.973
+baseline+meditation (Kwon),external,"b: Kwon iso-HR (5 bpm, within subject)",5,102,0.978
+baseline+meditation (Kwon),external,"b: Kwon iso-HR (5 bpm, within subject)",6,102,0.985
+baseline+meditation (Kwon),external,"f: Kwon-style iso-EDA (0.5 SD, within subject)",0,116,0.862
+baseline+meditation (Kwon),external,"f: Kwon-style iso-EDA (0.5 SD, within subject)",1,116,0.87
+baseline+meditation (Kwon),external,"f: Kwon-style iso-EDA (0.5 SD, within subject)",2,116,0.849
+baseline+meditation (Kwon),external,"f: Kwon-style iso-EDA (0.5 SD, within subject)",3,116,0.876
+baseline+meditation (Kwon),external,"f: Kwon-style iso-EDA (0.5 SD, within subject)",4,116,0.866
+baseline+meditation (Kwon),external,"f: Kwon-style iso-EDA (0.5 SD, within subject)",5,116,0.82
+baseline+meditation (Kwon),external,"f: Kwon-style iso-EDA (0.5 SD, within subject)",6,116,0.862
+baseline+meditation (Kwon),external,g: Kwon-style iso-HR x EDA (within subject),0,4,0.75
+baseline+meditation (Kwon),external,g: Kwon-style iso-HR x EDA (within subject),1,4,0.75
+baseline+meditation (Kwon),external,g: Kwon-style iso-HR x EDA (within subject),2,4,0.75
+baseline+meditation (Kwon),external,g: Kwon-style iso-HR x EDA (within subject),3,4,0.75
+baseline+meditation (Kwon),external,g: Kwon-style iso-HR x EDA (within subject),4,4,0.75
+baseline+meditation (Kwon),external,g: Kwon-style iso-HR x EDA (within subject),5,4,0.75
+baseline+meditation (Kwon),external,g: Kwon-style iso-HR x EDA (within subject),6,4,0.75
+all_non_stress,within_LOSO,"b: Kwon iso-HR (5 bpm, within subject)",0,108,0.981
+all_non_stress,within_LOSO,"b: Kwon iso-HR (5 bpm, within subject)",1,108,0.982
+all_non_stress,within_LOSO,"b: Kwon iso-HR (5 bpm, within subject)",2,108,0.979
+all_non_stress,within_LOSO,"b: Kwon iso-HR (5 bpm, within subject)",3,108,0.982
+all_non_stress,within_LOSO,"b: Kwon iso-HR (5 bpm, within subject)",4,108,0.978
+all_non_stress,within_LOSO,"b: Kwon iso-HR (5 bpm, within subject)",5,108,0.978
+all_non_stress,within_LOSO,"b: Kwon iso-HR (5 bpm, within subject)",6,108,0.981
+all_non_stress,within_LOSO,"f: Kwon-style iso-EDA (0.5 SD, within subject)",0,124,0.888
+all_non_stress,within_LOSO,"f: Kwon-style iso-EDA (0.5 SD, within subject)",1,124,0.876
+all_non_stress,within_LOSO,"f: Kwon-style iso-EDA (0.5 SD, within subject)",2,124,0.879
+all_non_stress,within_LOSO,"f: Kwon-style iso-EDA (0.5 SD, within subject)",3,124,0.874
+all_non_stress,within_LOSO,"f: Kwon-style iso-EDA (0.5 SD, within subject)",4,124,0.891
+all_non_stress,within_LOSO,"f: Kwon-style iso-EDA (0.5 SD, within subject)",5,124,0.869
+all_non_stress,within_LOSO,"f: Kwon-style iso-EDA (0.5 SD, within subject)",6,124,0.877
+all_non_stress,within_LOSO,g: Kwon-style iso-HR x EDA (within subject),0,4,0.75
+all_non_stress,within_LOSO,g: Kwon-style iso-HR x EDA (within subject),1,4,0.75
+all_non_stress,within_LOSO,g: Kwon-style iso-HR x EDA (within subject),2,4,0.75
+all_non_stress,within_LOSO,g: Kwon-style iso-HR x EDA (within subject),3,4,0.75
+all_non_stress,within_LOSO,g: Kwon-style iso-HR x EDA (within subject),4,4,0.75
+all_non_stress,within_LOSO,g: Kwon-style iso-HR x EDA (within subject),5,4,0.75
+all_non_stress,within_LOSO,g: Kwon-style iso-HR x EDA (within subject),6,4,0.75
+all_non_stress,external,"b: Kwon iso-HR (5 bpm, within subject)",0,108,0.958
+all_non_stress,external,"b: Kwon iso-HR (5 bpm, within subject)",1,108,0.96
+all_non_stress,external,"b: Kwon iso-HR (5 bpm, within subject)",2,108,0.962
+all_non_stress,external,"b: Kwon iso-HR (5 bpm, within subject)",3,108,0.958
+all_non_stress,external,"b: Kwon iso-HR (5 bpm, within subject)",4,108,0.949
+all_non_stress,external,"b: Kwon iso-HR (5 bpm, within subject)",5,108,0.957
+all_non_stress,external,"b: Kwon iso-HR (5 bpm, within subject)",6,108,0.959
+all_non_stress,external,"f: Kwon-style iso-EDA (0.5 SD, within subject)",0,124,0.884
+all_non_stress,external,"f: Kwon-style iso-EDA (0.5 SD, within subject)",1,124,0.839
+all_non_stress,external,"f: Kwon-style iso-EDA (0.5 SD, within subject)",2,124,0.851
+all_non_stress,external,"f: Kwon-style iso-EDA (0.5 SD, within subject)",3,124,0.838
+all_non_stress,external,"f: Kwon-style iso-EDA (0.5 SD, within subject)",4,124,0.846
+all_non_stress,external,"f: Kwon-style iso-EDA (0.5 SD, within subject)",5,124,0.848
+all_non_stress,external,"f: Kwon-style iso-EDA (0.5 SD, within subject)",6,124,0.855
+all_non_stress,external,g: Kwon-style iso-HR x EDA (within subject),0,4,0.75
+all_non_stress,external,g: Kwon-style iso-HR x EDA (within subject),1,4,0.75
+all_non_stress,external,g: Kwon-style iso-HR x EDA (within subject),2,4,0.75
+all_non_stress,external,g: Kwon-style iso-HR x EDA (within subject),3,4,0.75
+all_non_stress,external,g: Kwon-style iso-HR x EDA (within subject),4,4,0.75
+all_non_stress,external,g: Kwon-style iso-HR x EDA (within subject),5,4,0.75
+all_non_stress,external,g: Kwon-style iso-HR x EDA (within subject),6,4,0.75

@@ -1,0 +1,49 @@
+negatives,score,condition,n,n_stress,auc,lo,hi,auc_sd,n_subjects
+baseline,within_LOSO,a: no matching,877.0,311.0,0.984,0.956,0.998,,
+baseline,within_LOSO,"a': no matching, HR available",622.0,114.0,0.981,0.946,0.999,,
+baseline,within_LOSO,"b: Kwon iso-HR (5 bpm, within subject)",98.0,49.0,0.981,0.932,1.0,0.001,10.0
+baseline,within_LOSO,"f: Kwon-style iso-EDA (0.5 SD, within subject)",100.0,50.0,0.879,0.786,0.974,0.006,6.0
+baseline,within_LOSO,g: Kwon-style iso-HR x EDA (within subject),4.0,2.0,0.75,0.75,1.0,0.0,2.0
+baseline,within_LOSO,"c: quintiles, HR-only index",622.0,114.0,0.982,0.959,0.998,,
+baseline,within_LOSO,"d: quintiles, HR+EDA index",877.0,311.0,0.935,0.889,0.988,,
+baseline,within_LOSO,"e: quintiles, EDA-only index",877.0,311.0,0.911,0.793,0.994,,
+baseline,external,a: no matching,877.0,311.0,0.977,0.959,0.993,,
+baseline,external,"a': no matching, HR available",622.0,114.0,0.99,0.977,0.997,,
+baseline,external,"b: Kwon iso-HR (5 bpm, within subject)",98.0,49.0,0.98,0.947,0.998,0.004,10.0
+baseline,external,"f: Kwon-style iso-EDA (0.5 SD, within subject)",100.0,50.0,0.873,0.771,0.964,0.01,6.0
+baseline,external,g: Kwon-style iso-HR x EDA (within subject),4.0,2.0,0.75,0.75,1.0,0.0,2.0
+baseline,external,"c: quintiles, HR-only index",622.0,114.0,0.987,0.975,0.998,,
+baseline,external,"d: quintiles, HR+EDA index",877.0,311.0,0.952,0.885,0.982,,
+baseline,external,"e: quintiles, EDA-only index",877.0,311.0,0.957,0.93,0.976,,
+baseline+meditation (Kwon),within_LOSO,a: no matching,1233.0,311.0,0.986,0.965,0.999,,
+baseline+meditation (Kwon),within_LOSO,"a': no matching, HR available",900.0,114.0,0.985,0.957,0.998,,
+baseline+meditation (Kwon),within_LOSO,"b: Kwon iso-HR (5 bpm, within subject)",102.0,51.0,0.98,0.936,1.0,0.002,10.0
+baseline+meditation (Kwon),within_LOSO,"f: Kwon-style iso-EDA (0.5 SD, within subject)",116.0,58.0,0.878,0.788,0.972,0.006,6.0
+baseline+meditation (Kwon),within_LOSO,g: Kwon-style iso-HR x EDA (within subject),4.0,2.0,0.75,0.75,1.0,0.0,2.0
+baseline+meditation (Kwon),within_LOSO,"c: quintiles, HR-only index",900.0,114.0,0.988,0.964,0.998,,
+baseline+meditation (Kwon),within_LOSO,"d: quintiles, HR+EDA index",1233.0,311.0,0.948,0.899,0.984,,
+baseline+meditation (Kwon),within_LOSO,"e: quintiles, EDA-only index",1233.0,311.0,0.924,0.831,0.986,,
+baseline+meditation (Kwon),external,a: no matching,1233.0,311.0,0.976,0.956,0.991,,
+baseline+meditation (Kwon),external,"a': no matching, HR available",900.0,114.0,0.989,0.979,0.997,,
+baseline+meditation (Kwon),external,"b: Kwon iso-HR (5 bpm, within subject)",102.0,51.0,0.98,0.953,0.998,0.004,10.0
+baseline+meditation (Kwon),external,"f: Kwon-style iso-EDA (0.5 SD, within subject)",116.0,58.0,0.858,0.78,0.965,0.019,6.0
+baseline+meditation (Kwon),external,g: Kwon-style iso-HR x EDA (within subject),4.0,2.0,0.75,0.75,1.0,0.0,2.0
+baseline+meditation (Kwon),external,"c: quintiles, HR-only index",900.0,114.0,0.986,0.962,0.997,,
+baseline+meditation (Kwon),external,"d: quintiles, HR+EDA index",1233.0,311.0,0.929,0.878,0.964,,
+baseline+meditation (Kwon),external,"e: quintiles, EDA-only index",1233.0,311.0,0.947,0.915,0.978,,
+all_non_stress,within_LOSO,a: no matching,1398.0,311.0,0.985,0.963,0.998,,
+all_non_stress,within_LOSO,"a': no matching, HR available",1022.0,114.0,0.985,0.955,0.998,,
+all_non_stress,within_LOSO,"b: Kwon iso-HR (5 bpm, within subject)",108.0,54.0,0.98,0.934,1.0,0.002,10.0
+all_non_stress,within_LOSO,"f: Kwon-style iso-EDA (0.5 SD, within subject)",124.0,62.0,0.879,0.791,0.969,0.008,6.0
+all_non_stress,within_LOSO,g: Kwon-style iso-HR x EDA (within subject),4.0,2.0,0.75,0.75,1.0,0.0,2.0
+all_non_stress,within_LOSO,"c: quintiles, HR-only index",1022.0,114.0,0.988,0.968,0.998,,
+all_non_stress,within_LOSO,"d: quintiles, HR+EDA index",1398.0,311.0,0.942,0.89,0.985,,
+all_non_stress,within_LOSO,"e: quintiles, EDA-only index",1398.0,311.0,0.911,0.802,0.979,,
+all_non_stress,external,a: no matching,1398.0,311.0,0.968,0.947,0.985,,
+all_non_stress,external,"a': no matching, HR available",1022.0,114.0,0.982,0.967,0.996,,
+all_non_stress,external,"b: Kwon iso-HR (5 bpm, within subject)",108.0,54.0,0.957,0.929,0.99,0.004,10.0
+all_non_stress,external,"f: Kwon-style iso-EDA (0.5 SD, within subject)",124.0,62.0,0.852,0.776,0.961,0.016,6.0
+all_non_stress,external,g: Kwon-style iso-HR x EDA (within subject),4.0,2.0,0.75,0.75,1.0,0.0,2.0
+all_non_stress,external,"c: quintiles, HR-only index",1022.0,114.0,0.978,0.949,0.996,,
+all_non_stress,external,"d: quintiles, HR+EDA index",1398.0,311.0,0.888,0.785,0.947,,
+all_non_stress,external,"e: quintiles, EDA-only index",1398.0,311.0,0.934,0.91,0.967,,

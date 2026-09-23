@@ -1,0 +1,13 @@
+dataset,score,n,n_stress,auc_unmatched,auc_hr_eda_quintiles
+pooled (Table IV),within_LOSO,5445,1606,0.873,0.784
+pooled (Table IV),external,5445,1606,0.77,0.584
+Campanella2024,within_LOSO,218,102,0.939,0.578
+Campanella2024,external,218,102,0.918,0.607
+PhysioNet,within_LOSO,1599,232,0.841,0.718
+PhysioNet,external,1599,232,0.807,0.696
+Stress-Predict,within_LOSO,2546,851,0.773,0.648
+Stress-Predict,external,2546,851,0.708,0.574
+UBFC-Phys,within_LOSO,205,110,0.958,0.927
+UBFC-Phys,external,205,110,0.906,0.684
+WESAD,within_LOSO,877,311,0.984,0.935
+WESAD,external,877,311,0.977,0.952
