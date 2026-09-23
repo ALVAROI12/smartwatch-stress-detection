@@ -112,7 +112,7 @@ def fig3_time():
             g = w[(w.dataset == d) & (w.bin <= 30)]
             ax.plot(g.bin + 1, g[feat], "-o", ms=2, lw=0.9, color=c, label=d.replace("2024", ""))
         ax.axvspan(0, 10, color="grey", alpha=0.12, lw=0)
-        ax.set_xlabel("Minutes since recording start"); ax.set_ylabel(lab, fontsize=7); ax.set_title(title)
+        ax.set_xlabel("Minutes since first protocol window"); ax.set_ylabel(lab, fontsize=7); ax.set_title(title)
     axes[1].set_ylim(-4.5, 4.5); axes[2].set_ylim(-1.2, 1.2)
     axes[2].legend(fontsize=6, loc="upper right")
     fig.tight_layout()
