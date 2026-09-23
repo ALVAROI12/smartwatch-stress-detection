@@ -2,6 +2,10 @@
 
 Alvaro Ibarra's wrist-wearable stress detection research (UTSA, ECE). This repo is the working copy for the journal revision (IEEE JBHI) of the six-class paper. Start every chat about the stress project here, so all sessions share this file.
 
+## Start here
+
+**Read `STATUS.md` first**: current state, open decisions, next steps and what is running. Before ending a work block, update it (Now, Open decisions, Next steps, Running, and one dated Log line). This file holds settled facts only; do not search old chats for project state.
+
 ## Repo layout and branches
 
 - Remote: `github.com/ALVAROI12/smartwatch-stress-detection`.
