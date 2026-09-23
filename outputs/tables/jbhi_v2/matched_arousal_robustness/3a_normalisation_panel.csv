@@ -1,0 +1,19 @@
+norm,probe,ext_false_stress,added_neg_false_stress
+session,exercise,0.6933,0.0847
+session,Hyperventilation,0.4151,0.5472
+session,UBFC Control task,0.55,0.5633
+session,Campanella Manual task,0.4273,0.3283
+session,EPM Fear,0.3528,0.2779
+session,EPM Anger,0.4242,0.4357
+raw,exercise,0.8142,0.2968
+raw,Hyperventilation,0.6038,0.5425
+raw,UBFC Control task,0.475,0.3633
+raw,Campanella Manual task,0.6762,0.4409
+raw,EPM Fear,0.1269,0.0867
+raw,EPM Anger,0.2727,0.2643
+baseline,exercise,0.831,0.1936
+baseline,Hyperventilation,0.4528,0.4434
+baseline,UBFC Control task,0.6375,0.79
+baseline,Campanella Manual task,0.8621,0.5554
+baseline,EPM Fear,,
+baseline,EPM Anger,,
