@@ -162,11 +162,16 @@ for name, a in lo_idx.items():
         per = pd.DataFrame(per, columns=["split", "ba", "auc"]).set_index("split")
         m = lodo.loc[target].reindex(per.index)
         diff, _, p = corrected_ttest(m.balanced_accuracy.to_numpy(), per.ba.to_numpy())
+        d = m.balanced_accuracy.to_numpy() - per.ba.to_numpy()
+        se = np.sqrt((1 / len(d) + TEST_TRAIN_RATIO) * d.var(ddof=1))  # Nadeau-Bengio corrected SE
+        ci95 = diff + np.array([-1, 1]) * stats.t.ppf(0.975, len(d) - 1) * se
+        ci90 = diff + np.array([-1, 1]) * stats.t.ppf(0.95, len(d) - 1) * se  # TOST at alpha 0.05
         ok = tgt & np.isfinite(a)
         rowsC.append(dict(index=name, dataset=target, coverage=ok.sum() / tgt.sum(), threshold=thr,
                           auroc_pooled=roc_auc_score(ly[ok], a[ok]), ba_pooled=balanced_accuracy_score(ly[ok], a[ok] > thr),
                           ba_splits=per.ba.mean(), auroc_splits=per.auc.mean(), model_ba=m.balanced_accuracy.mean(),
-                          model_auroc=m.auroc.mean(), model_minus_index_ba=diff, p_nb=p, n_splits=len(per)))
+                          model_auroc=m.auroc.mean(), model_minus_index_ba=diff, ci95_lo=ci95[0], ci95_hi=ci95[1], ci90_lo=ci90[0], ci90_hi=ci90[1],
+                          equiv_005=bool(ci90[0] > -0.05 and ci90[1] < 0.05), p_nb=p, n_splits=len(per)))
 C = pd.DataFrame(rowsC); C["p_nb_holm"] = np.nan
 for s, g in C.groupby("index"): C.loc[g.index, "p_nb_holm"] = holm(g.p_nb).to_numpy()
 C.round(4).to_csv(OUT / "C_arousal_index_lodo.csv", index=False)
