@@ -13,7 +13,7 @@ Last updated: 2026-09-23 (chat "add academic research skills").
 
 Goal: publication in a journal (target IEEE JBHI) or conference. The MS thesis was defended in May 2026 and is finished; nothing here is for the thesis.
 
-The paper's direction changed on 2026-09-22. Working title: **"What Do Wrist-Worn Stress Detectors Detect?"** The paper's central claim: wrist detectors transfer across datasets because they detect autonomic arousal, and the within-dataset ceiling is stressor potency. The draft manuscript is `paper/main.tex` (IEEEtran, built as `paper/main.pdf`). A new method is no longer a goal for this paper: few-shot personalisation, domain adaptation and per-user thresholds are reported as leakage-controlled negatives. `main` on GitHub now holds the corrected pipeline (PRs #4, #6 and #7 merged).
+The paper's direction changed on 2026-09-22. Working title: **"What Do Wrist-Worn Stress Detectors Detect?"** The paper's central claim (revised 2026-09-23, see below): on public E4 data, wrist stress detectors behave as arousal detectors; an untrained HR+EDA index matches them across datasets. The draft manuscript is `paper/main.tex` (IEEEtran, built as `paper/main.pdf`). A new method is no longer a goal for this paper: few-shot personalisation, domain adaptation and per-user thresholds are reported as leakage-controlled negatives. `main` on GitHub now holds the corrected pipeline (PRs #4, #6 and #7 merged).
 
 **2026-09-23 revision pass (branch `gitignore-graphify`, pushed).** A claim-to-code audit (`docs/claim_to_code_audit.md`) found 26 numbers in `main.tex` that disagreed with committed tables and 10 with no source; all are now fixed or backed. A simulated JBHI review (`docs/review_simulation/jbhi_review.md`, five seats, same model family) returned **Major Revision** with a 15-item roadmap, all on existing data. Reanalyses done (`scripts/reviewer_reanalyses.py`, `outputs/tables/jbhi_v2/reviewer_reanalyses/`) change the paper's central claim:
 - A label-free HR+EDA arousal index, untrained, matches the trained detector under LODO (no model-minus-index BA difference survives Holm; largest +0.075, UBFC-Phys). This is now the direct evidence for "detects arousal".
@@ -27,7 +27,7 @@ The paper's direction changed on 2026-09-22. Working title: **"What Do Wrist-Wor
 
 - Leave-one-dataset-out over five E4 datasets: transfer cost 0.015–0.05 balanced accuracy (HR/HRV/EDA).
 - Within WESAD + PhysioNet + EPM-E4: 0.831 balanced accuracy (95% CI 0.813–0.850) on subject-grouped splits, 0.849 LOSO.
-- Exercise is called stress 69% of the time when exercise is not in training, 8% when it is. Seated non-evaluative tasks, hyperventilation, Lego and anger are not separable from stress at matched arousal (AUROC 0.36–0.58, none significant after Holm); exercise is (0.89).
+- Exercise is called stress 69% of the time when exercise is not in training, 8% when it is. At matched arousal, external stress vs rest is only 0.58 (0.78 within dataset); lower-demand tasks, hyperventilation, Lego and anger are no more separable (nulls underpowered, MDD 0.12–0.22); exercise is separable (0.89).
 - Minutes since start alone beats physiology within dataset on PhysioNet (0.83 vs 0.78) and Stress-Predict (0.95 vs 0.70).
 
 ## Deliverables
@@ -45,7 +45,7 @@ The paper's direction changed on 2026-09-22. Working title: **"What Do Wrist-Wor
 2. Adopt the "what detectors detect" framing for the JBHI paper (`docs/contribution_map.md` §5)?
 3. Write the benchmark-release paper in parallel (§4, rank 2)?
 4. Start the IRB for a counterbalanced UTSA lab study (§4, rank 4)?
-6. New title and central claim after the 2026-09-23 review (roadmap REV-10). Proposal: drop "Evaluative Stress Does Not"; lead with "an untrained arousal index matches trained wrist stress detectors across five E4 datasets".
+5. New title and central claim after the 2026-09-23 review (roadmap REV-10). Proposal: drop "Evaluative Stress Does Not"; lead with "an untrained arousal index matches trained wrist stress detectors across five E4 datasets".
 
 ## Next steps
 
