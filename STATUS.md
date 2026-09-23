@@ -19,6 +19,8 @@ The paper's direction changed on 2026-09-22. Working title: **"What Do Wrist-Wor
 - Matched-arousal nulls are underpowered (minimum detectable deviation 0.12–0.22; only hyperventilation equivalent to 0.5 at ±0.10). Transfer costs are not significant after Holm but upper CI bounds reach 0.08–0.13.
 - Kwon et al. (2026) already ran an iso-heart-rate test (WESAD stays separable, 0.955 to 0.938); the intro claim is narrowed and Kwon, Schmidt 2019 and Vos 2023 are cited.
 
+**Manuscript rewritten on this evidence (commits `37d3342`, `894a661`).** New title: "What Do Wrist-Worn Stress Detectors Detect? An Untrained Arousal Index Matches Them Across Five Empatica E4 Datasets". Abstract, contributions, results (Tables II–IV), discussion and conclusion follow the reanalyses; probes are described as their descriptors do; nulls are stated with their power. 10 pages. The title and thesis change still needs sign-off from the user and Dr. Pan (open decision 6).
+
 ## Key numbers (details: `CLAUDE.md`, `docs/contribution_map.md`, `docs/novelty_experiments.md`)
 
 - Leave-one-dataset-out over five E4 datasets: transfer cost 0.015–0.05 balanced accuracy (HR/HRV/EDA).
@@ -46,7 +48,7 @@ The paper's direction changed on 2026-09-22. Working title: **"What Do Wrist-Wor
 
 ## Next steps
 
-1. Work through `docs/review_simulation/jbhi_review.md` §4 in order: REV-1 (remaining fact fixes), REV-2 (describe comparators accurately), REV-3/5 rest (graded positive control, missingness-stratified runs), REV-6 to REV-15, then REV-10 retitle.
+1. Remaining roadmap items (`docs/review_simulation/jbhi_review.md` §4). Done: REV-1 (except the author e-mail placeholder at L18 and a manipulation-check table), REV-2 text, REV-4, REV-5 core, REV-10, REV-11 (Kwon, Schmidt, Vos, Milstein, Richer). Open: REV-3 rest (graded synthetic positive control, missingness-stratified matched test, HR-only matching on WESAD), REV-6 (normalisation/weighting sensitivity), REV-7 (EDA quality screening), REV-8 (bootstrap the Shapley budget), REV-9, REV-12 checklist box, REV-13 (cut to main text + supplement, release feature table decision), REV-14 (HR/HRV-only arm, demographics), REV-15 (EPM-E4 settling control). Then re-run the simulated review in re-review mode.
 2. Merge `gitignore-graphify` into `jbhi-revision`: `git merge --ff-only gitignore-graphify`.
 3. After decision 1, send the chosen documents to Dr. Pan.
 2. `docs/contribution_map.md` §5, items 2–3: add the Stress-Predict hyperventilation relabelling to the label audit; correct the PULSE premise in the advisor sheet.
