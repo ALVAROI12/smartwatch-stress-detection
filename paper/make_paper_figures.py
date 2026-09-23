@@ -10,7 +10,7 @@ import pandas as pd
 T = Path(__file__).resolve().parents[1] / "outputs" / "tables" / "jbhi_v2"
 OUT = Path(__file__).parent
 plt.rcParams.update({"font.size": 8, "axes.spines.top": False, "axes.spines.right": False,
-                     "axes.titlesize": 8, "legend.fontsize": 7, "legend.frameon": False, "pdf.fonttype": 42})
+                     "axes.titlesize": 8, "legend.fontsize": 7, "legend.frameon": False, "pdf.fonttype": 42, "savefig.bbox": "tight"})
 ORDER = ["WESAD", "PhysioNet", "Stress-Predict", "UBFC-Phys", "Campanella2024"]
 SHORT = {"WESAD": "WESAD", "PhysioNet": "PhysioNet", "Stress-Predict": "Stress-\nPredict", "UBFC-Phys": "UBFC-\nPhys",
          "Campanella2024": "Campanella"}
@@ -30,14 +30,14 @@ def fig1_lodo():
                                              ("all_datasets", 0.25, "#55a868")]):
             v = [d[(d.features == feat) & (d.test_dataset == ds) & (d.trained_on == name)].balanced_accuracy.item() for ds in ORDER]
             ax.bar(x + off, v, 0.25, color=c, label=name.replace("_", " "))
-        ax.set_xticks(x, [SHORT[o] for o in ORDER])
+        ax.set_xticks(x, [SHORT[o] for o in ORDER], rotation=30, ha="right", fontsize=6.5)
         ax.set_ylim(0.5, 1.0)
         ax.set_title(title)
         if feat == "physiology":
             ax.annotate("no temperature\nchannel in target", xy=(3, 0.589), xytext=(2.2, 0.62), fontsize=6.5,
                         arrowprops=dict(arrowstyle="->", lw=0.6))
     axes[0].set_ylabel("Balanced accuracy (held-out subjects)")
-    axes[0].legend(loc="lower left")
+    axes[0].legend(loc="lower left", bbox_to_anchor=(0.0, 1.12), ncol=3)
     fig.tight_layout()
     fig.savefig(OUT / "fig_lodo.pdf")
 
@@ -47,7 +47,7 @@ def fig2_panel():
     keep = ["PhysioNet Aerobic", "PhysioNet Anaerobic", "Campanella2024 Manual task", "UBFC-Phys Control task",
             "Stress-Predict Hyperventilation", "EPM-E4 Fear", "EPM-E4 Anger", "EPM-E4 Sadness", "EPM-E4 Happiness"]
     lab = {"PhysioNet Aerobic": "Aerobic exercise", "PhysioNet Anaerobic": "Anaerobic exercise",
-           "Campanella2024 Manual task": "Lego manual task", "UBFC-Phys Control task": "Speech/arith., no evaluation",
+           "Campanella2024 Manual task": "Lego manual task", "UBFC-Phys Control task": "UBFC-Phys control version",
            "Stress-Predict Hyperventilation": "Hyperventilation", "EPM-E4 Fear": "Fear clips", "EPM-E4 Anger": "Anger clips",
            "EPM-E4 Sadness": "Sadness clips", "EPM-E4 Happiness": "Happiness clips"}
     p = p.set_index("probe_class").loc[keep]
@@ -65,19 +65,20 @@ def fig2_panel():
     ax1.legend(loc="upper center", bbox_to_anchor=(0.5, -0.22), ncol=1, fontsize=6)
     ax1.set_title("(a) Specificity panel")
 
-    m = pd.read_csv(T / "contribution_probes/arousal/partA_matched_arousal.csv")
-    m = m[m["index"] == "hr+eda"]
-    rows = [("exercise", "same_dataset", "cond3_added_negative", "Exercise (model shown exercise)"),
-            ("Baseline/Rest (ref)", "pooled_stress", "external", "Baseline / rest (reference)"),
-            ("EPM Fear", "pooled_stress", "external", "Fear clips"),
-            ("UBFC Control task", "same_dataset", "external", "Speech/arith., no evaluation"),
-            ("Hyperventilation", "same_dataset", "external", "Hyperventilation"),
-            ("EPM Anger", "pooled_stress", "external", "Anger clips"),
-            ("Campanella Manual task", "same_dataset", "external", "Lego manual task")]
+    # Same run and CIs as Table IV (2000-draw subject bootstrap).
+    m = pd.read_csv(T / "contribution_probes/hardening/partA_inference.csv")
+    m = m[(m["index"] == "hr+eda") & (m.variant == "full_model")]
+    rows = [("exercise", "cond3_added_negative", "Exercise (model shown exercise)"),
+            ("Baseline/Rest (ref)", "external", "Baseline / rest (reference)"),
+            ("EPM Fear", "external", "Fear clips"),
+            ("UBFC Control task", "external", "UBFC-Phys control version"),
+            ("Hyperventilation", "external", "Hyperventilation"),
+            ("EPM Anger", "external", "Anger clips"),
+            ("Campanella Manual task", "external", "Lego tasks")]
     vals, los, his, names = [], [], [], []
-    for probe, scope, score, name in rows:
-        r = m[(m.probe == probe) & (m.stress_scope == scope) & (m.score == score)].iloc[0]
-        vals.append(r.auc_binned); los.append(r.lo); his.append(r.hi); names.append(name)
+    for probe, score, name in rows:
+        r = m[(m.probe == probe) & (m.score == score)].iloc[0]
+        vals.append(r.auc); los.append(r.lo); his.append(r.hi); names.append(name)
     vals, los, his = map(np.array, (vals, los, his))
     y2 = np.arange(len(rows))
     cols = ["#55a868"] + ["#dd8452"] * (len(rows) - 1)
