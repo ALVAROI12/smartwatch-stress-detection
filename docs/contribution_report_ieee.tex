@@ -1,0 +1,183 @@
+\documentclass[journal]{IEEEtran}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs,tabularx,array}
+\usepackage{amsmath}
+\usepackage{url}
+\makeatletter\g@addto@macro\UrlBreaks{\do\_\do\-}\makeatother
+\usepackage[hidelinks]{hyperref}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcommand{\m}{$-$}
+
+\begin{document}
+
+\title{What Do Wrist-Worn Stress Detectors Detect? Research Scope, Method, and Contribution Map for the JBHI Revision}
+
+\author{Alvaro~Octavio~Ibarra~Reyes%
+\thanks{Report to Dr.~Chen Pan and the advisory committee, Department of Electrical and Computer Engineering, The University of Texas at San Antonio, 22 September 2026. It follows the 22 September revision report and adds the results of three new analyses run the same day on the existing feature table. Every number is reproducible from the repository (branch \texttt{jbhi-revision}, commit \texttt{5940dec}); the long form is \texttt{docs/contribution\_map.md}.}}
+
+\markboth{Contribution map for the JBHI revision, 22 September 2026}{Ibarra Reyes: Contribution map}
+
+\maketitle
+
+\begin{abstract}
+The previous report left one question open: what is the method contribution of the JBHI paper? This report answers it with three new analyses on the five public Empatica E4 datasets already in the pipeline. First, a specificity panel scores the stress detector on non-stress arousal states it was never shown: adding a state to the training negatives removes exercise false alarms (69\% to 8\%) but not false alarms on speech and arithmetic performed without evaluation (55\% to 56\%), voluntary hyperventilation (about 50\%), manual tasks (43\% to 33\%) or film-induced emotions. Second, a matched-arousal test shows that, within bins of equal autonomic arousal, the detector cannot separate stress from any seated non-evaluative task (AUROC 0.36--0.63) but does separate it from exercise (0.89). Third, an error budget shows that post-stressor recovery, sensor loss, onset latency and non-response together explain at most 0.06 of the 0.22--0.29 within-dataset error on PhysioNet and Stress-Predict, and that time in session alone predicts stress better than physiology on those two datasets. The conclusion is that wrist detectors transfer across datasets because they detect autonomic arousal, and that the remaining ceiling is stressor potency, not the pipeline. I propose to make this the paper's thesis, to release the audited five-dataset benchmark as a companion resource, and to design a counterbalanced laboratory study at UTSA that separates speech from evaluative threat. Few-shot personalisation, domain adaptation, per-user thresholds, self-rated stress intensity and a subject-level ``detectability'' trait are now leakage-controlled negative results. Section~VI lists the decisions I need.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Wearable stress detection, Empatica E4, autonomic arousal, specificity, cross-dataset generalization, confounding, benchmark.
+\end{IEEEkeywords}
+
+\section{Scope}
+\IEEEPARstart{T}{he} project is subject- and dataset-independent stress detection from the wrist Empatica E4, using five public laboratory datasets: WESAD~\cite{schmidt2018wesad}, the PhysioNet stress and exercise dataset~\cite{hongn2025data}, Stress-Predict~\cite{iqbal2022}, UBFC-Phys~\cite{meziati2023} and Campanella~2024~\cite{campanella2024}; EPM-E4~\cite{garcia2020epm} supplies film-induced emotions as probes only. The task is stress versus all non-stress states. The six-class headline of the original draft, the EPM-E4 emotions and the exercise classes are no longer targets; they serve as controls.
+
+The question changed this week. The previous report asked how to transfer better across datasets and found that, once labels are corrected and features are normalised per subject, there is little left to fix: the leave-one-dataset-out cost is 0.015--0.05 balanced accuracy, and CORAL, MMD, DANN, few-shot personalisation and per-user thresholds add nothing significant. The new question is what the detector detects, and what limits it. The answer reframes every negative result as evidence for one positive claim.
+
+\section{Method}
+Everything below reuses the fixed evaluation protocol: descriptor-level label audit with protocol-stage anchors; wrist heart rate and HRV validated against WESAD chest ECG; per-subject whole-session z-scoring of heart-rate, HRV and electrodermal features, stated as transductive with raw and causal variants as sensitivity analyses; skin temperature dropped (Section~III-C explains why); XGBoost; twenty subject-grouped splits plus leave-one-subject-out and leave-one-dataset-out; Nadeau--Bengio corrected tests~\cite{nadeau2003} with Holm correction; subject bootstrap for confidence intervals. Three probe scripts were added (\texttt{specificity\_panel\_probe.py}, \texttt{time\_in\_session\_probe.py}, \texttt{matched\_arousal\_probe.py}); each reproduces the committed numbers it overlaps with, and each runs in under five minutes on a laptop.
+
+Four evaluation rules come out of this work and are proposed as method contributions in their own right: (1) a \emph{specificity panel}, the false-stress rate of a fixed detector on non-stress arousal states, reported the way a diagnostic assay reports cross-reactivity; (2) a \emph{matched-arousal test}, AUROC of the stress score inside bins of a label-free arousal index; (3) \emph{position-matched negatives}, restricting non-stress test windows to the time-in-session range of the stress windows; (4) a \emph{test-side error budget}, Shapley-averaged gains from filters applied to out-of-sample predictions without retraining.
+
+\section{Results}
+\subsection{The detector cannot separate stress from non-evaluative arousal}
+The leave-one-dataset-out task keeps only baseline, rest, meditation and amusement as negatives, so several recorded states were never scored. Table~\ref{tab:panel} gives their false-stress rates under three training conditions. Adding exercise to the negatives collapses its false-stress rate, as reported before~\cite{aydogan2026}; adding any other state does not. The UBFC-Phys control group performs the same speech and arithmetic tasks as the test group but without an evaluating panel, and is called stress at the same rate whether or not the model has seen it. Stress recall is unchanged or higher when a probed class is added, so the failure is not a trade-off.
+
+\begin{table}[!t]
+\centering
+\caption{False-Stress Rate ($p>0.5$) on States Absent From the Standard Task, HR/HRV/EDA Features, Subject-Bootstrap 95\% CI}
+\label{tab:panel}
+\footnotesize
+\begin{tabularx}{\columnwidth}{@{}Lccc@{}}
+\toprule
+Probed state (subjects / windows) & Dataset absent from training & Class added as negative \\
+\midrule
+UBFC-Phys control group, speech and arithmetic without evaluation (8 / 80) & 0.55 [0.46, 0.66] & 0.56 [0.45, 0.67] \\
+Stress-Predict hyperventilation (31 / 53) & 0.42 [0.26, 0.59] & 0.55 [0.36, 0.72] \\
+Campanella Lego manual tasks (29 / 667) & 0.43 [0.38, 0.48] & 0.33 [0.27, 0.39] \\
+EPM-E4 anger / fear / sadness / happiness (33 each) & 0.42 / 0.35 / 0.37 / 0.24 & 0.35 / 0.25 / 0.30 / 0.18 \\
+PhysioNet aerobic / anaerobic exercise (30--31 / 3763) & 0.69 / 0.70 & 0.10 / 0.08 \\
+\midrule
+Reference: in-training non-stress states & 0.06--0.29 & --- \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Table~\ref{tab:matched} makes the mechanism explicit. A label-free arousal index (mean of the z-scored heart rate and tonic EDA) is computed per window; stress windows are pooled with each probed state and binned into arousal quintiles; the AUROC of the stress score is computed inside each bin. An AUROC near 0.5 means the model learned nothing beyond arousal magnitude for that pair. Every seated, non-evaluative state is at or below chance; Lego manual tasks score \emph{higher} than stress at equal arousal. Exercise is the one exception, and the heart-rate-only index carries its residual: exercise is separated by its cardiac signature (heart rate up without the EDA pattern), not by arousal level. A logistic regression of the stress score on arousal and class confirms this: the class coefficient is null for hyperventilation and the UBFC control group and negative for Lego.
+
+\begin{table}[!t]
+\centering
+\caption{Matched-Arousal Test: AUROC of the Stress Score Inside Arousal Quintiles, External Model Unless Stated}
+\label{tab:matched}
+\footnotesize
+\begin{tabularx}{\columnwidth}{@{}Lccc@{}}
+\toprule
+Stress versus & Windows & Pooled AUROC & Within-bin AUROC [95\% CI] \\
+\midrule
+Campanella Lego manual task & 667 & 0.754 & \textbf{0.355} [0.25, 0.54] \\
+UBFC-Phys tasks without evaluation & 80 & 0.587 & 0.577 [0.49, 0.66] \\
+Stress-Predict hyperventilation & 53 & 0.551 & 0.523 [0.43, 0.62] \\
+EPM-E4 anger clips & 33 & 0.643 & 0.390 [0.32, 0.52] \\
+EPM-E4 fear clips & 394 & 0.716 & 0.633 [0.58, 0.69] \\
+Baseline and rest (reference) & 3839 & 0.770 & 0.584 [0.54, 0.64] \\
+PhysioNet exercise, model shown exercise & 3763 & 0.947 & \textbf{0.892} [0.84, 0.93] \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Two caveats. The index is built from two of the model's own features, so within-bin AUROC measures what the HRV and skin-conductance-response features add beyond level. The hyperventilation and UBFC-Phys cells are small; Lego and the EPM-E4 clips carry the statistics. The UBFC-Phys contrast is also between subjects; Section~V-C proposes the within-subject version.
+
+\subsection{The ceiling is the stressor, not the pipeline}
+Within-dataset balanced accuracy is 0.70--0.78 on PhysioNet and Stress-Predict against 0.88--0.92 elsewhere, matched by a fivefold difference in electrodermal effect size (PhysioNet EDA +0.4~z, WESAD +2.2~z). Table~\ref{tab:budget} tests the four competing explanations as test-side filters on out-of-sample predictions: F1 drops rest windows within five minutes of a stressor offset (recovery contamination); F2 keeps windows with cardiac coverage of at least 0.5 (sensor loss); F3 drops the first 60~s of each stressor (onset latency); F4 keeps only subjects whose own stressor-minus-baseline heart rate or tonic EDA exceeds 0.5 baseline SD (non-response; label-using, diagnostic only). Together they buy 0.05--0.06, leaving 0.17--0.23 error that none of them explains. The only sizeable sensor term is on WESAD, and replacing the wrist cardiac features with chest ECG raises WESAD from 0.916 to 0.956, so motion-robust wrist heart rate is worth at most about +0.04 there; EDA alone already gives 0.89.
+
+\begin{table}[!t]
+\centering
+\caption{Error Budget: Balanced-Accuracy Gain From Each Test-Side Filter, Shapley-Averaged Over 24 Filter Orders}
+\label{tab:budget}
+\footnotesize
+\begin{tabularx}{\columnwidth}{@{}Lcccccc@{}}
+\toprule
+Dataset, model & All & F1 & F2 & F3 & F4 & Resid. \\
+\midrule
+PhysioNet within & 0.776 & +0.00 & \m0.00 & +0.02 & +0.02 & 0.175 \\
+PhysioNet external & 0.746 & +0.01 & +0.00 & +0.04 & +0.01 & 0.190 \\
+Stress-Predict within & 0.710 & +0.02 & +0.01 & +0.02 & +0.01 & 0.229 \\
+Stress-Predict external & 0.653 & +0.02 & \m0.00 & +0.02 & +0.01 & 0.329 \\
+WESAD external & 0.887 & 0 & +0.05 & +0.00 & 0 & 0.066 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Two further hypotheses from the previous report are closed. Detectability is not a subject trait: per-subject stress recall does not correlate across stressors (Stress-Predict Stroop versus interview $\rho=-0.14$ [\m0.51, 0.24]; PhysioNet Stroop versus arithmetic 0.44 [\m0.04, 0.78]), is not predicted by baseline heart rate, RMSSD, EDA, cardiac coverage or self-reported stress rise, and the worst 20\% of subjects hold only 37--61\% of misses. Onset latency and recovery false alarms are real (Stress-Predict recall 0.47 in the first minute versus 0.77 after three; PhysioNet rest false-stress 0.26 in the first minute after offset versus 0.06--0.09 later) but too few windows sit there to move balanced accuracy.
+
+\subsection{Time in session and sensor warm-up}
+Minutes since the start of the recording, used as the only feature, reaches balanced accuracy 0.83 on PhysioNet (physiology 0.78; better in 16 of 20 splits) and 0.95 on Stress-Predict (physiology 0.70; 20 of 20). A model given time as a feature exploits it within dataset and collapses externally (Stress-Predict 0.66 to 0.56, WESAD 0.90 to 0.45), because protocol timing does not transfer. Any within-dataset pipeline that leaks time, through raw temperature, drift features or the absence of per-subject scaling, inherits this. The committed physiology result survives position-matched negatives with a change of at most 0.04, so the small transfer cost is not riding on time.
+
+The reason time is so informative is that baseline is recorded during sensor warm-up: 98--100\% of baseline windows on Campanella, PhysioNet and Stress-Predict fall in the first ten minutes, while skin temperature is still rising at 0.02--0.07\,$^\circ$C/min and tonic EDA is still rising. EPM-E4, whose clock starts at donning, shows a 7\,$^\circ$C swing over thirty minutes. No wearable-stress paper found treats time since donning as a covariate, and the vendor ``10--15 minutes to equilibrium'' claim could not be traced to a primary source. This is the quantitative form of the order confound noted qualitatively by Richer et al.~\cite{richer2024}, and it is why temperature features must be dropped.
+
+\section{What the Literature Leaves Open}
+A targeted scan (full-text quotes in \texttt{docs/literature/contribution-gap-scan.md}) gives these verdicts. Reviews name the arousal-versus-stress problem~\cite{sosa2026} and single confounders have been scored one at a time, exercise in particular~\cite{aydogan2026,kwon2026}, but no paper scores one fixed subject-independent detector across a panel of non-stress arousal states, and none runs a matched-arousal test. No paper treats sensor warm-up as a covariate; the nearest is the normalisation-leakage result of Tognotti et al.~\cite{tognotti2026}. No released benchmark has harmonised labels, frozen subject splits and protocol-stage anchors for wrist stress; the nearest is an EDA-only benchmark whose code is pending~\cite{liuning2026}. Selective classification has one within-dataset paper with non-significant gains~\cite{farahani2026}; nothing is gated by PPG usability or evaluated across datasets. Foundation models are saturated on WESAD, where trees already reach AUROC 0.99; the PULSE paper~\cite{zhao2025} is WESAD-only, not PhysioNet as the previous report assumed, and the one deep model scored on the PhysioNet dataset under leave-one-subject-out reaches AUROC 0.59--0.60, below gradient boosting~\cite{akkaya2026}. Two facts from the Stress-Predict descriptor~\cite{iqbal2022} matter: it tags the hyperventilation block as a ``stress-inducing task'', which the audit should record, and it describes its interviewers as ``friendly and kind to the participant'', which is consistent with Stress-Predict being the weakest dataset here and in~\cite{kwon2026}. Mishra et al.~\cite{mishra2020} remain the only precedent for excluding post-stressor rest.
+
+\section{Contributions and Paper Plan}
+\subsection{Contributions I can claim}
+Table~\ref{tab:contrib} ranks them. The first three are the thesis of the JBHI paper; the fourth is a companion resource; the fifth is the doctoral study.
+
+\begin{table}[!t]
+\centering
+\caption{Ranked Contributions}
+\label{tab:contrib}
+\footnotesize
+\begin{tabularx}{\columnwidth}{@{}p{0.3cm}Lp{2.2cm}@{}}
+\toprule
+\# & Contribution & Status \\
+\midrule
+1 & The detector transfers because it detects arousal, not stress: specificity panel plus matched-arousal test (Tables~\ref{tab:panel}, \ref{tab:matched}); specificity panel proposed as a reporting norm & Done; new \\
+2 & The within-dataset ceiling is stressor potency: error budget, chest-ECG bound, time-only classifier, warm-up confound with position-matched evaluation rule & Done; new \\
+3 & Small five-dataset leave-one-dataset-out cost once labels and normalisation are right; missing-channel threshold shift diagnosed; leakage-controlled negatives for few-shot, domain adaptation, thresholds, self-rated intensity and detectability trait & Done; partly anticipated~\cite{kwon2026} \\
+4 & Audited five-dataset benchmark: protocol-stage labels, frozen subject splits, specificity panel, leakage tests, loader & Artefacts exist; packaging 1--2 months \\
+5 & Counterbalanced laboratory study separating speech from evaluative threat (Section~V-C) & Design only \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Directions closed}
+Few-shot personalisation, CORAL/MMD/DANN, per-user thresholds, mild stress defined by self-report, and detectability as a trait are reported as controlled nulls. Motion-robust wrist heart rate is capped at about +0.04 on WESAD and is at most an engineering chapter. Foundation models are a check, not a bet: one leave-one-dataset-out row with a public frozen PPG encoder will either strengthen contribution~2 or overturn it, and should be run for that reason.
+
+\subsection{The study that would settle the open question}
+No public E4 dataset separates speech from evaluation within subject, or counterbalances order. The proposed UTSA study: about 40 participants, two visits, Empatica E4 with chest ECG and a palm or finger EDA reference, continuous slider self-report, salivary cortisol at four points if budget allows; a $2\times2$ factorial of speech (yes/no) $\times$ evaluation (panel present/absent), plus cycling at a matched heart rate and an $n$-back task without feedback; recovery periods long enough to track return to baseline; Latin-square order with a baseline at both the start and the end of each visit; the second visit repeats the protocol for test--retest reliability of each person's reactivity. This one dataset answers whether wrist EDA carries an evaluative-threat signature that the between-subject UBFC-Phys contrast could not find, gives the first order-matched baseline on the wrist, and becomes the external test set that no current benchmark provides. Nearest existing resources are EmoWork (speech without workload baseline, controlled access) and EmpkinS (TSST versus friendly TSST, ECG only).
+
+\subsection{Proposed structure of the JBHI paper}
+(1) Introduction: detectors are reported as detecting stress; we ask what they detect. (2) Data and label audit, including the hyperventilation tag. (3) Methods, including the four evaluation rules of Section~II. (4) Result~1, transfer: small leave-one-dataset-out cost, missing-channel diagnosis, label fixes as suggestive. (5) Result~2, what transfers: panel and matched-arousal test. (6) Result~3, the ceiling: time-only classifier, warm-up, error budget, chest-ECG bound, controlled negatives. (7) Discussion: arousal transfers, stress does not; specificity panel as a norm; settling period and position matching as protocol rules; the counterbalanced study; limits. (8) Release of labels, splits and scripts. Two candidate titles: ``What Do Wrist-Worn Stress Detectors Detect? A Five-Dataset Specificity Panel'' and ``Arousal Transfers, Stress Does Not: The Ceiling of Wrist Stress Detection Is the Stressor, Not the Model''.
+
+\section{Decisions Requested}
+\begin{enumerate}
+\item \textbf{Thesis of the paper.} Agree to drop ``method contribution'' as a modelling goal and to build the JBHI paper on contributions 1--3, with the four evaluation rules as the methodological content.
+\item \textbf{Benchmark paper.} Whether to package contribution~4 as a companion resource paper (Scientific Data or NeurIPS Datasets and Benchmarks) in parallel with the JBHI submission. Only labels, split files and code would be released, not raw data.
+\item \textbf{Laboratory study.} Whether to start the IRB application for the counterbalanced study now, and whether the department can support chest ECG and a palm EDA reference alongside the E4.
+\item \textbf{Foundation-model check.} Whether to spend the GPU time on one frozen-encoder row, given that it is a check on contribution~2 rather than a route to a better detector.
+\item \textbf{Thesis correction.} The MSc thesis and poster still carry the pre-correction numbers; a correction note is still pending your view.
+\end{enumerate}
+
+\section{Limitations of This Report}
+The matched-arousal index shares two features with the model. The hyperventilation (53 windows) and UBFC-Phys control (80 windows) cells are small. The UBFC-Phys contrast is between subjects. Wrist EDA agrees with palmar EDA at about $r=0.3$, so a null on the evaluative-threat signature may be instrument failure rather than absence of the signature; only the study in Section~V-C can separate these. The responder filter F4 at 0.5 baseline SD calls nearly everyone a responder; a stricter physiological definition is needed before non-response is ruled out. The subject count across the five datasets (118 before overlap checks) must be verified before it appears in a manuscript.
+
+\begin{thebibliography}{99}
+\bibitem{schmidt2018wesad} P. Schmidt, A. Reiss, R. D\"urichen, C. Marberger, and K. Van Laerhoven, ``Introducing WESAD, a multimodal dataset for wearable stress and affect detection,'' in \emph{Proc. Int. Conf. Multimodal Interaction (ICMI)}, 2018, doi: 10.1145/3242969.3242985.
+\bibitem{hongn2025data} A. Hongn, F. Bosch, L. E. Prado, J. M. Ferr\'andez, and M. P. Bonomini, ``Wearable physiological signals under acute stress and exercise conditions,'' \emph{Sci. Data}, vol. 12, Art. no. 520, 2025, doi: 10.1038/s41597-025-04845-9.
+\bibitem{iqbal2022} T. Iqbal \emph{et al.}, ``Stress monitoring using wearable sensors: A pilot study and Stress-Predict dataset,'' \emph{Sensors}, vol. 22, no. 21, Art. no. 8135, 2022, doi: 10.3390/s22218135.
+\bibitem{meziati2023} R. Meziati Sabour, Y. Benezeth, P. De Oliveira, J. Chapp\'e, and F. Yang, ``UBFC-Phys: A multimodal database for psychophysiological studies of social stress,'' \emph{IEEE Trans. Affect. Comput.}, vol. 14, no. 1, pp. 622--636, 2023.
+\bibitem{campanella2024} S. Campanella, A. Altaleb, A. Belli, P. Pierleoni, and L. Palma, ``PPG and EDA dataset collected with Empatica E4 for stress assessment,'' \emph{Data Brief}, vol. 53, Art. no. 110102, 2024, doi: 10.1016/j.dib.2024.110102.
+\bibitem{garcia2020epm} F. M. Garcia-Moreno and M. Badenes-Sastre, ``EmoPulse Moments E4 dataset (EPM-E4): An exhaustive collection of emotion-related data from Empatica E4 wearable,'' Zenodo, 2020, doi: 10.5281/zenodo.8431638.
+\bibitem{nadeau2003} C. Nadeau and Y. Bengio, ``Inference for the generalization error,'' \emph{Mach. Learn.}, vol. 52, no. 3, pp. 239--281, 2003, doi: 10.1023/A:1024068626366.
+\bibitem{aydogan2026} Y. Aydo\u{g}an and F. Villagra Povina, ``Stress or arousal? Exercise confounding in wearable stress detection,'' \emph{Med. Eng. Phys.}, vol. 147, Art. no. 095021, 2026, doi: 10.1088/1873-4030/aea41e.
+\bibitem{kwon2026} N. Kwon, S. Yoon, J. Hur, and H. S. Kang, ``When wellness stress detection enters healthcare workflows: An iso-heart-rate, cross-corpus evaluation of wrist wearables,'' \emph{Healthcare}, vol. 14, no. 15, Art. no. 2434, 2026, doi: 10.3390/healthcare14152434.
+\bibitem{richer2024} R. Richer \emph{et al.}, ``Machine learning-based detection of acute psychosocial stress from body posture and movements,'' \emph{Sci. Rep.}, vol. 14, Art. no. 8251, 2024, doi: 10.1038/s41598-024-59043-1.
+\bibitem{sosa2026} S. Sosa, A. K. Fontecchio, E. G. Chrysikou, and J. S. Atchison, ``Beyond EDA: A systematic review of multimodal sympathetic nervous system arousal classification for stress detection,'' \emph{Sensors}, vol. 26, no. 5, Art. no. 1584, 2026, doi: 10.3390/s26051584.
+\bibitem{tognotti2026} A. Tognotti, C. F. Otesteanu, L. Anceschi, and C. Menon, ``Baseline normalization choices inflate classification performance in wearable health monitoring: Quantification and mitigation strategies,'' \emph{Front. Digit. Health}, vol. 8, Art. no. 1827279, 2026, doi: 10.3389/fdgth.2026.1827279.
+\bibitem{liuning2026} G. Liu and Z. Ning, ``Electrodermal activity (EDA) for stress detection: A comprehensive survey and benchmark,'' arXiv:2609.22622, 2026.
+\bibitem{farahani2026} S. A. Farahani, H. Cao, and A. M. Rahmani, ``When clean signals are not enough: Detecting structural ambiguity for safe wearable stress classification,'' arXiv:2608.18397, 2026.
+\bibitem{zhao2025} Z. Zhao, K. Pendiyala, M. Mortazavi, and N. Yan, ``PULSE: Privileged knowledge transfer from electrodermal activity to low-cost sensors for stress monitoring,'' arXiv:2510.24058, 2025.
+\bibitem{akkaya2026} A. Akkaya, ``Calibration, not architecture, limits cross-subject wearable stress detection: A multi-dataset, decision-focused evaluation with label-efficient recalibration,'' \emph{BMC Med. Inform. Decis. Mak.}, 2026, doi: 10.1186/s12911-026-03842-1 (abstract only).
+\bibitem{mishra2020} V. Mishra \emph{et al.}, ``Evaluating the reproducibility of physiological stress detection models,'' \emph{Proc. ACM Interact. Mob. Wearable Ubiquitous Technol.}, vol. 4, no. 4, Art. no. 147, 2020, doi: 10.1145/3432220.
+\end{thebibliography}
+
+\end{document}

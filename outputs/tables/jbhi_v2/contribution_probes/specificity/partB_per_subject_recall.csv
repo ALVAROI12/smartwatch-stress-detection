@@ -1,0 +1,117 @@
+subject_uid,original_label,n,recall_within,recall_ext,sr_delta,dataset,base_hr_mean,base_hrv_rmssd,base_eda_mean,base_cardiac_coverage,stress_cardiac_coverage
+Stress-Predict:S02,Stroop,10,0.6,0.0,,Stress-Predict,75.895,120.296,0.292,0.423,0.551
+Stress-Predict:S02,TSST interview,19,0.895,0.737,,Stress-Predict,75.895,120.296,0.292,0.423,0.551
+Stress-Predict:S03,Stroop,7,0.429,0.0,,Stress-Predict,78.247,55.707,0.287,0.717,0.708
+Stress-Predict:S03,TSST interview,16,0.625,0.688,,Stress-Predict,78.247,55.707,0.287,0.717,0.708
+Stress-Predict:S04,Stroop,9,0.222,0.0,,Stress-Predict,85.925,66.222,1.128,0.746,0.664
+Stress-Predict:S04,TSST interview,17,1.0,0.765,,Stress-Predict,85.925,66.222,1.128,0.746,0.664
+Stress-Predict:S05,Stroop,9,0.444,0.556,,Stress-Predict,85.453,55.127,4.289,0.754,0.72
+Stress-Predict:S05,TSST interview,19,0.632,0.684,,Stress-Predict,85.453,55.127,4.289,0.754,0.72
+Stress-Predict:S07,Stroop,6,1.0,0.333,,Stress-Predict,70.377,100.317,2.516,0.791,0.639
+Stress-Predict:S07,TSST interview,18,0.722,0.667,,Stress-Predict,70.377,100.317,2.516,0.791,0.639
+Stress-Predict:S08,Stroop,8,0.125,0.0,,Stress-Predict,99.684,32.326,0.114,0.899,0.718
+Stress-Predict:S08,TSST interview,17,0.471,0.353,,Stress-Predict,99.684,32.326,0.114,0.899,0.718
+Stress-Predict:S09,Stroop,8,0.0,0.0,,Stress-Predict,107.746,48.418,0.889,0.655,0.673
+Stress-Predict:S09,TSST interview,14,0.929,0.857,,Stress-Predict,107.746,48.418,0.889,0.655,0.673
+Stress-Predict:S10,Stroop,8,0.875,0.25,,Stress-Predict,87.169,95.871,0.271,0.571,0.697
+Stress-Predict:S10,TSST interview,16,0.875,0.688,,Stress-Predict,87.169,95.871,0.271,0.571,0.697
+Stress-Predict:S11,Stroop,11,0.273,0.0,,Stress-Predict,87.355,113.704,0.22,0.603,0.531
+Stress-Predict:S11,TSST interview,18,0.833,0.278,,Stress-Predict,87.355,113.704,0.22,0.603,0.531
+Stress-Predict:S12,Stroop,8,0.75,0.125,,Stress-Predict,73.277,115.427,1.591,0.696,0.608
+Stress-Predict:S12,TSST interview,19,0.947,1.0,,Stress-Predict,73.277,115.427,1.591,0.696,0.608
+Stress-Predict:S13,Stroop,12,0.5,0.0,,Stress-Predict,67.281,87.066,0.091,0.272,0.856
+Stress-Predict:S13,TSST interview,18,0.889,0.556,,Stress-Predict,67.281,87.066,0.091,0.272,0.856
+Stress-Predict:S14,Stroop,10,0.1,0.0,,Stress-Predict,84.467,81.247,0.256,0.745,0.671
+Stress-Predict:S14,TSST interview,19,0.737,0.684,,Stress-Predict,84.467,81.247,0.256,0.745,0.671
+Stress-Predict:S15,Stroop,7,0.857,0.0,,Stress-Predict,82.253,106.577,0.343,0.393,0.473
+Stress-Predict:S15,TSST interview,20,0.95,0.75,,Stress-Predict,82.253,106.577,0.343,0.393,0.473
+Stress-Predict:S16,Stroop,9,0.0,0.0,,Stress-Predict,,,0.418,0.251,0.247
+Stress-Predict:S16,TSST interview,16,0.812,1.0,,Stress-Predict,,,0.418,0.251,0.247
+Stress-Predict:S17,Stroop,12,0.333,0.667,,Stress-Predict,71.077,178.645,0.14,0.243,0.173
+Stress-Predict:S18,TSST interview,19,0.789,0.947,,Stress-Predict,82.219,80.435,1.507,0.206,0.402
+Stress-Predict:S19,Stroop,10,1.0,0.1,,Stress-Predict,70.101,127.03,0.11,0.701,0.715
+Stress-Predict:S19,TSST interview,13,0.846,0.923,,Stress-Predict,70.101,127.03,0.11,0.701,0.715
+Stress-Predict:S20,Stroop,9,1.0,0.556,,Stress-Predict,82.017,74.187,0.944,0.749,0.616
+Stress-Predict:S20,TSST interview,17,0.588,0.471,,Stress-Predict,82.017,74.187,0.944,0.749,0.616
+Stress-Predict:S21,Stroop,11,0.545,0.182,,Stress-Predict,70.214,97.766,0.428,0.763,0.492
+Stress-Predict:S21,TSST interview,18,0.722,0.944,,Stress-Predict,70.214,97.766,0.428,0.763,0.492
+Stress-Predict:S22,Stroop,11,0.0,0.909,,Stress-Predict,,,0.251,0.208,0.332
+Stress-Predict:S22,TSST interview,17,0.824,0.941,,Stress-Predict,,,0.251,0.208,0.332
+Stress-Predict:S23,Stroop,10,0.9,0.3,,Stress-Predict,72.151,122.059,0.09,0.606,0.51
+Stress-Predict:S23,TSST interview,16,0.938,0.5,,Stress-Predict,72.151,122.059,0.09,0.606,0.51
+Stress-Predict:S24,Stroop,9,0.778,0.0,,Stress-Predict,72.585,108.974,0.153,0.81,0.786
+Stress-Predict:S24,TSST interview,18,0.611,0.389,,Stress-Predict,72.585,108.974,0.153,0.81,0.786
+Stress-Predict:S25,Stroop,11,0.0,0.0,,Stress-Predict,68.676,93.052,0.082,0.398,0.315
+Stress-Predict:S25,TSST interview,17,0.647,0.647,,Stress-Predict,68.676,93.052,0.082,0.398,0.315
+Stress-Predict:S26,Stroop,10,1.0,0.2,,Stress-Predict,72.388,133.129,0.362,0.466,0.511
+Stress-Predict:S26,TSST interview,17,0.059,0.059,,Stress-Predict,72.388,133.129,0.362,0.466,0.511
+Stress-Predict:S27,Stroop,12,0.333,0.25,,Stress-Predict,75.017,105.014,0.245,0.463,0.6
+Stress-Predict:S27,TSST interview,19,0.737,0.684,,Stress-Predict,75.017,105.014,0.245,0.463,0.6
+Stress-Predict:S28,Stroop,10,0.0,0.0,,Stress-Predict,,,0.104,0.051,0.143
+Stress-Predict:S28,TSST interview,18,0.611,0.667,,Stress-Predict,,,0.104,0.051,0.143
+Stress-Predict:S29,Stroop,10,1.0,0.8,,Stress-Predict,73.705,185.506,0.537,0.265,0.361
+Stress-Predict:S29,TSST interview,17,0.529,1.0,,Stress-Predict,73.705,185.506,0.537,0.265,0.361
+Stress-Predict:S30,TSST interview,16,0.812,0.812,,Stress-Predict,,,0.249,0.286,0.367
+Stress-Predict:S31,Stroop,10,1.0,0.7,,Stress-Predict,78.105,83.386,0.167,0.762,0.626
+Stress-Predict:S31,TSST interview,17,0.529,0.588,,Stress-Predict,78.105,83.386,0.167,0.762,0.626
+Stress-Predict:S32,Stroop,10,0.0,0.0,,Stress-Predict,55.56,134.449,0.181,0.725,0.624
+Stress-Predict:S32,TSST interview,17,0.824,0.765,,Stress-Predict,55.56,134.449,0.181,0.725,0.624
+Stress-Predict:S33,Stroop,8,0.875,0.875,,Stress-Predict,88.879,88.833,0.238,0.481,0.762
+Stress-Predict:S33,TSST interview,19,0.789,0.842,,Stress-Predict,88.879,88.833,0.238,0.481,0.762
+Stress-Predict:S34,Stroop,9,1.0,0.0,,Stress-Predict,86.806,55.76,0.218,0.912,0.898
+Stress-Predict:S34,TSST interview,17,0.882,0.118,,Stress-Predict,86.806,55.76,0.218,0.912,0.898
+Stress-Predict:S35,Stroop,12,0.917,0.583,,Stress-Predict,68.923,138.957,0.469,0.526,0.596
+Stress-Predict:S35,TSST interview,17,0.765,0.765,,Stress-Predict,68.923,138.957,0.469,0.526,0.596
+PhysioNet:S01,Stroop,2,0.0,0.5,1.5,PhysioNet,67.217,128.846,0.532,0.586,0.786
+PhysioNet:S01,TMCT,3,0.333,0.667,1.0,PhysioNet,67.217,128.846,0.532,0.586,0.786
+PhysioNet:S02,Stroop,2,0.5,1.0,2.0,PhysioNet,90.232,48.668,1.981,0.831,0.984
+PhysioNet:S02,TMCT,3,0.333,0.667,0.0,PhysioNet,90.232,48.668,1.981,0.831,0.984
+PhysioNet:S03,Stroop,2,1.0,1.0,0.0,PhysioNet,66.989,118.37,1.076,0.638,0.261
+PhysioNet:S03,TMCT,3,1.0,1.0,1.0,PhysioNet,66.989,118.37,1.076,0.638,0.261
+PhysioNet:S04,Stroop,2,1.0,1.0,0.0,PhysioNet,56.444,147.805,0.386,0.611,0.731
+PhysioNet:S04,TMCT,3,1.0,1.0,0.0,PhysioNet,56.444,147.805,0.386,0.611,0.731
+PhysioNet:S05,Stroop,2,1.0,1.0,1.0,PhysioNet,73.918,52.424,10.94,0.757,0.653
+PhysioNet:S05,TMCT,4,0.75,0.5,3.0,PhysioNet,73.918,52.424,10.94,0.757,0.653
+PhysioNet:S06,Stroop,3,0.667,0.333,1.0,PhysioNet,89.878,41.692,0.837,0.851,0.909
+PhysioNet:S06,TMCT,3,1.0,1.0,3.0,PhysioNet,89.878,41.692,0.837,0.851,0.909
+PhysioNet:S07,Stroop,2,1.0,0.5,1.0,PhysioNet,74.185,109.276,0.213,0.781,0.85
+PhysioNet:S07,TMCT,3,0.667,1.0,3.0,PhysioNet,74.185,109.276,0.213,0.781,0.85
+PhysioNet:S08,Stroop,2,1.0,1.0,1.0,PhysioNet,72.922,111.126,0.335,0.573,0.713
+PhysioNet:S08,TMCT,4,0.75,0.75,5.5,PhysioNet,72.922,111.126,0.335,0.573,0.713
+PhysioNet:S09,Stroop,2,1.0,1.0,-2.0,PhysioNet,83.513,56.792,0.387,0.928,0.858
+PhysioNet:S09,TMCT,3,0.0,0.333,-2.0,PhysioNet,83.513,56.792,0.387,0.928,0.858
+PhysioNet:S10,Stroop,2,1.0,1.0,0.0,PhysioNet,77.742,52.034,21.58,0.931,0.752
+PhysioNet:S10,TMCT,3,1.0,1.0,2.0,PhysioNet,77.742,52.034,21.58,0.931,0.752
+PhysioNet:S11,Stroop,4,0.75,1.0,3.0,PhysioNet,68.332,96.9,0.185,0.852,0.726
+PhysioNet:S11,TMCT,4,0.25,0.75,4.0,PhysioNet,68.332,96.9,0.185,0.852,0.726
+PhysioNet:S12,Stroop,2,1.0,1.0,-2.0,PhysioNet,63.34,35.646,6.045,0.96,0.775
+PhysioNet:S12,TMCT,3,0.667,1.0,1.0,PhysioNet,63.34,35.646,6.045,0.96,0.775
+PhysioNet:S13,Stroop,2,1.0,1.0,1.0,PhysioNet,96.204,81.57,1.889,0.542,0.92
+PhysioNet:S13,TMCT,3,1.0,1.0,3.0,PhysioNet,96.204,81.57,1.889,0.542,0.92
+PhysioNet:S14,Stroop,2,1.0,1.0,1.0,PhysioNet,81.47,81.677,4.262,0.681,0.893
+PhysioNet:S14,TMCT,3,0.667,1.0,2.0,PhysioNet,81.47,81.677,4.262,0.681,0.893
+PhysioNet:S15,Stroop,2,0.0,0.0,-1.0,PhysioNet,82.092,93.095,0.467,0.628,0.627
+PhysioNet:S15,TMCT,4,0.25,0.5,-1.0,PhysioNet,82.092,93.095,0.467,0.628,0.627
+PhysioNet:S16,Stroop,2,1.0,1.0,1.0,PhysioNet,81.062,45.748,0.886,0.912,0.801
+PhysioNet:S16,TMCT,4,1.0,1.0,2.0,PhysioNet,81.062,45.748,0.886,0.912,0.801
+PhysioNet:S17,Stroop,2,0.0,0.0,0.0,PhysioNet,68.775,36.562,17.371,0.945,0.824
+PhysioNet:S17,TMCT,4,0.0,0.75,1.0,PhysioNet,68.775,36.562,17.371,0.945,0.824
+PhysioNet:S18,Stroop,2,1.0,1.0,1.0,PhysioNet,78.112,88.949,9.835,0.814,0.742
+PhysioNet:S18,TMCT,4,0.0,0.0,1.0,PhysioNet,78.112,88.949,9.835,0.814,0.742
+PhysioNet:f01,TMCT,14,0.571,0.786,3.0,PhysioNet,69.685,125.538,0.157,0.89,0.809
+PhysioNet:f02,TMCT,11,0.545,1.0,2.0,PhysioNet,72.77,102.581,0.703,0.859,0.691
+PhysioNet:f03,TMCT,7,0.0,0.0,3.0,PhysioNet,80.791,98.586,4.699,0.642,0.526
+PhysioNet:f04,TMCT,7,0.857,0.0,2.0,PhysioNet,75.442,106.977,0.127,0.901,0.948
+PhysioNet:f05,TMCT,7,0.857,1.0,1.0,PhysioNet,75.721,79.717,0.427,0.682,0.919
+PhysioNet:f06,TMCT,7,1.0,0.857,1.0,PhysioNet,79.253,95.16,0.27,0.8,0.743
+PhysioNet:f07,TMCT,7,0.571,1.0,3.0,PhysioNet,,,0.157,0.0,0.0
+PhysioNet:f08,TMCT,8,1.0,1.0,3.0,PhysioNet,76.39,52.679,0.134,0.966,0.784
+PhysioNet:f09,TMCT,7,0.857,1.0,1.0,PhysioNet,61.481,93.44,0.39,0.764,0.865
+PhysioNet:f10,TMCT,7,0.571,1.0,2.0,PhysioNet,97.876,53.274,2.122,0.751,0.529
+PhysioNet:f11,TMCT,8,0.875,1.0,4.0,PhysioNet,87.735,27.037,27.253,0.946,0.945
+PhysioNet:f12,TMCT,7,0.714,0.714,2.0,PhysioNet,83.853,88.197,0.252,0.759,0.723
+PhysioNet:f14,TMCT,7,0.571,0.429,7.0,PhysioNet,87.809,94.315,0.143,0.602,0.915
+PhysioNet:f15,TMCT,7,1.0,1.0,3.0,PhysioNet,81.548,99.735,8.208,0.609,0.65
+PhysioNet:f16,TMCT,7,0.857,0.714,7.0,PhysioNet,70.848,118.276,0.115,0.744,0.696
+PhysioNet:f17,TMCT,7,0.143,0.429,1.0,PhysioNet,100.121,63.853,0.267,0.597,0.712
+PhysioNet:f18,TMCT,6,0.5,0.833,4.0,PhysioNet,77.451,55.111,0.239,0.862,0.946

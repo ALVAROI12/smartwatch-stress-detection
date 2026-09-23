@@ -1,0 +1,13 @@
+band,units,recall,mean_p,dataset,trained_on
+mild,29,0.693,0.595,PhysioNet,within
+moderate,19,0.693,0.665,PhysioNet,within
+strong,6,0.634,0.602,PhysioNet,within
+mild,29,0.76,0.6769999861717224,PhysioNet,external
+moderate,19,0.816,0.734000027179718,PhysioNet,external
+strong,6,0.746,0.6629999876022339,PhysioNet,external
+mild,7,0.986,0.966,WESAD,within
+moderate,6,0.956,0.956,WESAD,within
+strong,2,0.499,0.488,WESAD,within
+mild,7,0.993,0.859000027179718,WESAD,external
+moderate,6,0.905,0.8090000152587891,WESAD,external
+strong,2,0.62,0.640999972820282,WESAD,external

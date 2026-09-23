@@ -1,0 +1,101 @@
+dataset,score,curve,bin,n,n_subj,rate
+WESAD,within_LOSO,stress_recall_vs_min_since_onset,0-1,30,15,0.867
+WESAD,within_LOSO,stress_recall_vs_min_since_onset,1-2,30,15,0.933
+WESAD,within_LOSO,stress_recall_vs_min_since_onset,2-3,31,15,0.935
+WESAD,within_LOSO,stress_recall_vs_min_since_onset,3-inf,220,15,0.9
+WESAD,within_LOSO,false_stress_vs_min_since_offset,0-1,0,0,
+WESAD,within_LOSO,false_stress_vs_min_since_offset,1-2,0,0,
+WESAD,within_LOSO,false_stress_vs_min_since_offset,2-5,0,0,
+WESAD,within_LOSO,false_stress_vs_min_since_offset,5-10,0,0,
+WESAD,within_LOSO,false_stress_vs_min_since_offset,10-inf,339,15,0.021
+WESAD,within_LOSO,false_stress_vs_min_since_offset,no prior stressor,748,15,0.025
+WESAD,external,stress_recall_vs_min_since_onset,0-1,30,15,0.867
+WESAD,external,stress_recall_vs_min_since_onset,1-2,30,15,0.967
+WESAD,external,stress_recall_vs_min_since_onset,2-3,31,15,0.935
+WESAD,external,stress_recall_vs_min_since_onset,3-inf,220,15,0.9
+WESAD,external,false_stress_vs_min_since_offset,0-1,0,0,
+WESAD,external,false_stress_vs_min_since_offset,1-2,0,0,
+WESAD,external,false_stress_vs_min_since_offset,2-5,0,0,
+WESAD,external,false_stress_vs_min_since_offset,5-10,0,0,
+WESAD,external,false_stress_vs_min_since_offset,10-inf,339,15,0.204
+WESAD,external,false_stress_vs_min_since_offset,no prior stressor,748,15,0.1
+PhysioNet,within_LOSO,stress_recall_vs_min_since_onset,0-1,107,35,0.626
+PhysioNet,within_LOSO,stress_recall_vs_min_since_onset,1-2,62,35,0.71
+PhysioNet,within_LOSO,stress_recall_vs_min_since_onset,2-3,34,17,0.765
+PhysioNet,within_LOSO,stress_recall_vs_min_since_onset,3-inf,29,16,0.586
+PhysioNet,within_LOSO,false_stress_vs_min_since_offset,0-1,107,35,0.262
+PhysioNet,within_LOSO,false_stress_vs_min_since_offset,1-2,108,35,0.056
+PhysioNet,within_LOSO,false_stress_vs_min_since_offset,2-5,275,35,0.087
+PhysioNet,within_LOSO,false_stress_vs_min_since_offset,5-10,177,21,0.073
+PhysioNet,within_LOSO,false_stress_vs_min_since_offset,10-inf,531,17,0.094
+PhysioNet,within_LOSO,false_stress_vs_min_since_offset,no prior stressor,169,34,0.183
+PhysioNet,external,stress_recall_vs_min_since_onset,0-1,107,35,0.682
+PhysioNet,external,stress_recall_vs_min_since_onset,1-2,62,35,0.79
+PhysioNet,external,stress_recall_vs_min_since_onset,2-3,34,17,0.853
+PhysioNet,external,stress_recall_vs_min_since_onset,3-inf,29,16,0.931
+PhysioNet,external,false_stress_vs_min_since_offset,0-1,107,35,0.617
+PhysioNet,external,false_stress_vs_min_since_offset,1-2,108,35,0.278
+PhysioNet,external,false_stress_vs_min_since_offset,2-5,275,35,0.233
+PhysioNet,external,false_stress_vs_min_since_offset,5-10,177,21,0.243
+PhysioNet,external,false_stress_vs_min_since_offset,10-inf,531,17,0.234
+PhysioNet,external,false_stress_vs_min_since_offset,no prior stressor,169,34,0.29
+Stress-Predict,within_LOSO,stress_recall_vs_min_since_onset,0-1,126,33,0.468
+Stress-Predict,within_LOSO,stress_recall_vs_min_since_onset,1-2,126,33,0.563
+Stress-Predict,within_LOSO,stress_recall_vs_min_since_onset,2-3,126,33,0.619
+Stress-Predict,within_LOSO,stress_recall_vs_min_since_onset,3-inf,473,33,0.765
+Stress-Predict,within_LOSO,false_stress_vs_min_since_offset,0-1,63,33,0.397
+Stress-Predict,within_LOSO,false_stress_vs_min_since_offset,1-2,126,33,0.286
+Stress-Predict,within_LOSO,false_stress_vs_min_since_offset,2-5,302,33,0.331
+Stress-Predict,within_LOSO,false_stress_vs_min_since_offset,5-10,165,32,0.23
+Stress-Predict,within_LOSO,false_stress_vs_min_since_offset,10-inf,383,33,0.196
+Stress-Predict,within_LOSO,false_stress_vs_min_since_offset,no prior stressor,656,34,0.226
+Stress-Predict,external,stress_recall_vs_min_since_onset,0-1,126,33,0.341
+Stress-Predict,external,stress_recall_vs_min_since_onset,1-2,126,33,0.294
+Stress-Predict,external,stress_recall_vs_min_since_onset,2-3,126,33,0.381
+Stress-Predict,external,stress_recall_vs_min_since_onset,3-inf,473,33,0.681
+Stress-Predict,external,false_stress_vs_min_since_offset,0-1,63,33,0.524
+Stress-Predict,external,false_stress_vs_min_since_offset,1-2,126,33,0.365
+Stress-Predict,external,false_stress_vs_min_since_offset,2-5,302,33,0.268
+Stress-Predict,external,false_stress_vs_min_since_offset,5-10,165,32,0.291
+Stress-Predict,external,false_stress_vs_min_since_offset,10-inf,383,33,0.191
+Stress-Predict,external,false_stress_vs_min_since_offset,no prior stressor,656,34,0.145
+UBFC-Phys,within_LOSO,stress_recall_vs_min_since_onset,0-1,110,11,0.936
+UBFC-Phys,within_LOSO,stress_recall_vs_min_since_onset,1-2,0,0,
+UBFC-Phys,within_LOSO,stress_recall_vs_min_since_onset,2-3,0,0,
+UBFC-Phys,within_LOSO,stress_recall_vs_min_since_onset,3-inf,0,0,
+UBFC-Phys,within_LOSO,false_stress_vs_min_since_offset,0-1,0,0,
+UBFC-Phys,within_LOSO,false_stress_vs_min_since_offset,1-2,0,0,
+UBFC-Phys,within_LOSO,false_stress_vs_min_since_offset,2-5,0,0,
+UBFC-Phys,within_LOSO,false_stress_vs_min_since_offset,5-10,0,0,
+UBFC-Phys,within_LOSO,false_stress_vs_min_since_offset,10-inf,0,0,
+UBFC-Phys,within_LOSO,false_stress_vs_min_since_offset,no prior stressor,95,19,0.116
+UBFC-Phys,external,stress_recall_vs_min_since_onset,0-1,110,11,0.7
+UBFC-Phys,external,stress_recall_vs_min_since_onset,1-2,0,0,
+UBFC-Phys,external,stress_recall_vs_min_since_onset,2-3,0,0,
+UBFC-Phys,external,stress_recall_vs_min_since_onset,3-inf,0,0,
+UBFC-Phys,external,false_stress_vs_min_since_offset,0-1,0,0,
+UBFC-Phys,external,false_stress_vs_min_since_offset,1-2,0,0,
+UBFC-Phys,external,false_stress_vs_min_since_offset,2-5,0,0,
+UBFC-Phys,external,false_stress_vs_min_since_offset,5-10,0,0,
+UBFC-Phys,external,false_stress_vs_min_since_offset,10-inf,0,0,
+UBFC-Phys,external,false_stress_vs_min_since_offset,no prior stressor,95,19,0.084
+Campanella2024,within_LOSO,stress_recall_vs_min_since_onset,0-1,57,29,0.86
+Campanella2024,within_LOSO,stress_recall_vs_min_since_onset,1-2,45,25,0.889
+Campanella2024,within_LOSO,stress_recall_vs_min_since_onset,2-3,0,0,
+Campanella2024,within_LOSO,stress_recall_vs_min_since_onset,3-inf,0,0,
+Campanella2024,within_LOSO,false_stress_vs_min_since_offset,0-1,0,0,
+Campanella2024,within_LOSO,false_stress_vs_min_since_offset,1-2,0,0,
+Campanella2024,within_LOSO,false_stress_vs_min_since_offset,2-5,0,0,
+Campanella2024,within_LOSO,false_stress_vs_min_since_offset,5-10,0,0,
+Campanella2024,within_LOSO,false_stress_vs_min_since_offset,10-inf,0,0,
+Campanella2024,within_LOSO,false_stress_vs_min_since_offset,no prior stressor,116,29,0.155
+Campanella2024,external,stress_recall_vs_min_since_onset,0-1,57,29,0.912
+Campanella2024,external,stress_recall_vs_min_since_onset,1-2,45,25,0.8
+Campanella2024,external,stress_recall_vs_min_since_onset,2-3,0,0,
+Campanella2024,external,stress_recall_vs_min_since_onset,3-inf,0,0,
+Campanella2024,external,false_stress_vs_min_since_offset,0-1,0,0,
+Campanella2024,external,false_stress_vs_min_since_offset,1-2,0,0,
+Campanella2024,external,false_stress_vs_min_since_offset,2-5,0,0,
+Campanella2024,external,false_stress_vs_min_since_offset,5-10,0,0,
+Campanella2024,external,false_stress_vs_min_since_offset,10-inf,0,0,
+Campanella2024,external,false_stress_vs_min_since_offset,no prior stressor,116,29,0.129
