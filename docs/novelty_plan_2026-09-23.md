@@ -1,6 +1,10 @@
 # Novelty plan for the JBHI paper (2026-09-23)
 
-Progress: step 1 done (PR #9); step 2 done (`docs/arousal_kit.md`, `scripts/arousal_kit.py`).
+Progress: step 1 done (PR #9); step 2 done (`docs/arousal_kit.md`, `scripts/arousal_kit.py`); step 3 done (`scripts/wrist_hrv_direction.py`); step 4 done (`scripts/stressor_potency.py`); manuscript condensed to 6 pages (JBHI limit 8).
+
+Step 3 result (`outputs/tables/jbhi_v2/wrist_hrv_direction.csv`, WESAD, 14 subjects, windows with usable wrist beats): per-subject TSST-minus-baseline change, chest ECG vs wrist: HR +26.3 vs +14.2 bpm; RMSSD −7.1 [−27.6, 14.4] vs +12.5 [−7.8, 32.2] (neither significant); SDNN −6.3 [−21.7, 8.4] vs +32.8 [9.2, 58.1]. Wrist–ECG r falls from 0.62 at baseline to 0.38 (RMSSD) and 0.12 (SDNN) under stress. This corrects report 03 (RMSSD −11.6 vs +26.5 came from a different, uncommitted aggregation): the robust result is wrist SDNN rising while ECG SDNN does not, and wrist HR capturing half the rise.
+
+Step 4 result (`contribution_probes/stressor_potency/`): 182 subject-by-stressor units, 123 subjects, 8 stressors. External recall vs the subject's own arousal response ρ = 0.56 [0.43, 0.66]; response explains R² 0.33; dataset adds 0.10 [0.04, 0.21] beyond response, response adds 0.22 [0.13, 0.32] beyond dataset. Stressor-level ρ = 0.43 (k = 8). Stress potency is the larger but not the only factor.
 
 This file brings together the five agent reports of 2026-09-23 (`docs/literature/novelty-2026-09-23/`), the earlier contribution map (`docs/contribution_map.md`), the novelty search (`docs/literature/novelty-search.md`) and the graphify knowledge graph of the repo (`graphify-out/`, 769 nodes, built 2026-09-23). It is the working plan for making the paper's novelty defensible. Decisions still belong to Alvaro and Dr. Pan.
 

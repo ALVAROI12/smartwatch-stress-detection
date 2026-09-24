@@ -1,0 +1,9 @@
+stressor,n_subjects,response,recall_ext,recall_win
+Stress-Predict: Stroop,31,0.481,0.238,0.544
+PhysioNet: Stroop,18,0.876,0.796,0.773
+UBFC-Phys: T2 speech,11,0.907,0.891,0.964
+PhysioNet: TMCT,35,0.963,0.762,0.633
+UBFC-Phys: T3 arithmetic,11,1.02,0.509,0.909
+Stress-Predict: TSST interview,32,1.205,0.68,0.744
+WESAD: stress,15,1.659,0.908,0.909
+Campanella2024: Backward subtraction,29,1.938,0.879,0.876

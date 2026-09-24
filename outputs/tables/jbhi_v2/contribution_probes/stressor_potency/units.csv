@@ -1,0 +1,183 @@
+dataset,original_label,subject_uid,n,stress_idx,recall_ext,recall_win,response,stressor
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_01,4,0.5466,0.75,1.0,2.11,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_02,4,1.2362,0.5,1.0,2.4818,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_03,2,1.5891,1.0,1.0,2.2722,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_04,3,1.8746,1.0,1.0,2.916,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_05,2,1.5351,1.0,1.0,2.6818,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_06,4,0.9188,1.0,1.0,1.7477,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_07,4,1.7217,1.0,0.0,3.4671,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_08,4,1.7773,1.0,1.0,0.9576,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_09,4,1.4626,1.0,1.0,2.4414,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_10,4,-0.6019,0.25,0.0,0.0274,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_11,4,1.5846,1.0,1.0,1.6419,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_12,4,1.0604,1.0,1.0,2.0128,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_13,4,0.3344,0.25,1.0,1.8255,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_14,4,0.6658,0.5,1.0,1.2933,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_15,4,1.4045,1.0,1.0,1.3381,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_16,3,1.9852,1.0,1.0,1.9968,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_17,4,2.1857,1.0,1.0,2.9187,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_18,3,-0.0517,1.0,0.0,1.1187,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_19,4,1.4133,1.0,0.75,1.4501,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_20,4,1.6213,1.0,1.0,2.9285,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_21,4,1.0989,1.0,1.0,1.7308,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_22,3,0.2193,1.0,0.6667,0.8052,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_23,1,2.8352,1.0,1.0,1.7555,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_24,2,1.7814,1.0,1.0,1.9788,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_25,4,1.2245,0.5,1.0,2.4775,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_26,4,1.3169,1.0,1.0,1.0944,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_27,3,2.7402,1.0,1.0,3.0099,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_28,4,1.9519,0.75,1.0,1.6489,Campanella2024: Backward subtraction
+Campanella2024,Backward subtraction (up to 2.5 min),Campanella2024:subject_29,4,1.0762,1.0,1.0,2.0727,Campanella2024: Backward subtraction
+PhysioNet,Stroop,PhysioNet:S01,2,-0.1802,0.5,0.0,0.2337,PhysioNet: Stroop
+PhysioNet,Stroop,PhysioNet:S02,2,0.9767,1.0,0.5,-0.2974,PhysioNet: Stroop
+PhysioNet,Stroop,PhysioNet:S03,2,0.1424,1.0,1.0,1.1298,PhysioNet: Stroop
+PhysioNet,Stroop,PhysioNet:S04,2,1.3576,1.0,1.0,2.236,PhysioNet: Stroop
+PhysioNet,Stroop,PhysioNet:S05,2,0.066,1.0,1.0,0.7718,PhysioNet: Stroop
+PhysioNet,Stroop,PhysioNet:S06,3,0.5267,0.3333,0.6667,1.3745,PhysioNet: Stroop
+PhysioNet,Stroop,PhysioNet:S07,2,0.4574,0.5,1.0,1.46,PhysioNet: Stroop
+PhysioNet,Stroop,PhysioNet:S08,2,0.9874,1.0,1.0,1.3841,PhysioNet: Stroop
+PhysioNet,Stroop,PhysioNet:S09,2,2.2279,1.0,1.0,1.4257,PhysioNet: Stroop
+PhysioNet,Stroop,PhysioNet:S10,2,-0.2898,1.0,1.0,0.6148,PhysioNet: Stroop
+PhysioNet,Stroop,PhysioNet:S11,4,1.2178,1.0,0.75,2.596,PhysioNet: Stroop
+PhysioNet,Stroop,PhysioNet:S12,2,1.1426,1.0,1.0,2.2002,PhysioNet: Stroop
+PhysioNet,Stroop,PhysioNet:S13,2,1.5552,1.0,1.0,2.054,PhysioNet: Stroop
+PhysioNet,Stroop,PhysioNet:S14,2,1.671,1.0,1.0,1.2912,PhysioNet: Stroop
+PhysioNet,Stroop,PhysioNet:S15,2,-1.7442,0.0,0.0,-1.7388,PhysioNet: Stroop
+PhysioNet,Stroop,PhysioNet:S16,2,-0.7413,1.0,1.0,-1.7249,PhysioNet: Stroop
+PhysioNet,Stroop,PhysioNet:S17,2,-0.4639,0.0,0.0,-1.0757,PhysioNet: Stroop
+PhysioNet,Stroop,PhysioNet:S18,2,2.1247,1.0,1.0,1.8319,PhysioNet: Stroop
+PhysioNet,TMCT,PhysioNet:S01,3,0.4776,0.6667,0.3333,0.8914,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:S02,3,0.2835,0.6667,0.3333,-0.9907,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:S03,3,0.4553,1.0,1.0,1.4427,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:S04,3,1.2071,1.0,1.0,2.0855,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:S05,4,0.4419,0.5,0.75,1.1476,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:S06,3,1.4073,1.0,1.0,2.2551,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:S07,3,1.052,1.0,0.6667,2.0546,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:S08,4,0.2555,0.75,0.75,0.6522,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:S09,3,0.2179,0.3333,0.0,-0.5842,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:S10,3,1.5971,1.0,1.0,2.5017,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:S11,4,0.4651,0.75,0.25,1.8433,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:S12,3,1.3327,1.0,0.6667,2.3903,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:S13,3,0.9613,1.0,1.0,1.4601,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:S14,3,0.9181,1.0,0.6667,0.5383,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:S15,4,0.2588,0.5,0.25,0.2641,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:S16,4,0.7979,1.0,1.0,-0.1856,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:S17,4,-0.5987,0.75,0.0,-1.2104,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:S18,4,-1.0407,0.0,0.0,-1.3334,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:f01,14,0.3688,0.7857,0.5714,0.4659,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:f02,11,1.3631,1.0,0.5455,1.7994,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:f03,7,-0.2397,0.0,0.0,-0.3186,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:f04,7,0.7539,0.0,0.8571,1.438,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:f05,7,1.5922,1.0,0.8571,1.6909,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:f06,7,0.7901,0.8571,1.0,1.543,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:f07,7,1.5655,1.0,0.5714,3.5279,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:f08,8,1.1117,1.0,1.0,1.7033,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:f09,7,0.8246,1.0,0.8571,2.5268,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:f10,7,0.5037,1.0,0.5714,-1.0903,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:f11,8,1.887,1.0,0.875,1.108,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:f12,7,1.4446,0.7143,0.7143,1.1531,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:f14,7,0.2392,0.4286,0.5714,0.2452,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:f15,7,1.5767,1.0,1.0,0.7241,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:f16,7,0.8293,0.7143,0.8571,1.2892,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:f17,7,-0.3329,0.4286,0.1429,0.1432,PhysioNet: TMCT
+PhysioNet,TMCT,PhysioNet:f18,6,0.6893,0.8333,0.5,0.5398,PhysioNet: TMCT
+Stress-Predict,Stroop,Stress-Predict:S02,10,-0.2393,0.0,0.6,1.2115,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S03,7,-0.1575,0.0,0.4286,-0.3475,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S04,9,-0.1075,0.0,0.2222,-0.4387,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S05,9,0.1721,0.5556,0.4444,-0.1015,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S07,6,0.6238,0.3333,1.0,0.6376,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S08,8,0.0714,0.0,0.125,0.5519,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S09,8,-1.0945,0.0,0.0,-0.9881,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S10,8,0.3502,0.25,0.875,0.8988,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S11,11,-0.5764,0.0,0.2727,0.025,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S12,8,-0.1658,0.125,0.75,0.3712,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S13,12,0.0651,0.0,0.5,1.2081,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S14,10,-0.4635,0.0,0.1,0.1183,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S15,7,-0.4142,0.0,0.8571,-0.0706,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S16,9,-0.9735,0.0,0.0,-0.4395,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S17,12,0.7375,0.6667,0.3333,1.6628,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S19,10,0.3583,0.1,1.0,0.7253,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S20,9,0.2203,0.5556,1.0,0.3292,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S21,11,-0.0904,0.1818,0.5455,0.4172,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S22,11,-0.2015,0.9091,0.0,0.0074,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S23,10,0.5434,0.3,0.9,1.4302,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S24,9,-0.2711,0.0,0.7778,0.4007,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S25,11,-0.711,0.0,0.0,-0.0635,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S26,10,0.4511,0.2,1.0,0.7317,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S27,12,-0.0033,0.25,0.3333,0.4553,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S28,10,-0.5955,0.0,0.0,0.0168,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S29,10,0.551,0.8,1.0,1.9448,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S31,10,0.9493,0.7,1.0,1.2471,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S32,10,-0.4206,0.0,0.0,0.6659,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S33,8,0.5878,0.875,0.875,1.3277,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S34,9,0.2384,0.0,1.0,0.1887,Stress-Predict: Stroop
+Stress-Predict,Stroop,Stress-Predict:S35,12,0.3556,0.5833,0.9167,0.8009,Stress-Predict: Stroop
+Stress-Predict,TSST interview,Stress-Predict:S02,19,0.2829,0.7368,0.8947,1.7337,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S03,16,0.7011,0.6875,0.625,0.5111,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S04,17,1.1025,0.7647,1.0,0.7713,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S05,19,0.4988,0.6842,0.6316,0.2253,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S07,18,0.4393,0.6667,0.7222,0.4531,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S08,17,0.5191,0.3529,0.4706,0.9996,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S09,14,0.435,0.8571,0.9286,0.5415,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S10,16,0.3563,0.6875,0.875,0.9049,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S11,18,0.2578,0.2778,0.8333,0.8593,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S12,19,0.8947,1.0,0.9474,1.4317,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S13,18,0.6502,0.5556,0.8889,1.7932,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S14,19,0.8576,0.6842,0.7368,1.4393,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S15,20,1.0257,0.75,0.95,1.3693,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S16,16,1.4729,1.0,0.8125,2.0069,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S18,19,0.9866,0.9474,0.7895,1.9036,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S19,13,1.3241,0.9231,0.8462,1.6911,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S20,17,0.6608,0.4706,0.5882,0.7697,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S21,18,0.7797,0.9444,0.7222,1.2873,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S22,17,1.3865,0.9412,0.8235,1.5955,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S23,16,0.4133,0.5,0.9375,1.3,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S24,18,0.5063,0.3889,0.6111,1.1782,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S25,17,0.533,0.6471,0.6471,1.1805,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S26,17,-0.6949,0.0588,0.0588,-0.4143,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S27,19,1.284,0.6842,0.7368,1.7426,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S28,18,0.789,0.6667,0.6111,1.4013,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S29,17,0.5084,1.0,0.5294,1.9022,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S30,16,0.7625,0.8125,0.8125,1.7395,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S31,17,1.0145,0.5882,0.5294,1.3123,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S32,17,0.6703,0.7647,0.8235,1.7568,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S33,19,0.4826,0.8421,0.7895,1.2225,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S34,17,0.4444,0.1176,0.8824,0.3947,Stress-Predict: TSST interview
+Stress-Predict,TSST interview,Stress-Predict:S35,17,1.0957,0.7647,0.7647,1.541,Stress-Predict: TSST interview
+UBFC-Phys,T2 speech (test group),UBFC-Phys:s1,5,-0.0386,0.6,1.0,0.1293,UBFC-Phys: T2 speech
+UBFC-Phys,T2 speech (test group),UBFC-Phys:s4,5,-0.0848,0.6,1.0,0.7199,UBFC-Phys: T2 speech
+UBFC-Phys,T2 speech (test group),UBFC-Phys:s44,5,0.0405,1.0,1.0,0.9926,UBFC-Phys: T2 speech
+UBFC-Phys,T2 speech (test group),UBFC-Phys:s45,5,0.8277,1.0,1.0,1.9223,UBFC-Phys: T2 speech
+UBFC-Phys,T2 speech (test group),UBFC-Phys:s47,5,0.8708,1.0,1.0,0.9824,UBFC-Phys: T2 speech
+UBFC-Phys,T2 speech (test group),UBFC-Phys:s48,5,0.3901,1.0,1.0,1.6957,UBFC-Phys: T2 speech
+UBFC-Phys,T2 speech (test group),UBFC-Phys:s49,5,0.7968,1.0,1.0,0.7222,UBFC-Phys: T2 speech
+UBFC-Phys,T2 speech (test group),UBFC-Phys:s50,5,-0.4485,0.8,1.0,-0.0091,UBFC-Phys: T2 speech
+UBFC-Phys,T2 speech (test group),UBFC-Phys:s51,5,0.3059,0.8,0.8,1.4725,UBFC-Phys: T2 speech
+UBFC-Phys,T2 speech (test group),UBFC-Phys:s53,5,0.0201,1.0,0.8,0.8414,UBFC-Phys: T2 speech
+UBFC-Phys,T2 speech (test group),UBFC-Phys:s55,5,0.3139,1.0,1.0,0.5047,UBFC-Phys: T2 speech
+UBFC-Phys,T3 arithmetic (test group),UBFC-Phys:s1,5,0.2064,0.2,1.0,0.3743,UBFC-Phys: T3 arithmetic
+UBFC-Phys,T3 arithmetic (test group),UBFC-Phys:s4,5,0.9228,0.8,0.6,1.7275,UBFC-Phys: T3 arithmetic
+UBFC-Phys,T3 arithmetic (test group),UBFC-Phys:s44,5,0.8815,0.4,1.0,1.8336,UBFC-Phys: T3 arithmetic
+UBFC-Phys,T3 arithmetic (test group),UBFC-Phys:s45,5,0.3843,0.4,1.0,1.4789,UBFC-Phys: T3 arithmetic
+UBFC-Phys,T3 arithmetic (test group),UBFC-Phys:s47,5,-0.6582,0.4,1.0,-0.5466,UBFC-Phys: T3 arithmetic
+UBFC-Phys,T3 arithmetic (test group),UBFC-Phys:s48,5,0.9154,1.0,1.0,2.2209,UBFC-Phys: T3 arithmetic
+UBFC-Phys,T3 arithmetic (test group),UBFC-Phys:s49,5,-0.8583,0.2,0.4,-0.9329,UBFC-Phys: T3 arithmetic
+UBFC-Phys,T3 arithmetic (test group),UBFC-Phys:s50,5,0.8617,0.8,1.0,1.3012,UBFC-Phys: T3 arithmetic
+UBFC-Phys,T3 arithmetic (test group),UBFC-Phys:s51,5,0.8973,0.4,1.0,2.0639,UBFC-Phys: T3 arithmetic
+UBFC-Phys,T3 arithmetic (test group),UBFC-Phys:s53,5,0.7424,0.8,1.0,1.5637,UBFC-Phys: T3 arithmetic
+UBFC-Phys,T3 arithmetic (test group),UBFC-Phys:s55,5,-0.0548,0.2,1.0,0.136,UBFC-Phys: T3 arithmetic
+WESAD,stress,WESAD:S10,23,1.3516,0.8696,0.7826,1.5303,WESAD: stress
+WESAD,stress,WESAD:S11,21,0.5312,1.0,0.9048,0.4622,WESAD: stress
+WESAD,stress,WESAD:S13,21,1.4622,1.0,1.0,1.6182,WESAD: stress
+WESAD,stress,WESAD:S14,21,1.583,1.0,1.0,2.3171,WESAD: stress
+WESAD,stress,WESAD:S15,21,1.4424,1.0,0.9524,2.1484,WESAD: stress
+WESAD,stress,WESAD:S16,21,1.8555,0.6667,1.0,2.501,WESAD: stress
+WESAD,stress,WESAD:S17,23,0.0556,0.7391,0.3478,-0.3064,WESAD: stress
+WESAD,stress,WESAD:S2,19,1.4794,0.8947,1.0,1.2643,WESAD: stress
+WESAD,stress,WESAD:S3,20,1.1491,0.5,0.65,1.1004,WESAD: stress
+WESAD,stress,WESAD:S4,20,1.929,1.0,1.0,2.4049,WESAD: stress
+WESAD,stress,WESAD:S5,20,1.9066,1.0,1.0,2.4565,WESAD: stress
+WESAD,stress,WESAD:S6,20,1.67,0.95,1.0,1.9085,WESAD: stress
+WESAD,stress,WESAD:S7,20,1.8042,1.0,1.0,1.7327,WESAD: stress
+WESAD,stress,WESAD:S8,21,1.8164,1.0,1.0,1.9765,WESAD: stress
+WESAD,stress,WESAD:S9,20,1.315,1.0,1.0,1.7662,WESAD: stress

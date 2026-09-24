@@ -42,7 +42,7 @@ Novelty review of 2026-09-23 (`docs/novelty_plan_2026-09-23.md`): not scooped, b
 
 ## Next steps
 
-0. Novelty plan steps 1 and 2 are done (step 2: `docs/arousal_kit.md`; the untrained arousal index matches the external model on all five datasets; the model's non-arousal part is shared by active tasks; nulls detect within-bin AUROC ≥ 0.60–0.64). Next: step 3 (HRV-direction script) and step 4 (stressor-potency dose–response) of `docs/novelty_plan_2026-09-23.md` §6.
+0. Novelty plan steps 1–4 are done and the manuscript is condensed to 6 pages (`paper/main.pdf`; JBHI limit 8). Next: read the condensed draft, then optional steps 5–8 of `docs/novelty_plan_2026-09-23.md` §6 (missing-PPG shortcut, frozen PPG encoder, theory checks, Zenodo deposit).
 1. After decision 1, send the chosen documents to Dr. Pan.
 2. `docs/contribution_map.md` §5, items 2–3: add the Stress-Predict hyperventilation relabelling to the label audit; correct the PULSE premise in the advisor sheet.
 3. Optional check: one leave-one-dataset-out row with a frozen public PPG encoder (§4, rank 8).
@@ -60,6 +60,7 @@ Nothing running (checked 2026-09-23).
 
 ## Log (newest first)
 
+- 2026-09-23: steps 3 (wrist HRV direction) and 4 (stressor-potency dose–response); manuscript rewritten to 6 pages (abstract 234 words; Table III, the negative-results table and the LODO and budget figures folded into text).
 - 2026-09-23: novelty plan step 2, arousal-controlled evaluation kit (`scripts/arousal_kit.py`, tables in `contribution_probes/arousal_kit/`); results added to the paper as Table V and two paragraphs.
 - 2026-09-23: novelty plan step 1 applied to `paper/main.tex` (new title; Zhou 2023 cited; Kwon iso-HR test credited and reconciled with the HR-only disjoint variant; ten paper-versus-table mismatches fixed; second-half-rest and position-matching caveats added).
 - 2026-09-23: five novelty agents (collision check, simulated reviewer, unused findings, theory framing, closable gaps); reports in `docs/literature/novelty-2026-09-23/`, consolidated plan in `docs/novelty_plan_2026-09-23.md`.
