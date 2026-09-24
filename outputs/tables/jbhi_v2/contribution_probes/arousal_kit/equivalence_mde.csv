@@ -1,0 +1,8 @@
+pair,n,n_subjects,auc,ci90_lo,ci90_hi,equivalent_within_0_10,mde_auc,mde_shift
+Stress vs Exercise,3817,36,0.759,0.688,0.819,False,0.794,0.25
+Stress vs Hyperventilation,904,34,0.523,0.453,0.592,True,0.632,0.5
+Stress vs UBFC control task,190,19,0.577,0.51,0.653,False,0.639,0.25
+Stress vs Lego manual task,769,29,0.355,0.276,0.523,False,0.608,1.0
+Stress vs Fear clips,2000,156,0.633,0.586,0.677,False,0.68,0.25
+Stress vs Anger clips,1639,156,0.39,0.326,0.508,False,0.595,1.0
+Stress vs Baseline/rest (reference),5445,132,0.584,0.547,0.629,False,0.63,0.25

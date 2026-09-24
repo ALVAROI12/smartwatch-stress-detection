@@ -18,8 +18,15 @@
       "output_tokens": 0,
       "files": 7,
       "note": "update: novelty reports; subagent total tokens"
+    },
+    {
+      "date": "2026-09-24T01:01:09.622330+00:00",
+      "input_tokens": 104530,
+      "output_tokens": 0,
+      "files": 7,
+      "note": "update: step 1 paper, step 2 arousal kit"
     }
   ],
-  "total_input_tokens": 1271093,
+  "total_input_tokens": 1375623,
   "total_output_tokens": 0
 }

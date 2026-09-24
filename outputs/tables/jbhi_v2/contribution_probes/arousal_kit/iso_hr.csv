@@ -1,0 +1,12 @@
+test,n_all,auroc_unmatched,n_matched_mean,auroc_iso_hr,auroc_iso_hr_sd
+WESAD: stress vs non-stress,1022,0.982,108.0,0.957,0.004
+PhysioNet: stress vs non-stress,1477,0.808,240.0,0.731,0.014
+Stress-Predict: stress vs non-stress,1536,0.73,766.0,0.674,0.006
+UBFC-Phys: stress vs non-stress,152,0.921,40.0,0.984,0.003
+Campanella2024: stress vs non-stress,124,0.932,20.0,0.993,0.007
+Stress vs Exercise,2969,0.575,254.0,0.685,0.013
+Stress vs Hyperventilation,552,0.518,40.0,0.434,0.033
+Stress vs UBFC control task,130,0.541,0.0,,
+Stress vs Lego manual task,260,0.751,62.0,0.69,0.025
+Stress vs Fear clips,1353,0.656,0.0,,
+Stress vs Anger clips,999,0.58,0.0,,

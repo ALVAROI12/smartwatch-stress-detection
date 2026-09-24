@@ -1,0 +1,6 @@
+dataset,r2_score_on_index,auroc_score,auroc_index,auroc_residual,auroc_residual_lo,auroc_residual_hi
+WESAD,0.673,0.968,0.952,0.628,0.529,0.714
+PhysioNet,0.543,0.807,0.804,0.647,0.559,0.725
+Stress-Predict,0.509,0.708,0.739,0.587,0.544,0.631
+UBFC-Phys,0.55,0.906,0.84,0.731,0.626,0.823
+Campanella2024,0.677,0.918,0.948,0.588,0.457,0.71
