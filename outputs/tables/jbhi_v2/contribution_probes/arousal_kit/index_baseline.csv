@@ -1,0 +1,6 @@
+dataset,n_windows,n_subjects,auroc_index,auroc_index_lo,auroc_index_hi,auroc_external,auroc_external_lo,auroc_external_hi,auroc_within,auroc_within_lo,auroc_within_hi,external_minus_index,external_minus_index_lo,external_minus_index_hi,within_minus_index,within_minus_index_lo,within_minus_index_hi
+WESAD,1398,15,0.952,0.888,0.994,0.968,0.945,0.985,0.985,0.964,0.998,0.016,-0.024,0.071,0.033,0.001,0.08
+PhysioNet,1599,35,0.804,0.732,0.866,0.807,0.721,0.877,0.841,0.78,0.894,0.003,-0.061,0.058,0.037,-0.001,0.076
+Stress-Predict,2546,34,0.739,0.689,0.785,0.708,0.662,0.751,0.773,0.727,0.814,-0.031,-0.06,0.001,0.034,-0.004,0.069
+UBFC-Phys,205,19,0.84,0.731,0.923,0.906,0.831,0.964,0.958,0.909,0.993,0.066,0.0,0.151,0.118,0.039,0.215
+Campanella2024,218,29,0.948,0.896,0.986,0.918,0.853,0.972,0.939,0.874,0.986,-0.03,-0.077,0.007,-0.01,-0.046,0.021

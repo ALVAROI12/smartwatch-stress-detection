@@ -1,0 +1,7 @@
+probe,rest_from,n_probe,n_rest,auc_pooled,auc_matched,lo,hi
+Exercise,PhysioNet,3763,1367,0.714,0.486,0.388,0.551
+Hyperventilation,Stress-Predict,53,1695,0.694,0.616,0.51,0.706
+UBFC control task,UBFC-Phys,80,95,0.89,0.696,0.535,0.927
+Lego manual task,Campanella2024,667,116,0.799,0.788,0.697,0.877
+Fear clips,all datasets,394,3839,0.609,0.541,0.489,0.599
+Anger clips,all datasets,33,3839,0.707,0.712,0.618,0.803

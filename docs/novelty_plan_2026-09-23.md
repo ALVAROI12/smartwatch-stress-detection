@@ -1,5 +1,7 @@
 # Novelty plan for the JBHI paper (2026-09-23)
 
+Progress: step 1 done (PR #9); step 2 done (`docs/arousal_kit.md`, `scripts/arousal_kit.py`).
+
 This file brings together the five agent reports of 2026-09-23 (`docs/literature/novelty-2026-09-23/`), the earlier contribution map (`docs/contribution_map.md`), the novelty search (`docs/literature/novelty-search.md`) and the graphify knowledge graph of the repo (`graphify-out/`, 769 nodes, built 2026-09-23). It is the working plan for making the paper's novelty defensible. Decisions still belong to Alvaro and Dr. Pan.
 
 Source reports:
@@ -53,7 +55,7 @@ Proposed novelty sentence: "Earlier work suggested that stress models detect aro
 
 1. **Reconciliation with Kwon, already computed.** `outputs/tables/jbhi_v2/contribution_probes/hardening/partA_disjoint.csv`, variant `disjoint_hr_only_model_eda`: stress versus rest stays separable (0.68, p_holm 0.0035), stress versus UBFC control (0.47) and hyperventilation (0.45) do not.
 2. **Wrist HRV moves the wrong way under stress (WESAD).** Chest ECG RMSSD −11.6 ms per subject, wrist +26.5 ms; HR rise +21.3 bpm on ECG, +9.2 bpm at the wrist; agreement during stress SDNN r = 0.12, RMSSD r = 0.38. From an agent's own pass over `wrist_vs_ecg_per_window.csv`; **no committed script reproduces it yet.**
-3. **Untrained arousal index as a baseline.** Per-subject z-scored `hr_mean` plus `eda_tonic_mean` against the external model (AUROC): WESAD 0.945 vs 0.965, Campanella 0.948 vs 0.918, UBFC-Phys 0.840 vs 0.906, Stress-Predict 0.739 vs 0.708, PhysioNet 0.662 vs 0.807. Rough: 294 duplicate join keys, no CIs.
+3. **Untrained arousal index as a baseline.** Done in step 2 (`docs/arousal_kit.md`): the index matches the external model on all five datasets (PhysioNet 0.804 vs 0.807; report 05's 0.662 was a join artefact).
 4. **Missing PPG predicts the label.** AUROC of (1 − PPG coverage): WESAD 0.81, UBFC-Phys 0.74, PhysioNet 0.34 (exercise also loses PPG there). Same XGBoost missing-value mechanism as the UBFC temperature shift.
 5. **Self-report does not track protocol labels.** Only 47–61% of PhysioNet subjects report more stress after the tasks; dropping stress windows without a self-reported rise leaves pooled balanced accuracy unchanged (0.849). Run predates the label fixes.
 6. **Second-half rests.** External PhysioNet 0.746 to 0.797. CLAUDE.md says to report both; the paper does not.
