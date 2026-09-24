@@ -228,10 +228,10 @@
     "semantic_hash": "691eb0d0fd8072a27341959c4f000337"
   },
   "STATUS.md": {
-    "mtime": 1790211432.0199654,
-    "seen": 1790211617.94626,
-    "ast_hash": "7b112d8c574ef90d20881328c19cc4fd",
-    "semantic_hash": "7b112d8c574ef90d20881328c19cc4fd"
+    "mtime": 1790212746.3994741,
+    "seen": 1790262340.478559,
+    "ast_hash": "c55912432a45df7c5cbb9fa75396305a",
+    "semantic_hash": "c55912432a45df7c5cbb9fa75396305a"
   },
   "docs/contribution_map.md": {
     "mtime": 1790125041.178723,
@@ -318,10 +318,10 @@
     "semantic_hash": "b2f97a59aca3870a23d885daf70aaee3"
   },
   "CLAUDE.md": {
-    "mtime": 1790211432.0201635,
-    "seen": 1790211617.94626,
-    "ast_hash": "ad62d334b7db225fa53b009460e71037",
-    "semantic_hash": "ad62d334b7db225fa53b009460e71037"
+    "mtime": 1790212746.399228,
+    "seen": 1790262340.47856,
+    "ast_hash": "efd8b97b5351e60f52435a34a8187e88",
+    "semantic_hash": "efd8b97b5351e60f52435a34a8187e88"
   },
   "docs/contribution_report_ieee.pdf": {
     "mtime": 1790123291.3061502,
@@ -414,10 +414,10 @@
     "semantic_hash": "b3558ef143f783666bd7d86d2701cfe6"
   },
   "paper/main.pdf": {
-    "mtime": 1790211389.4003968,
-    "seen": 1790211617.946261,
-    "ast_hash": "124357975bad274a4003ba987d4d4105",
-    "semantic_hash": "124357975bad274a4003ba987d4d4105"
+    "mtime": 1790212712.2423098,
+    "seen": 1790262340.47856,
+    "ast_hash": "b598065653d90f000dfa74da5840566b",
+    "semantic_hash": "b598065653d90f000dfa74da5840566b"
   },
   "legacy/outputs/figures/active_learning.png": {
     "mtime": 1790102629.7077875,
@@ -816,10 +816,10 @@
     "semantic_hash": "60b046b9f1a0a2c9b0ef058677a79be5"
   },
   "docs/novelty_plan_2026-09-23.md": {
-    "mtime": 1790211432.0197225,
-    "seen": 1790211617.946261,
-    "ast_hash": "815bf3436cd489d258519394ea61ba1d",
-    "semantic_hash": "815bf3436cd489d258519394ea61ba1d"
+    "mtime": 1790212746.3989434,
+    "seen": 1790262340.47856,
+    "ast_hash": "0716aae2e54dc3c0ca80f76b0451a12c",
+    "semantic_hash": "0716aae2e54dc3c0ca80f76b0451a12c"
   },
   "scripts/arousal_kit.py": {
     "mtime": 1790211241.726877,
@@ -838,5 +838,17 @@
     "seen": 1790211617.94626,
     "ast_hash": "d3d574eef4b1726096f2856f9ac78d1c",
     "semantic_hash": "d3d574eef4b1726096f2856f9ac78d1c"
+  },
+  "scripts/stressor_potency.py": {
+    "mtime": 1790212543.5907927,
+    "seen": 1790262340.478554,
+    "ast_hash": "162c88af74674196ae227891231455d7",
+    "semantic_hash": "162c88af74674196ae227891231455d7"
+  },
+  "scripts/wrist_hrv_direction.py": {
+    "mtime": 1790212515.2560875,
+    "seen": 1790262340.4785569,
+    "ast_hash": "ec3ab96dbdbc895e5bf230f7f2e38f1c",
+    "semantic_hash": "ec3ab96dbdbc895e5bf230f7f2e38f1c"
   }
 }
