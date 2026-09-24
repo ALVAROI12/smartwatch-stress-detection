@@ -1,6 +1,6 @@
 # Project status: read first, update last
 
-Last updated: 2026-09-23 (chat "novelty research agents").
+Last updated: 2026-09-23 (chat "novelty research agents", step 1 of the novelty plan).
 
 ## How to use this file
 
@@ -42,7 +42,7 @@ Novelty review of 2026-09-23 (`docs/novelty_plan_2026-09-23.md`): not scooped, b
 
 ## Next steps
 
-0. Work through `docs/novelty_plan_2026-09-23.md` §6: step 1 (credit Zhou and Kwon, fix the §5 mismatches, cut contributions, retitle) needs no new experiments; steps 2–4 are the minimum for submission.
+0. Novelty plan step 1 is done on branch `paper-step1-novelty` (retitled, Zhou and Kwon credited, Kwon reconciliation added, all §5 mismatches fixed, contributions cut to four). Next: steps 2–4 of `docs/novelty_plan_2026-09-23.md` §6 (arousal-controlled evaluation kit, HRV-direction script, stressor-potency dose–response).
 1. After decision 1, send the chosen documents to Dr. Pan.
 2. `docs/contribution_map.md` §5, items 2–3: add the Stress-Predict hyperventilation relabelling to the label audit; correct the PULSE premise in the advisor sheet.
 3. Optional check: one leave-one-dataset-out row with a frozen public PPG encoder (§4, rank 8).
@@ -60,6 +60,7 @@ Nothing running (checked 2026-09-23).
 
 ## Log (newest first)
 
+- 2026-09-23: novelty plan step 1 applied to `paper/main.tex` (new title; Zhou 2023 cited; Kwon iso-HR test credited and reconciled with the HR-only disjoint variant; ten paper-versus-table mismatches fixed; second-half-rest and position-matching caveats added).
 - 2026-09-23: five novelty agents (collision check, simulated reviewer, unused findings, theory framing, closable gaps); reports in `docs/literature/novelty-2026-09-23/`, consolidated plan in `docs/novelty_plan_2026-09-23.md`.
 - 2026-09-23: created this file.
 - 2026-09-22 evening: hardening probes; manuscript `paper/main.tex`; committee report `docs/contribution_report_ieee.pdf`.
