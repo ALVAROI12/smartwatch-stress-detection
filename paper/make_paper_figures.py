@@ -33,9 +33,6 @@ def fig1_lodo():
         ax.set_xticks(x, [SHORT[o] for o in ORDER], rotation=30, ha="right", fontsize=6.5)
         ax.set_ylim(0.5, 1.0)
         ax.set_title(title)
-        if feat == "physiology":
-            ax.annotate("no temperature\nchannel in target", xy=(3, 0.589), xytext=(2.2, 0.62), fontsize=6.5,
-                        arrowprops=dict(arrowstyle="->", lw=0.6))
     axes[0].set_ylabel("Balanced accuracy (held-out subjects)")
     axes[0].legend(loc="lower left", bbox_to_anchor=(0.0, 1.12), ncol=3)
     fig.tight_layout()
@@ -99,8 +96,8 @@ def fig3_time():
     ds = ["WESAD", "PhysioNet", "Stress-Predict", "Campanella2024"]
     x = np.arange(len(ds))
     for off, model, c, name in [(-0.25, "time_only_within", "#c44e52", "time since start only"),
-                                (0, "std_within", "#4c72b0", "physiology, within"),
-                                (0.25, "std_external", "#dd8452", "physiology, external")]:
+                                (0, "std_within", "#4c72b0", "HR/HRV/EDA, within"),
+                                (0.25, "std_external", "#dd8452", "HR/HRV/EDA, external")]:
         v = [s[(s.dataset == d) & (s.model == model)].ba.item() for d in ds]
         ax.bar(x + off, v, 0.25, color=c, label=name)
     ax.set_xticks(x, [SHORT[d] for d in ds], fontsize=6.5); ax.set_ylim(0.5, 1.02)
