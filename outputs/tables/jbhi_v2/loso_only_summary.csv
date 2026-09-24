@@ -1,0 +1,7 @@
+task,normalisation,modality,n_subjects,pooled_accuracy,pooled_balanced_accuracy,pooled_macro_f1,mean_subject_accuracy
+shared_Baseline_vs_Stress_pooled,none,all_modalities,50,0.852689010132502,0.849499776019113,0.8492420978418393,0.7500747239531093
+shared_Baseline_vs_Stress_pooled,none,acc_only,50,0.7607170693686672,0.7548168334079937,0.7548791606119916,0.6912921652587216
+shared_Baseline_vs_Stress_pooled,none,physiology_only,50,0.8191738113795791,0.8143173560300632,0.8146240116386247,0.7173893901738825
+shared_Baseline_vs_Stress_pooled,subject_zscore,all_modalities,50,0.8324240062353858,0.822617092230352,0.8261356538357054,0.687909561685537
+shared_Baseline_vs_Stress_pooled,subject_zscore,acc_only,50,0.7194076383476228,0.7038076750783933,0.7065058256572927,0.633128120959497
+shared_Baseline_vs_Stress_pooled,subject_zscore,physiology_only,50,0.8067030397505845,0.7941914289980588,0.7983583951005344,0.6383356799191379

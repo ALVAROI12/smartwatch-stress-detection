@@ -147,7 +147,24 @@ python scripts/leave_one_dataset_out.py --input /path/to/harmonized_windows_v2.c
     --output-dir outputs/tables/jbhi_v2/novelty_experiments --normalisation causal --tag _causal
 python scripts/novelty_experiments_summary.py
 
-# 4. Figures (needs only the committed tables)
+# 4. Manuscript probes (paper/main.tex). F=/path/to/harmonized_windows_v2.csv (six datasets)
+python scripts/run_jbhi_experiments.py --input $F --harmonization-only        # Table I, dataset_audit.csv
+python scripts/run_jbhi_experiments.py --input /path/to/harmonized_windows_v2_three_datasets_fixed.csv \
+    --loso-only acc_only all_modalities physiology_only --tasks shared_Baseline_vs_Stress_pooled
+python scripts/leave_one_dataset_out.py --input /path/to/harmonized_windows_v2_before_label_fixes.csv \
+    --output-dir outputs/tables/jbhi_v2/label_fix_sensitivity --tag _before_fixes
+python scripts/threshold_transfer_probe.py --input $F
+python scripts/specificity_panel_probe.py --input $F                            # Table III
+python scripts/matched_arousal_probe.py --input $F                              # error budget, Table V
+python scripts/matched_arousal_hardening.py --input $F                          # Table IV
+python scripts/time_in_session_probe.py --input $F
+python scripts/warmup_since_donning.py --data-root /path/to/datasets            # needs raw E4 files
+python scripts/transfer_gap.py --input $F --effect-size-only
+python scripts/fewshot_unseen_dataset.py --input $F --k 1 2 3 5
+python scripts/mild_stress_probe.py --input $F
+python paper/make_paper_figures.py && tectonic paper/main.tex
+
+# 5. Thesis-era figures (needs only the committed tables)
 python scripts/make_figures.py
 
 # Tests

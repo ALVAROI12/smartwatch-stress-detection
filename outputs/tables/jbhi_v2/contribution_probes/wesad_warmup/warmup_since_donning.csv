@@ -1,0 +1,5 @@
+dataset,clock_origin,temp_slope_1_10,tonic_slope_1_10,temp_slope_10_20,tonic_slope_10_20,temp_slope_20_40,tonic_slope_20_40,temp_diff_30_40_minus_1_5,tonic_diff_30_40_minus_1_5,n_subjects,baseline_median_min,baseline_within_10min,baseline_within_15min,baseline_within_20min
+WESAD,"raw E4 recording start (donning), via pkl offset",0.0822,0.0978,0.0353,-0.0461,0.0552,-0.0903,1.7938,-0.8888,15,33.3301,0.0,0.0,0.0106
+PhysioNet,raw E4 recording start (timestamp_start = 0),0.0448,0.1509,0.0212,-0.0366,-0.0155,-0.0199,0.2547,0.1235,37,6.0833,0.6839,0.8966,0.9138
+Stress-Predict,raw E4 recording start (timestamp_start = 0),0.0545,0.0261,0.0038,0.0341,-0.0163,0.015,0.2597,0.8806,35,4.9333,0.9659,1.0,1.0
+Campanella2024,raw E4 recording start (timestamp_start = 0),0.0206,0.0469,0.0555,0.0094,-0.0143,0.0348,0.8513,1.317,29,1.0,1.0,1.0,1.0

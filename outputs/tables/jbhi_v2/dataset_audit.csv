@@ -1,0 +1,7 @@
+dataset,n_subjects,n_windows,n_windows_without_hr,pct_windows_without_hr,subjects_merged_from_two_files
+Campanella2024,29,885,558,63.1,
+EPM-E4,33,855,24,2.8,
+PhysioNet,36,5362,1126,21.0,PhysioNet:S11 PhysioNet:S16 PhysioNet:f14
+Stress-Predict,34,2599,1030,39.6,
+UBFC-Phys,19,285,70,24.6,
+WESAD,15,1398,376,26.9,

@@ -1,0 +1,9 @@
+score,n,pooled,wmean_own_bins,wmean_pooled_bins,min_dataset,max_dataset,pooling_effect
+external,5445,0.5839,0.6761,0.677,0.5738,0.9521,-0.0922
+within_LOSO,5445,0.784,0.7223,0.7224,0.5778,0.9351,0.0617
+cond3[exercise],5445,0.7089,0.7066,0.7048,0.6228,0.9504,0.0023
+cond3[Hyperventilation],5445,0.7235,0.7216,0.7218,0.6304,0.9642,0.002
+cond3[UBFC Control task],5445,0.7226,0.72,0.7203,0.6238,0.9655,0.0026
+cond3[Campanella Manual task],5445,0.714,0.714,0.7141,0.6252,0.9448,-0.0
+cond3[EPM Fear],5445,0.7243,0.7165,0.7179,0.6282,0.9655,0.0078
+cond3[EPM Anger],5445,0.7231,0.7193,0.7191,0.6178,0.9648,0.0038

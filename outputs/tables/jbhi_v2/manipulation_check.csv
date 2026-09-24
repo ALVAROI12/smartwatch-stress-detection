@@ -1,0 +1,16 @@
+dataset,stage,n_subjects,stress_mean,stress_delta_mean,pct_rose,sam_arousal_mean
+EPM-E4,ANGER,47,,,,7.04
+EPM-E4,FEAR,47,,,,5.04
+EPM-E4,HAPPINESS,47,,,,6.34
+EPM-E4,SADNESS,47,,,,6.72
+PhysioNet,Baseline,36,3.36,0.0,0.0,
+PhysioNet,First Rest,36,2.92,-0.44,27.78,
+PhysioNet,Opposite Opinion,36,4.24,0.88,47.22,
+PhysioNet,Real Opinion,36,3.85,0.49,47.22,
+PhysioNet,Second Rest,36,3.03,-0.33,25.0,
+PhysioNet,Stroop,18,3.97,0.53,61.11,
+PhysioNet,Subtract,36,4.54,1.18,58.33,
+PhysioNet,TMCT,36,5.74,2.38,88.89,
+WESAD,Amusement,15,1.13,0.0,13.33,3.0
+WESAD,Baseline,15,1.13,0.0,0.0,2.53
+WESAD,Stress,15,2.67,1.53,80.0,6.8

@@ -1,0 +1,13 @@
+score,probe,auc_probe,auc_ref,diff,diff_lo,diff_hi,p_boot_diff,p_perm_raw,p_perm_holm,p_boot_diff_holm
+external,exercise,0.7587,0.5839,0.1747,0.0814,0.252,0.004,0.0005,0.0035,0.02
+external,Hyperventilation,0.5233,0.5839,-0.0606,-0.1463,0.0172,0.139,0.6192,0.6192,0.278
+external,UBFC Control task,0.5768,0.5839,-0.0071,-0.0984,0.0923,0.866,0.1409,0.4063,0.866
+external,Campanella Manual task,0.3551,0.5839,-0.2288,-0.3389,-0.0326,0.01,0.0315,0.1259,0.04
+external,EPM Fear,0.6327,0.5839,0.0487,-0.0006,0.0957,0.055,0.0005,0.0035,0.165
+external,EPM Anger,0.3896,0.5839,-0.1943,-0.2671,-0.0588,0.003,0.1354,0.4063,0.018
+cond3_added_negative,exercise,0.892,0.7089,0.1832,0.1269,0.2327,0.0,0.0005,0.003,0.0
+cond3_added_negative,Hyperventilation,0.5596,0.7235,-0.164,-0.2661,-0.0607,0.0,0.1589,0.6357,0.0
+cond3_added_negative,UBFC Control task,0.568,0.7226,-0.1546,-0.2629,-0.0496,0.006,0.1864,0.6357,0.018
+cond3_added_negative,Campanella Manual task,0.496,0.714,-0.218,-0.2813,-0.0103,0.028,0.9445,0.9445,0.028
+cond3_added_negative,EPM Fear,0.7787,0.7243,0.0545,0.0125,0.0974,0.009,0.0005,0.003,0.018
+cond3_added_negative,EPM Anger,0.431,0.7231,-0.2921,-0.3832,-0.1168,0.0,0.3153,0.6357,0.0

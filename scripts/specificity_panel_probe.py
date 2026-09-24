@@ -1,4 +1,5 @@
 """Specificity panel (A) and subject-level miss consistency (B). Matches LODO defaults."""
+import argparse
 import os
 import sys
 from pathlib import Path
@@ -11,8 +12,10 @@ from run_jbhi_experiments import META, grouped_split
 
 OUT = REPO / "outputs" / "tables" / "jbhi_v2" / "contribution_probes" / "specificity"
 OUT.mkdir(parents=True, exist_ok=True)
-# The feature table lives in the thesis worktree (see CLAUDE.md); override with HARMONIZED_CSV.
-DATA = Path(os.environ.get("HARMONIZED_CSV", "/Users/octa/Projects/smartwatch-stress-detection/data/processed/combined/harmonized_windows_v2.csv"))
+_cli = argparse.ArgumentParser(description=__doc__)
+_cli.add_argument("--input", type=Path, help="feature table (default: $HARMONIZED_CSV, else data/processed/combined/harmonized_windows_v2.csv)",
+                  default=Path(os.environ.get("HARMONIZED_CSV", REPO / "data/processed/combined/harmonized_windows_v2.csv")))
+DATA = _cli.parse_args().input
 raw = pd.read_csv(DATA)
 phys = [c for c in raw.columns if c not in META and c.startswith(("hr_", "hrv_", "eda_", "temp_"))]
 cols = [c for c in phys if not c.startswith("temp_")]

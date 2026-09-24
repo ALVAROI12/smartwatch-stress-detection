@@ -111,6 +111,16 @@ def harmonization_table(df: pd.DataFrame) -> pd.DataFrame:
                                  "n_windows": "Number of Windows"})
 
 
+def dataset_audit(df: pd.DataFrame) -> pd.DataFrame:
+    """Per dataset: windows without usable pulse (no HR after artefact rejection) and people split over two files."""
+    split_files = df["subject_id"].astype(str).str.contains(r"_[ab]$")
+    return df.assign(no_hr=df["hr_mean"].isna(), split=split_files).groupby("dataset").apply(lambda g: pd.Series({
+        "n_subjects": g["subject_uid"].nunique(), "n_windows": len(g), "n_windows_without_hr": int(g["no_hr"].sum()),
+        "pct_windows_without_hr": round(100 * g["no_hr"].mean(), 1),
+        "subjects_merged_from_two_files": " ".join(sorted(g.loc[g["split"], "subject_uid"].unique()))}),
+        include_groups=False).reset_index()
+
+
 def leakage_check(df: pd.DataFrame, features: list[str]) -> pd.DataFrame:
     """Reproduce the thesis hold-out (random 15% of windows) next to a subject-grouped 15% hold-out."""
     labels = pd.factorize(df["label"])[0]
@@ -125,11 +135,15 @@ def leakage_check(df: pd.DataFrame, features: list[str]) -> pd.DataFrame:
     return summarise(pd.DataFrame(rows), ["split"])
 
 
-def repeated_and_loso(df: pd.DataFrame, features: list[str], n_splits: int) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+def repeated_and_loso(df: pd.DataFrame, features: list[str], n_splits: int,
+                      loso_modalities=("all_modalities", "physiology_only"), task_names=None
+                      ) -> tuple[pd.DataFrame | None, pd.DataFrame, pd.DataFrame]:
     rows, loso_rows, loso_summary = [], [], []
     for normalisation in ("none", "subject_zscore"):
         frame = subject_zscore(df, features) if normalisation == "subject_zscore" else df
         for task, (data, column) in tasks(frame).items():
+            if task_names and task not in task_names:
+                continue
             y = pd.factorize(data[column])[0]
             for modality, cols in modality_sets(features).items():
                 x = data[cols].to_numpy()
@@ -138,8 +152,8 @@ def repeated_and_loso(df: pd.DataFrame, features: list[str], n_splits: int) -> t
                     pred, _ = fit_predict(x[train], y[train], x[test], seed)
                     rows.append({"task": task, "normalisation": normalisation, "modality": modality,
                                  "n_classes": len(set(y)), "n_windows": len(data), **score(y[test], pred)})
-                if modality not in ("all_modalities", "physiology_only"):
-                    continue  # LOSO is the expensive protocol: run it for the two headline sets only
+                if modality not in loso_modalities:
+                    continue  # LOSO is the expensive protocol: by default only the two headline sets
                 subjects = data["subject_uid"].to_numpy()
                 truth, guess = [], []
                 for subject in np.unique(subjects):
@@ -155,7 +169,7 @@ def repeated_and_loso(df: pd.DataFrame, features: list[str], n_splits: int) -> t
                                      "n_subjects": len(truth), **{f"pooled_{k}": v for k, v in pooled.items()},
                                      "mean_subject_accuracy": float(np.mean([accuracy_score(t, g) for t, g in zip(truth, guess)]))})
                 print(f"  {task:36s} {normalisation:15s} {modality:16s} LOSO pooled bal_acc={pooled['balanced_accuracy']:.3f}")
-    return (summarise(pd.DataFrame(rows), ["task", "normalisation", "modality", "n_classes", "n_windows"]),
+    return (summarise(pd.DataFrame(rows), ["task", "normalisation", "modality", "n_classes", "n_windows"]) if rows else None,
             pd.DataFrame(loso_rows), pd.DataFrame(loso_summary))
 
 
@@ -205,6 +219,11 @@ def main() -> None:
     parser.add_argument("--n-splits", type=int, default=20)
     parser.add_argument("--validated-only", action="store_true",
                         help="Keep Stress windows only where the participant's own rating rose over baseline.")
+    parser.add_argument("--loso-only", nargs="+", metavar="MODALITY",
+                        help="Only run LOSO for these modality sets; writes loso_only_{summary,per_subject}.csv.")
+    parser.add_argument("--tasks", nargs="+", help="With --loso-only: restrict to these tasks.")
+    parser.add_argument("--harmonization-only", action="store_true",
+                        help="Only write harmonization_table.csv and dataset_audit.csv (run on the six-dataset table).")
     args = parser.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -213,10 +232,18 @@ def main() -> None:
         # z-scoring still sees every window; only the evaluated label set shrinks
         df.loc[~df["self_report_validated"].astype(bool), ["harmonized_label", "purity"]] = "Excluded", 0.0
     features = [c for c in df.columns if c not in META]
+    if args.loso_only:
+        _, loso, loso_summary = repeated_and_loso(df, features, 0, args.loso_only, args.tasks)
+        loso.to_csv(args.output_dir / "loso_only_per_subject.csv", index=False)
+        loso_summary.to_csv(args.output_dir / "loso_only_summary.csv", index=False)
+        return
     train, test = grouped_split(df, 0)
     assert not set(df.loc[train, "subject_uid"]) & set(df.loc[test, "subject_uid"]), "subject leaked across split"
 
     harmonization_table(df).to_csv(args.output_dir / "harmonization_table.csv", index=False)
+    dataset_audit(df).to_csv(args.output_dir / "dataset_audit.csv", index=False)
+    if args.harmonization_only:
+        return
     leakage_check(df, features).to_csv(args.output_dir / "leakage_check.csv", index=False)
     cross_dataset(df, features).to_csv(args.output_dir / "cross_dataset_shared_labels.csv", index=False)
     cross_dataset_arousal(df, features).to_csv(args.output_dir / "cross_dataset_sam_arousal.csv", index=False)

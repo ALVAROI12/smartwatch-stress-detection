@@ -76,7 +76,7 @@ def main() -> None:
     args.output_dir.mkdir(parents=True, exist_ok=True)
     preds.to_csv(args.output_dir / "mild_stress_window_predictions.csv", index=False)
 
-    summary, bands = [], []
+    summary, bands, tasks = [], [], []
     for target, g in preds.groupby("dataset"):
         stress, rest = g[g["harmonized_label"] == "Stress"], g[g["harmonized_label"] != "Stress"]
         for source in ("within", "external"):
@@ -95,9 +95,15 @@ def main() -> None:
             band = units.groupby("band", observed=False).agg(units=("recall", "size"), recall=("recall", "mean"),
                                                             mean_p=("mean_p", "mean")).round(3).reset_index()
             bands.append(band.assign(dataset=target, trained_on=source))
+            tasks.append(units.assign(rise_x_windows=units["rise"] * units["windows"]).groupby("original_label")
+                         .agg(units=("rise", "size"), mean_rise=("rise", "mean"), recall=("recall", "mean"),
+                              rise_x_windows=("rise_x_windows", "sum"), windows=("windows", "sum"))
+                         .assign(mean_rise_window_weighted=lambda t: t.pop("rise_x_windows") / t["windows"])
+                         .round(3).reset_index().assign(dataset=target, trained_on=source))
     summary, bands = pd.DataFrame(summary), pd.concat(bands, ignore_index=True)
     summary.to_csv(args.output_dir / "mild_stress_summary.csv", index=False)
     bands.to_csv(args.output_dir / "mild_stress_by_band.csv", index=False)
+    pd.concat(tasks, ignore_index=True).to_csv(args.output_dir / "mild_stress_by_task.csv", index=False)
     print(summary.to_string(index=False))
     print()
     print(bands[["dataset", "trained_on", "band", "units", "recall", "mean_p"]].to_string(index=False))

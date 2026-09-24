@@ -1,0 +1,29 @@
+score,probe,reference,same_stress_windows,n_probe,n_ref,n_subj,auc_probe,auc_ref,diff,diff_lo,diff_hi,p_boot,p_holm
+external,exercise,PhysioNet only (comparable),True,3585,1367,35,0.7587,0.6961,0.0625,-0.0157,0.1385,0.124,0.248
+external,exercise,pooled 5 datasets (Table IV),False,3585,3839,132,0.7587,0.5839,0.1747,0.0786,0.2504,0.002,
+external,Hyperventilation,Stress-Predict only (comparable),True,53,1695,34,0.5233,0.5738,-0.0505,-0.1311,0.026,0.178,0.248
+external,Hyperventilation,pooled 5 datasets (Table IV),False,53,3839,132,0.5233,0.5839,-0.0606,-0.1384,0.0194,0.135,
+external,UBFC Control task,UBFC-Phys only (comparable),True,80,95,19,0.5768,0.6844,-0.1076,-0.3599,0.0002,0.051,0.164
+external,UBFC Control task,pooled 5 datasets (Table IV),False,80,3839,132,0.5768,0.5839,-0.0071,-0.1011,0.0929,0.834,
+external,Campanella Manual task,Campanella2024 only (comparable),True,667,116,29,0.3551,0.6068,-0.2517,-0.4349,-0.0823,0.007,0.035
+external,Campanella Manual task,pooled 5 datasets (Table IV),False,667,3839,132,0.3551,0.5839,-0.2288,-0.3346,-0.0376,0.013,
+external,EPM Fear,"pooled, same stress windows (5 ds, comparable)",True,394,3839,165,0.6327,0.5839,0.0487,0.0027,0.0954,0.041,0.164
+external,EPM Anger,"pooled, same stress windows (5 ds, comparable)",True,33,3839,165,0.3896,0.5839,-0.1943,-0.2633,-0.0583,0.002,0.012
+cond3_added_negative,exercise,PhysioNet only (comparable),True,3585,1367,35,0.892,0.6977,0.1943,0.1259,0.2602,0.0,0.0
+cond3_added_negative,exercise,pooled 5 datasets (Table IV),False,3585,3839,132,0.892,0.7089,0.1832,0.1272,0.2309,0.0,
+cond3_added_negative,Hyperventilation,Stress-Predict only (comparable),True,53,1695,34,0.5596,0.6304,-0.0708,-0.1804,0.0433,0.226,0.452
+cond3_added_negative,Hyperventilation,pooled 5 datasets (Table IV),False,53,3839,132,0.5596,0.7235,-0.164,-0.2654,-0.065,0.001,
+cond3_added_negative,UBFC Control task,UBFC-Phys only (comparable),True,80,95,19,0.568,0.7337,-0.1657,-0.4139,-0.049,0.011,0.044
+cond3_added_negative,UBFC Control task,pooled 5 datasets (Table IV),False,80,3839,132,0.568,0.7226,-0.1546,-0.2604,-0.0511,0.002,
+cond3_added_negative,Campanella Manual task,Campanella2024 only (comparable),True,667,116,29,0.496,0.6252,-0.1291,-0.2999,0.1608,0.313,0.452
+cond3_added_negative,Campanella Manual task,pooled 5 datasets (Table IV),False,667,3839,132,0.496,0.714,-0.218,-0.2844,-0.0085,0.032,
+cond3_added_negative,EPM Fear,"pooled, same stress windows (5 ds, comparable)",True,394,3839,165,0.7787,0.7243,0.0545,0.0114,0.096,0.014,0.044
+cond3_added_negative,EPM Anger,"pooled, same stress windows (5 ds, comparable)",True,33,3839,165,0.431,0.7231,-0.2921,-0.3872,-0.1104,0.0,0.0
+within_LOSO,exercise,PhysioNet only (comparable),True,3585,1367,35,0.5611,0.7176,-0.1565,-0.2686,-0.0603,0.0,0.0
+within_LOSO,exercise,pooled 5 datasets (Table IV),False,3585,3839,132,0.5611,0.784,-0.2229,-0.3398,-0.1192,0.0,
+within_LOSO,Hyperventilation,Stress-Predict only (comparable),True,53,1695,34,0.568,0.6478,-0.0799,-0.1809,0.0229,0.115,0.23
+within_LOSO,Hyperventilation,pooled 5 datasets (Table IV),False,53,3839,132,0.568,0.784,-0.216,-0.3089,-0.118,0.0,
+within_LOSO,UBFC Control task,UBFC-Phys only (comparable),True,80,95,19,0.5849,0.9274,-0.3425,-0.5115,-0.1825,0.0,0.0
+within_LOSO,UBFC Control task,pooled 5 datasets (Table IV),False,80,3839,132,0.5849,0.784,-0.1991,-0.3599,-0.0353,0.011,
+within_LOSO,Campanella Manual task,Campanella2024 only (comparable),True,667,116,29,0.4116,0.5778,-0.1662,-0.314,0.0688,0.177,0.23
+within_LOSO,Campanella Manual task,pooled 5 datasets (Table IV),False,667,3839,132,0.4116,0.784,-0.3724,-0.4883,0.043,0.146,
