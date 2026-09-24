@@ -1,0 +1,4 @@
+measure,n_subjects,ecg_delta,ppg_delta,same_sign_subjects,ecg_lo,ecg_hi,ppg_lo,ppg_hi,r_baseline,n_windows_baseline,r_stress,n_windows_stress
+hr_mean,14,26.275,14.233,13,16.464,36.573,7.845,21.474,0.966,508,0.776,114
+hrv_rmssd,14,-7.063,12.468,10,-27.593,14.425,-7.791,32.245,0.622,508,0.379,114
+hrv_sdnn,14,-6.278,32.811,8,-21.702,8.429,9.209,58.099,0.621,508,0.116,114
