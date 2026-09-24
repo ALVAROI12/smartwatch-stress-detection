@@ -1,6 +1,6 @@
 # Project status: read first, update last
 
-Last updated: 2026-09-23 (chat "add academic research skills").
+Last updated: 2026-09-23 (chat "novelty research agents").
 
 ## How to use this file
 
@@ -12,6 +12,8 @@ Last updated: 2026-09-23 (chat "add academic research skills").
 ## Now
 
 The paper's direction changed on 2026-09-22. Working title: **"What Do Wrist-Worn Stress Detectors Detect?"** The thesis: wrist detectors transfer across datasets because they detect autonomic arousal, and the within-dataset ceiling is stressor potency. The draft manuscript is `paper/main.tex` (IEEEtran, built as `paper/main.pdf`). A new method is no longer a goal for this paper: few-shot personalisation, domain adaptation and per-user thresholds are reported as leakage-controlled negatives. `main` on GitHub now holds the corrected pipeline (PRs #4, #6 and #7 merged).
+
+Novelty review of 2026-09-23 (`docs/novelty_plan_2026-09-23.md`): not scooped, but Zhou et al. (BIBM 2023) and Kwon et al. (2026, iso-HR test) must be credited, and the intro claim at `paper/main.tex` line 33 is false as stated. Simulated reviewer: major revision. Ten paper-versus-table mismatches are listed there.
 
 ## Key numbers (details: `CLAUDE.md`, `docs/contribution_map.md`, `docs/novelty_experiments.md`)
 
@@ -36,9 +38,11 @@ The paper's direction changed on 2026-09-22. Working title: **"What Do Wrist-Wor
 3. Write the benchmark-release paper in parallel (§4, rank 2)?
 4. Start the IRB for a counterbalanced UTSA lab study (§4, rank 4)?
 5. File a correction note for the thesis and poster?
+6. Novelty plan (`docs/novelty_plan_2026-09-23.md` §8): critical-evaluation framing and new title, three to five contributions, which optional steps to fund, autonomic-only arousal claim or self-report analysis first?
 
 ## Next steps
 
+0. Work through `docs/novelty_plan_2026-09-23.md` §6: step 1 (credit Zhou and Kwon, fix the §5 mismatches, cut contributions, retitle) needs no new experiments; steps 2–4 are the minimum for submission.
 1. After decision 1, send the chosen documents to Dr. Pan.
 2. `docs/contribution_map.md` §5, items 2–3: add the Stress-Predict hyperventilation relabelling to the label audit; correct the PULSE premise in the advisor sheet.
 3. Optional check: one leave-one-dataset-out row with a frozen public PPG encoder (§4, rank 8).
@@ -56,6 +60,7 @@ Nothing running (checked 2026-09-23).
 
 ## Log (newest first)
 
+- 2026-09-23: five novelty agents (collision check, simulated reviewer, unused findings, theory framing, closable gaps); reports in `docs/literature/novelty-2026-09-23/`, consolidated plan in `docs/novelty_plan_2026-09-23.md`.
 - 2026-09-23: created this file.
 - 2026-09-22 evening: hardening probes; manuscript `paper/main.tex`; committee report `docs/contribution_report_ieee.pdf`.
 - 2026-09-22 afternoon: contribution-map probes (specificity panel, time in session, matched arousal); few-shot on an unseen dataset and the mild-stress pilot came out negative; AutoStress, Dahal and other flagged papers read in full.
